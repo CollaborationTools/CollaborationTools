@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid h-screen place-items-center text-">
     <Head>
       <Title>Collaboration Tools</Title>
       <Link
@@ -30,6 +30,9 @@
       <Meta name="msapplication-config" content="/browserconfig.xml" />
       <Meta name="theme-color" content="#5b21b6" />
     </Head>
-    <h1>Collaboration Tools</h1>
+    <div>
+      <AtomLogo />
+      <h1 class="text-center">Collaboration Tools</h1>
+    </div>
   </div>
 </template>

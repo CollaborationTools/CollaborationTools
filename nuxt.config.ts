@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   dir: {
     public: '../public',
   },
+  modules: ['@nuxtjs/tailwindcss'],
   srcDir: 'src',
   ssr: false,
   typescript: {

@@ -1,0 +1,17 @@
+{
+  "name": "CollaborationTools",
+  "productName": "Collaboration Tools",
+  "repository": "https://github.com/CollaborationTools/CollaborationTools.git",
+  "version": "0.1.0",
+  "license": "AGPL-3.0",
+  "packageManager": "yarn@3.2.1",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "nuxt": "3.0.0-rc.4"
+  }
+}

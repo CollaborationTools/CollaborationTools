@@ -22,7 +22,7 @@
   "plugins": ["vue","@typescript-eslint", "sonarjs", "promise"],
   "extends": [
     "eslint:recommended",
-    "plugin:vue/essential",
+    "plugin:vue/vue3-recommended",
 
     // https://github.com/SonarSource/eslint-plugin-sonarjs
     "plugin:sonarjs/recommended",
@@ -37,16 +37,14 @@
     "plugin:import/recommended",
     "plugin:import/typescript",
 
-    "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
-    "@nuxtjs/eslint-config-typescript"
+    "@nuxtjs/eslint-config-typescript",
+    "prettier"
   ],
   "rules": {
     "capitalized-comments": "off",
     "prefer-promise-reject-errors": "off",
-    "comma-dangle": "off",
 
-    "quotes": ["warn", "single", { "avoidEscape": true }],
     "@typescript-eslint/explicit-function-return-type": "warn",
     "@typescript-eslint/explicit-module-boundary-types": "warn",
     "@typescript-eslint/no-explicit-any": "warn",

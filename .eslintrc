@@ -1,0 +1,78 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ]
+      }
+    }
+  },
+  "plugins": ["vue","@typescript-eslint", "sonarjs", "promise"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/essential",
+
+    // https://github.com/SonarSource/eslint-plugin-sonarjs
+    "plugin:sonarjs/recommended",
+
+    // https://github.com/xjamundx/eslint-plugin-promise
+    "plugin:promise/recommended",
+
+    // https://github.com/freaktechnik/eslint-plugin-array-func
+    "plugin:array-func/all",
+
+    // https://github.com/import-js/eslint-plugin-import
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "@nuxtjs/eslint-config-typescript"
+  ],
+  "rules": {
+    "capitalized-comments": "off",
+    "prefer-promise-reject-errors": "off",
+    "comma-dangle": "off",
+
+    "quotes": ["warn", "single", { "avoidEscape": true }],
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "@typescript-eslint/explicit-module-boundary-types": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+
+    "no-console": "warn",
+    "no-debugger": "warn",
+
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "sibling",
+          "parent",
+          "index",
+          "object",
+          "type"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}

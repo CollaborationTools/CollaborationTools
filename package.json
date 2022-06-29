@@ -6,10 +6,10 @@
   "license": "AGPL-3.0",
   "packageManager": "yarn@3.2.1",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt build && nuxt dev",
     "lint": "eslint src --fix",
     "generate": "nuxt generate",
+    "build": "nuxt build",
     "preview": "nuxt preview"
   },
   "devDependencies": {

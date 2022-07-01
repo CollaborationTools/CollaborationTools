@@ -30,9 +30,11 @@
       <Meta name="msapplication-config" content="/browserconfig.xml" />
       <Meta name="theme-color" content="#5b21b6" />
     </Head>
-    <div>
-      <AtomLogo />
-      <h1 class="text-center">Collaboration Tools</h1>
+    <div class="prose">
+      <AtomLogo class="mb-8" />
+      <h1 class="text-violet-800 dark:text-white text-center">
+        Collaboration Tools
+      </h1>
     </div>
   </div>
 </template>

@@ -10,13 +10,17 @@
     "lint": "eslint src --fix",
     "generate": "nuxt generate",
     "build": "nuxt build",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "tailwind": "echo 'Preview Tailwind config.\n\nIt requires a separate command as long as this is not fixed:\nhttps://github.com/nuxt-community/tailwindcss-module/issues/459\n' && npx tailwind-config-viewer --port 3002"
   },
   "devDependencies": {
+    "@nuxtjs/color-mode": "^3.1.4",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@nuxtjs/tailwindcss": "^5.1.3",
+    "@tailwindcss/typography": "^0.5.2",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
+    "daisyui": "^2.17.0",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-array-func": "^3.1.7",

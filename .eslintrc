@@ -72,5 +72,31 @@
         }
       }
     ]
-  }
+  },
+  "overrides": [
+    // as long as https://github.com/nuxt/eslint-config/pull/211 is not merged:
+    {
+      "files": [
+        "src/pages/**/*.{js,ts,vue}",
+        "src/layouts/**/*.{js,ts,vue}",
+        "src/app.{js,ts,vue}",
+        "src/error.{js,ts,vue}"
+      ],
+      "rules": {
+        "vue/multi-word-component-names": "off"
+      }
+    },
+    {
+      "files": [
+        "src/components/**/*.{js,ts,vue}",
+        "src/pages/**/*.{js,ts,vue}",
+        "src/layouts/**/*.{js,ts,vue}",
+        "src/app.{js,ts,vue}",
+        "src/error.{js,ts,vue}"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ]
 }

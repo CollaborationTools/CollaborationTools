@@ -10,15 +10,6 @@
     "parser": "@typescript-eslint/parser",
     "sourceType": "module"
   },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": [
-          "src"
-        ]
-      }
-    }
-  },
   "plugins": ["vue","@typescript-eslint", "sonarjs", "promise"],
   "extends": [
     "eslint:recommended",
@@ -77,10 +68,10 @@
     // as long as https://github.com/nuxt/eslint-config/pull/211 is not merged:
     {
       "files": [
-        "src/pages/**/*.{js,ts,vue}",
-        "src/layouts/**/*.{js,ts,vue}",
-        "src/app.{js,ts,vue}",
-        "src/error.{js,ts,vue}"
+        "src/pages/**/*.vue",
+        "src/layouts/**/*.vue",
+        "src/app.vue",
+        "src/error.vue"
       ],
       "rules": {
         "vue/multi-word-component-names": "off"
@@ -88,11 +79,11 @@
     },
     {
       "files": [
-        "src/components/**/*.{js,ts,vue}",
-        "src/pages/**/*.{js,ts,vue}",
-        "src/layouts/**/*.{js,ts,vue}",
-        "src/app.{js,ts,vue}",
-        "src/error.{js,ts,vue}"
+        "src/components/**/*.vue",
+        "src/pages/**/*.vue",
+        "src/layouts/**/*.vue",
+        "src/app.vue",
+        "src/error.vue"
       ],
       "rules": {
         "@typescript-eslint/no-unused-vars": "off"

@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: [
+    './src/components/**/*.vue',
+    './src/layouts/**/*.vue',
+    './src/pages/**/*.vue',
+  ],
   daisyui: {
     themes: [
       {

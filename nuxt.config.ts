@@ -1,5 +1,8 @@
+import path from 'path'
+
 import { defineNuxtConfig } from 'nuxt'
 import eslintPlugin from 'vite-plugin-eslint'
+import svgLoader from 'vite-svg-loader'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -17,6 +20,12 @@ export default defineNuxtConfig({
     strict: true,
   },
   vite: {
-    plugins: [eslintPlugin()],
+    plugins: [eslintPlugin(), svgLoader()],
+    resolve: {
+      alias: {
+        '@/': `${path.resolve(__dirname, 'src')}/`,
+        'public/': `${path.resolve(__dirname, 'public')}/`,
+      },
+    },
   },
 })

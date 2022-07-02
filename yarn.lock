@@ -1248,7 +1248,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/compiler-sfc@npm:3.2.37":
+"@vue/compiler-sfc@npm:3.2.37, @vue/compiler-sfc@npm:^3.2.20":
   version: 3.2.37
   resolution: "@vue/compiler-sfc@npm:3.2.37"
   dependencies:
@@ -1379,6 +1379,7 @@ __metadata:
     simple-git-hooks: ^2.8.0
     typescript: ^4.7.4
     vite-plugin-eslint: ^1.6.1
+    vite-svg-loader: ^3.4.0
   languageName: unknown
   linkType: soft
 
@@ -9066,6 +9067,16 @@ __metadata:
     eslint: ">=7"
     vite: ^2.0.0
   checksum: f6ffeee2af63d795470b061240b0feb38da392de167c57c3e7d816cd78ff39ba8eb5eda1eddbf7d80f0c442731ae813f2bc2f59c46eba64254b7dcb7b639d78c
+  languageName: node
+  linkType: hard
+
+"vite-svg-loader@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "vite-svg-loader@npm:3.4.0"
+  dependencies:
+    "@vue/compiler-sfc": ^3.2.20
+    svgo: ^2.7.0
+  checksum: 8dbaefb8faabe9bdcc35f0187e889972995347bc823fe7e67a137bdc530c0263c599fa47a0f4abf077f5915ce6c1ca8eaa636db6991f389ac69468e619f72639
   languageName: node
   linkType: hard
 

@@ -29,6 +29,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-sonarjs": "^0.13.0",
     "eslint-plugin-vue": "^9.1.1",
+    "eslint-plugin-vuejs-accessibility": "^1.2.0",
     "lint-staged": "^13.0.3",
     "nuxt": "3.0.0-rc.4",
     "prettier": "^2.7.1",

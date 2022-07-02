@@ -1373,6 +1373,7 @@ __metadata:
     eslint-plugin-promise: ^6.0.0
     eslint-plugin-sonarjs: ^0.13.0
     eslint-plugin-vue: ^9.1.1
+    eslint-plugin-vuejs-accessibility: ^1.2.0
     lint-staged: ^13.0.3
     nuxt: 3.0.0-rc.4
     prettier: ^2.7.1
@@ -1668,6 +1669,13 @@ __metadata:
   version: 2.0.1
   resolution: "argparse@npm:2.0.1"
   checksum: 83644b56493e89a254bae05702abf3a1101b4fa4d0ca31df1c9985275a5a5bd47b3c27b7fa0b71098d41114d8ca000e6ed90cad764b306f8a503665e4d517ced
+  languageName: node
+  linkType: hard
+
+"aria-query@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "aria-query@npm:5.0.0"
+  checksum: c41f98866c5a304561ee8cae55856711cddad6f3f85d8cb43cc5f79667078d9b8979ce32d244c1ff364e6463a4d0b6865804a33ccc717fed701b281cf7dc6296
   languageName: node
   linkType: hard
 
@@ -2931,6 +2939,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"emoji-regex@npm:^10.0.0":
+  version: 10.1.0
+  resolution: "emoji-regex@npm:10.1.0"
+  checksum: 5bc780fc4d75f89369155a87c55f7e83a0bf72bcccda7df7f2c570cde4738d8b17d112d12afdadfec16647d1faef6501307b4304f81d35c823a938fe6547df0f
+  languageName: node
+  linkType: hard
+
 "emoji-regex@npm:^8.0.0":
   version: 8.0.0
   resolution: "emoji-regex@npm:8.0.0"
@@ -3572,6 +3587,19 @@ __metadata:
   peerDependencies:
     eslint: ^6.2.0 || ^7.0.0 || ^8.0.0
   checksum: 6095e2f1c7ca43a7923d52423b7263fbf947680f628cb86a606ad2cc1e0abcbff67971b2d6bb028f6e710fff9c8b1289d5bda27e3ad253c683ce74c9d520580f
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-vuejs-accessibility@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "eslint-plugin-vuejs-accessibility@npm:1.2.0"
+  dependencies:
+    aria-query: ^5.0.0
+    emoji-regex: ^10.0.0
+    vue-eslint-parser: ^9.0.1
+  peerDependencies:
+    eslint: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+  checksum: 2a2665f8e943a0af643c77630c8e836d0e80a2e6279cf2c170a62919f459fdb680dd00f96cb70b3561a0c34dabbf6336671bb9a7dfeeb0945009914db131c245
   languageName: node
   linkType: hard
 

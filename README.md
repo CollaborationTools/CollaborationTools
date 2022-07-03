@@ -50,11 +50,24 @@ yarn install
 
 ### Development Server
 
-Start the development server on http://localhost:3000
+Start the development server on [http://localhost:3000]:
 
 ```bash
-yarn build
 yarn dev
+```
+
+### E2E Testing
+
+Open Cypress to manually select which E2E tests to run:
+
+```bash
+yarn test:dev
+```
+
+Running all E2E tests in headless browser (while the app is running at localhost:3000):
+
+```bash
+yarn test
 ```
 
 ### Production

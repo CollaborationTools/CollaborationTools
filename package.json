@@ -7,11 +7,13 @@
   "packageManager": "yarn@3.2.1",
   "scripts": {
     "dev": "nuxt build && nuxt dev",
+    "tailwind": "echo 'Preview Tailwind config.\n\nIt requires a separate command as long as this is not fixed:\nhttps://github.com/nuxt-community/tailwindcss-module/issues/459\n' && npx tailwind-config-viewer --port 3002",
     "lint": "eslint src --fix",
-    "generate": "nuxt generate",
+    "test:dev": "cypress open",
+    "test": "cypress run --headless --browser chrome",
     "build": "nuxt build",
-    "preview": "nuxt preview",
-    "tailwind": "echo 'Preview Tailwind config.\n\nIt requires a separate command as long as this is not fixed:\nhttps://github.com/nuxt-community/tailwindcss-module/issues/459\n' && npx tailwind-config-viewer --port 3002"
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.1.4",
@@ -20,6 +22,7 @@
     "@tailwindcss/typography": "^0.5.2",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
+    "cypress": "^10.3.0",
     "daisyui": "^2.17.0",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
@@ -42,7 +45,7 @@
     "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,vue,md}": [
+    "*.{js,ts,tsx,vue}": [
       "eslint --fix"
     ]
   }

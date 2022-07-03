@@ -1,10 +1,14 @@
 <template>
-  <div class="grid h-screen place-items-center">
+  <div class="grid h-screen place-items-center p-16">
     <main class="flex flex-col gap-2 prose">
       <AtomLogo with-header />
-      <AtomButton primary data-id="get-started">Get started</AtomButton>
-      <AtomButton primary outline data-id="learn-more">Learn more</AtomButton>
-      <AtomButton secondary disabled data-id="browse-tools"
+      <AtomButton to="/org" primary data-id="get-started"
+        >Get started</AtomButton
+      >
+      <AtomButton to="/guide" primary outline data-id="learn-more"
+        >Learn more</AtomButton
+      >
+      <AtomButton to="/tools" secondary disabled data-id="browse-tools"
         >Browse tools</AtomButton
       >
     </main>

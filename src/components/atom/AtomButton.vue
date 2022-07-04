@@ -17,6 +17,7 @@
           'hover:border-transparent dark:hover:border-transparent'
         : '',
       { 'btn-disabled text-gray-600 dark:text-gray-300': disabled },
+      { 'min-w-full': fullWidth },
     ]"
     ><slot
   /></component>
@@ -30,6 +31,7 @@ type Props = {
   accent?: boolean
   outline?: boolean
   disabled?: boolean
+  fullWidth?: boolean
 }
 
 defineProps<Props>()

@@ -16,6 +16,10 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
   srcDir: 'src',
   ssr: false,
+  tailwindcss: {
+    configPath: './tailwind.config.ts',
+    viewer: false,
+  },
   typescript: {
     strict: true,
   },

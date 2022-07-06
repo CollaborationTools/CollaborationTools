@@ -1418,6 +1418,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vuelidate/core@npm:^2.0.0-alpha.42":
+  version: 2.0.0-alpha.42
+  resolution: "@vuelidate/core@npm:2.0.0-alpha.42"
+  dependencies:
+    vue-demi: ^0.12.0
+  checksum: d6513a617a19c0017ba947891d4a5e893e79dca7ffcf427c1868668c728f1ee7f6c91605bbd57f95098b7d7410b873e267f0c935a978a7ceeadf68caab6f6853
+  languageName: node
+  linkType: hard
+
+"@vuelidate/validators@npm:^2.0.0-alpha.30":
+  version: 2.0.0-alpha.30
+  resolution: "@vuelidate/validators@npm:2.0.0-alpha.30"
+  dependencies:
+    vue-demi: ^0.12.0
+  checksum: b2feb2bda8e30c3c4271d8fbb6e108cd7ba09a97c4b936c8dfc7bc3b1c1960f8ca625b8009b0e2968705cad127882fb6bfe6d046ce49d241c3f6cd0bf6ab613d
+  languageName: node
+  linkType: hard
+
 "@vueuse/head@npm:^0.7.6":
   version: 0.7.6
   resolution: "@vueuse/head@npm:0.7.6"
@@ -1437,6 +1455,8 @@ __metadata:
     "@tailwindcss/typography": ^0.5.2
     "@typescript-eslint/eslint-plugin": ^5.30.0
     "@typescript-eslint/parser": ^5.30.0
+    "@vuelidate/core": ^2.0.0-alpha.42
+    "@vuelidate/validators": ^2.0.0-alpha.30
     cypress: ^10.3.0
     daisyui: ^2.17.0
     eslint: ^8.18.0
@@ -9938,6 +9958,22 @@ __metadata:
   dependencies:
     bundle-runner: ^0.0.1
   checksum: 647ade1068533bd11c791608da9571f6125de9cd2c31cc26c6d7eb579b695558e7574979057d2a9ebbbcd600686516b6f9d222a99afc604936202d87bc4dbaa6
+  languageName: node
+  linkType: hard
+
+"vue-demi@npm:^0.12.0":
+  version: 0.12.5
+  resolution: "vue-demi@npm:0.12.5"
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^3.0.0-0 || ^2.6.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  bin:
+    vue-demi-fix: bin/vue-demi-fix.js
+    vue-demi-switch: bin/vue-demi-switch.js
+  checksum: 40a0470caea8312e0d4df2541f141c36c768dfc7f2f7d41f0f28ba29df11d3119e2f09b94c815f13b7c7f3f45dbc247b0e9e0c02a1800e2823e241c1d771e39b
   languageName: node
   linkType: hard
 

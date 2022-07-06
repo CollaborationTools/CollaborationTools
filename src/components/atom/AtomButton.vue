@@ -3,22 +3,23 @@
     :is="to ? Link : 'button'"
     :to="to"
     :role="to ? 'button' : undefined"
-    :class="[
-      'btn',
-      { 'btn-accent': accent && !primary && !secondary },
-      { 'btn-secondary': secondary && !primary },
-      { 'btn-primary': !outline && primary },
-      outline && primary
-        ? 'btn bg-transparent ' +
-          'text-primary dark:text-violet-400 ' +
-          'border-primary dark:border-violet-400 ' +
-          'hover:text-white dark:hover:text-white ' +
-          'hover:bg-violet-900 dark:hover:bg-violet-900 ' +
-          'hover:border-transparent dark:hover:border-transparent'
-        : '',
-      { 'btn-disabled text-gray-600 dark:text-gray-300': disabled },
-      { 'min-w-full': fullWidth },
-    ]"
+    :class="{
+      btn: true,
+      'btn-accent': accent && !secondary && !primary && !error,
+      'btn-secondary': secondary && !primary && !error,
+      'btn-primary': primary && !outline && !error,
+      ['bg-transparent ' +
+      'text-primary dark:text-violet-400 ' +
+      'border-primary dark:border-violet-400 ' +
+      'hover:text-white dark:hover:text-white ' +
+      'hover:bg-primary-focus dark:hover:bg-primary-focus ' +
+      'hover:border-transparent dark:hover:border-transparent']:
+        primary && outline && !error,
+
+      'btn-error hover:bg-red-400 dark:hover:bg-red-900': error,
+      'btn-disabled text-gray-600 dark:text-gray-300': disabled,
+      'btn-block': fullWidth,
+    }"
     ><slot
   /></component>
 </template>
@@ -29,6 +30,7 @@ type Props = {
   primary?: boolean
   secondary?: boolean
   accent?: boolean
+  error?: boolean
   outline?: boolean
   disabled?: boolean
   fullWidth?: boolean

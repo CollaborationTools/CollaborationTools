@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   dir: {
     public: '../public',
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@vueuse/nuxt'],
   srcDir: 'src',
   ssr: false,
   tailwindcss: {

@@ -1,27 +1,49 @@
-import { useStorage } from '@vueuse/core'
+import { StorageSerializers, useStorage } from '@vueuse/core'
 
+import useRouting from '@/composable/useRouting'
 import { createOrganisation, Organisation } from '@/features/organisation'
 
 type UseOrganisation = {
-  getOrganisation: () => Readonly<Organisation>
+  getOrganisation: () => Readonly<Organisation> | null
   addOrganisation: (orgName: string) => Readonly<Organisation>
-  openOrganisationPage: (orgId: string) => void
+  redirectToOrgIfExists: (orgId?: string) => void
 }
 
-export function useOrganisation(): UseOrganisation {
-  const org = useStorage('organisation', { id: '', name: '' })
+export default function useOrganisation(): UseOrganisation {
+  const orgRef = useStorage<Organisation | null>(
+    'organisation',
+    null,
+    undefined,
+    {
+      serializer: StorageSerializers.object,
+    },
+  )
 
-  const getOrganisation = (): Readonly<Organisation> => readonly(org.value)
+  const getOrganisation = (): Readonly<Organisation> | null => {
+    const org = unref(orgRef)
+    return org === null ? null : readonly(org)
+  }
 
   const addOrganisation = (orgName: string): Readonly<Organisation> => {
-    org.value = createOrganisation(orgName)
-    return readonly(org.value)
+    orgRef.value = createOrganisation(orgName)
+    return readonly(orgRef.value)
   }
 
-  const openOrganisationPage = (orgId: string): void => {
-    const router = useRouter()
-    router.push('/org/' + orgId)
+  const redirectToOrgIfExists = (orgId?: string): void => {
+    let maybeOrgId = orgId
+
+    if (!maybeOrgId && orgRef.value?.id) {
+      maybeOrgId = orgRef.value.id
+    }
+
+    if (maybeOrgId) {
+      useRouting().openOrganisation(maybeOrgId)
+    }
   }
 
-  return { getOrganisation, addOrganisation, openOrganisationPage }
+  return {
+    getOrganisation,
+    addOrganisation,
+    redirectToOrgIfExists,
+  }
 }

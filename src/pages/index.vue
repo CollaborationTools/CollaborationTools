@@ -12,8 +12,12 @@
 </template>
 
 <script setup lang="ts">
+import useOrganisation from '@/composable/useOrganisation'
+
 definePageMeta({
   layout: 'center',
   title: 'Welcome',
 })
+
+useOrganisation().redirectToOrgIfExists()
 </script>

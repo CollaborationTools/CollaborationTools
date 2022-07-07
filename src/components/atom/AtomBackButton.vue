@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter()
-const hasHistory = !!router.options.history.state.back
-const goBack = (): void => router.back()
+import useRouting from '@/composable/useRouting'
+
+const { hasHistory, goBack } = useRouting()
 </script>

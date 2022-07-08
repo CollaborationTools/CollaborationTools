@@ -70,6 +70,7 @@ import useOrganisation from '@/composable/useOrganisation'
 
 definePageMeta({
   layout: 'center',
+  middleware: ['current-org'],
   title: 'Get started',
 })
 

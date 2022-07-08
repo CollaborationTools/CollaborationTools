@@ -14,3 +14,4 @@ node_modules/
 .cache
 .env
 *.log*
+/src/components.d.ts

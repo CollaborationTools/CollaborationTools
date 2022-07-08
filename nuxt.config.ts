@@ -1,6 +1,9 @@
 import path from 'path'
 
 import { defineNuxtConfig } from 'nuxt'
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
+import Components from 'unplugin-vue-components/vite'
 import eslintPlugin from 'vite-plugin-eslint'
 import svgLoader from 'vite-svg-loader'
 
@@ -13,7 +16,13 @@ export default defineNuxtConfig({
   dir: {
     public: '../public',
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@vueuse/nuxt'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
+    '@vueuse/nuxt',
+    '@nuxtjs/svg',
+    'unplugin-icons/nuxt',
+  ],
   srcDir: 'src',
   ssr: false,
   tailwindcss: {
@@ -22,9 +31,26 @@ export default defineNuxtConfig({
   },
   typescript: {
     strict: true,
+    tsConfig: {
+      compilerOptions: {
+        types: ['unplugin-icons/types/vue'],
+      },
+    },
   },
   vite: {
-    plugins: [eslintPlugin(), svgLoader()],
+    plugins: [
+      Components({
+        dts: true,
+        resolvers: [
+          IconsResolver({
+            prefix: 'icon',
+          }),
+        ],
+      }),
+      Icons(),
+      svgLoader(),
+      eslintPlugin(),
+    ],
     resolve: {
       alias: {
         '@/': `${path.resolve(__dirname, 'src')}/`,

@@ -39,7 +39,7 @@ type Props = {
 defineProps<Props>()
 
 const Link = defineNuxtLink({
-  componentName: 'AtomButtonLink',
+  componentName: 'NuxtButtonLink',
   externalRelAttribute: '',
   activeClass: '',
   exactActiveClass: '',

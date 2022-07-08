@@ -4,6 +4,7 @@ describe('new visits', () => {
   })
 
   it('creating new org', () => {
+    const orgName = 'Intergalactic Teleportation Industries'
     cy.getId('get-started').should('have.class', 'btn-primary').click()
     cy.url().should('contain', '/org')
     cy.getId('create-org').should('have.class', 'btn-primary').click()
@@ -13,11 +14,12 @@ describe('new visits', () => {
       .parent()
       .should('contain.text', 'required')
     cy.getId('org-name')
-      .type('Intergalactic Teleportation Industries')
+      .type(orgName)
       .blur()
       .parent()
       .should('not.contain.text', 'required')
     cy.getId('create-org').click()
-    cy.url().should('match', /org\/.{36}$/)
+    cy.url().should('match', /org\/.{36}/)
+    cy.get('header').should('contain.text', orgName)
   })
 })

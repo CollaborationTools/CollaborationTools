@@ -1,6 +1,8 @@
 <template>
   <header class="navbar bg-white dark:bg-base-300 shadow">
-    <h1 class="flex-1 px-4 text-xl">{{ orgName }}<AtomDot /></h1>
+    <div class="flex-1">
+      <MoleculeDropdownNav :org-name="orgName" />
+    </div>
     <div class="flex-none">
       <MoleculeColorMode />
     </div>
@@ -8,6 +10,8 @@
 </template>
 
 <script setup lang="ts">
+import MoleculeDropdownNav from '~/components/molecule/MoleculeDropdownNav.vue'
+
 type Props = {
   orgName: string
 }

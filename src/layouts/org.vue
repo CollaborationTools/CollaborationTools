@@ -9,13 +9,22 @@
 </template>
 
 <script setup lang="ts">
-import useOrganisation from '@/composable/useOrganisation'
+import useOrganisations from '@/composable/useOrganisations'
 import useRouting from '@/composable/useRouting'
 
-const org = useOrganisation().getOrganisation()
+const route = useRoute()
+
+const maybeOrgId =
+  route.params.id instanceof Array ? route.params.id[0] : route.params.id
+
+const { getOrganisation, setCurrentOrganisation } = useOrganisations()
+
+const org = getOrganisation(maybeOrgId)
 
 if (org === null) {
   throwError('Organisation was not found')
+} else {
+  setCurrentOrganisation(org.id)
 }
 
 const orgName = org?.name ?? '[no organisation found]'

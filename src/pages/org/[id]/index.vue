@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import useOrganisation from '@/composable/useOrganisation'
+import useOrganisations from '@/composable/useOrganisations'
 
 definePageMeta({
   layout: 'org',
-  title: useOrganisation().getOrganisation()?.name,
+  title: useOrganisations().getCurrentOrganisation()?.name,
 })
 </script>

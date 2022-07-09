@@ -10,8 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import MoleculeDropdownNav from '~/components/molecule/MoleculeDropdownNav.vue'
-
 type Props = {
   orgName: string
 }

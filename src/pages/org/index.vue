@@ -66,7 +66,8 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
-import useOrganisation from '@/composable/useOrganisation'
+import useOrganisations from '@/composable/useOrganisations'
+import useRouting from '@/composable/useRouting'
 
 definePageMeta({
   layout: 'center',
@@ -89,8 +90,7 @@ const createOrg = async (): Promise<void> => {
     return
   }
 
-  const { addOrganisation, redirectToOrgIfExists } = useOrganisation()
-  const org = addOrganisation(state.orgName)
-  redirectToOrgIfExists(org.id)
+  const org = useOrganisations().addOrganisation(state.orgName)
+  useRouting().openOrganisation(org.id)
 }
 </script>

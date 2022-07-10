@@ -22,5 +22,4 @@ Cypress.Commands.add('getId', (dataId: string, visible = true) => {
   return cy.get(`[data-id="${dataId}"]${visible && ':visible'}`)
 })
 
-// export makes this file a module and allows to augment global scope using declare in line 3
-export const dummy = 'uiCommands'
+export {}

@@ -49,7 +49,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'center',
-  // middleware: ['current-org'],
+  middleware: ['current-org'],
   title: 'Get started',
 })
 </script>

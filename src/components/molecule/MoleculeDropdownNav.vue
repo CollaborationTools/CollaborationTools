@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown">
-    <label tabindex="0" class="btn btn-ghost">
+    <label tabindex="0" class="btn btn-ghost" data-id="org-name">
       <span class="!normal-case text-xl">{{ orgName }}<AtomDot /></span>
       <AtomIcon name="chevron-down" class="ml-2" />
     </label>
@@ -16,10 +16,10 @@
       >
       <li class="divider"></li>
       <li>
-        <a href="/org/new">
+        <NuxtLink to="/org/new" data-id="create-new-org">
           <AtomIcon name="plus" class="mr-0" />
           Create new org
-        </a>
+        </NuxtLink>
       </li>
     </ul>
   </div>

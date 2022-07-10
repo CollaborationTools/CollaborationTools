@@ -18,14 +18,17 @@ type UseOrganisation = {
   setCurrentOrganisation: (currentOrgId: string) => void
 }
 
+export const ORGANISATIONS_KEY = 'organisations' as const
+export const RECENT_ORGANISATIONS_KEY = 'recentOrganisations' as const
+
 export default function useOrganisations(): UseOrganisation {
   const organisations = useStorage<OrganisationMap>(
-    'organisations',
+    ORGANISATIONS_KEY,
     new Map<string, Organisation | null>(),
   )
 
   const recentOrganisations = useStorage<RecentOrganisations>(
-    'recentOrganisations',
+    RECENT_ORGANISATIONS_KEY,
     createRecentOrganisations(),
   )
 

@@ -12,8 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import useOrganisations from '@/composable/useOrganisations'
-
 definePageMeta({
   layout: 'center',
   title: 'Get started',

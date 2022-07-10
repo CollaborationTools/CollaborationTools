@@ -1,6 +1,3 @@
-import useOrganisations from '@/composable/useOrganisations'
-import useRouting from '@/composable/useRouting'
-
 export default defineNuxtRouteMiddleware(() => {
   const org = useOrganisations().getCurrentOrganisation()
   if (org?.id) {

@@ -9,9 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import useOrganisations from '@/composable/useOrganisations'
-import useRouting from '@/composable/useRouting'
-
 const route = useRoute()
 
 const maybeOrgId =

@@ -15,23 +15,7 @@
         will&nbsp;know. You might also delete everything and start
         again.</AtomInfoBox
       >
-
-      <form class="grid gap-4">
-        <AtomInput
-          v-model="state.orgName"
-          label="Name of the organisation"
-          data-id="org-name"
-          :errors="v$.orgName.$errors"
-          @blur="v$.orgName.$touch"
-        />
-        <AtomButton
-          type="submit"
-          primary
-          data-id="create-org"
-          @click.prevent="createOrg()"
-          >Create org</AtomButton
-        >
-      </form>
+      <OrganismNewOrgSimpleForm />
     </div>
 
     <div class="divider md:divider-horizontal">OR</div>
@@ -63,34 +47,9 @@
 </template>
 
 <script setup lang="ts">
-import { useVuelidate } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
-
-import useOrganisations from '@/composable/useOrganisations'
-import useRouting from '@/composable/useRouting'
-
 definePageMeta({
   layout: 'center',
-  middleware: ['current-org'],
+  // middleware: ['current-org'],
   title: 'Get started',
 })
-
-const state = reactive({
-  orgName: '',
-})
-const rules = {
-  orgName: { required },
-}
-
-const v$ = useVuelidate(rules, state)
-
-const createOrg = async (): Promise<void> => {
-  const result = await v$.value.$validate()
-  if (!result) {
-    return
-  }
-
-  const org = useOrganisations().addOrganisation(state.orgName)
-  useRouting().openOrganisation(org.id)
-}
 </script>

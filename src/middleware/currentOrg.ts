@@ -1,8 +1,9 @@
+import { getMainOrgPathFor } from '@/composables/useRouting'
+
 export default defineNuxtRouteMiddleware(() => {
   const org = useOrganisations().getCurrentOrganisation()
   if (org?.id) {
-    const orgLinks = useRouting().getOrgLinks(org.id)
-    const currentOrgPage = orgLinks[0].url
+    const currentOrgPage = getMainOrgPathFor(org.id)
     return navigateTo(currentOrgPage)
   }
 })

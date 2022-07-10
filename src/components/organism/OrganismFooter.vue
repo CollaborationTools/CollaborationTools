@@ -14,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+import { NavLink } from '@/composables/useRouting'
+
 type Props = {
   links: NavLink[]
 }

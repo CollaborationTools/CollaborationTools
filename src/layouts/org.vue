@@ -9,6 +9,8 @@
 </template>
 
 <script setup lang="ts">
+import { getOrgNavigationFor } from '@/composables/useRouting'
+
 const route = useRoute()
 
 const maybeOrgId =
@@ -25,5 +27,5 @@ if (org === null) {
 }
 
 const orgName = org?.name ?? '[no organisation found]'
-const links = org?.id ? useRouting().getOrgLinks(org.id) : []
+const links = org?.id ? getOrgNavigationFor(org.id) : []
 </script>

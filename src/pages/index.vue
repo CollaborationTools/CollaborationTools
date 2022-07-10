@@ -1,7 +1,9 @@
 <template>
   <main class="flex flex-col gap-2 prose prose-sm sm:prose-base">
     <AtomLogo with-header />
-    <AtomButton to="/org" primary data-id="get-started">Get started</AtomButton>
+    <AtomButton to="/get-started" primary data-id="get-started"
+      >Get started</AtomButton
+    >
     <AtomButton to="/guide" primary outline data-id="learn-more"
       >Learn more</AtomButton
     >

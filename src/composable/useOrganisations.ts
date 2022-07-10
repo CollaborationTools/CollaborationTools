@@ -12,6 +12,7 @@ import {
 
 type UseOrganisation = {
   addOrganisation: (orgName: string) => Readonly<Organisation>
+  getActiveOrganisations: () => Readonly<Organisation[]>
   getCurrentOrganisation: () => Readonly<Organisation> | null
   getOrganisation: (organisationId: string) => Readonly<Organisation> | null
   setCurrentOrganisation: (currentOrgId: string) => void
@@ -33,6 +34,14 @@ export default function useOrganisations(): UseOrganisation {
   ): Readonly<Organisation> | null => {
     const org = organisations.value.get(organisationId)
     return org ? readonly(org) : null
+  }
+
+  const getActiveOrganisations = (): Readonly<Organisation[]> => {
+    const allOrganisations = Array.from(organisations.value.values())
+    const activeOrganisations = allOrganisations.filter(
+      (org): org is Organisation => org !== null,
+    )
+    return readonly(activeOrganisations)
   }
 
   const getCurrentOrganisation = (): Readonly<Organisation> | null => {
@@ -57,9 +66,10 @@ export default function useOrganisations(): UseOrganisation {
   }
 
   return {
+    addOrganisation,
+    getActiveOrganisations,
     getOrganisation,
     getCurrentOrganisation,
-    addOrganisation,
     setCurrentOrganisation,
   }
 }

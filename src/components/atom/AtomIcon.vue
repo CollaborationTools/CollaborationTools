@@ -11,6 +11,7 @@ const icons = {
   chat: import('~icons/fluent/chat-multiple-20-regular'),
   'chevron-down': import('~icons/fluent/chevron-down-24-filled'),
   plus: import('~icons/fluent/add-24-filled'),
+  info: import('~icons/fluent/info-28-regular'),
 }
 export type AvailableIcon = keyof typeof icons
 

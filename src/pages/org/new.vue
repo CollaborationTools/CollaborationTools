@@ -14,7 +14,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'center',
-  title: 'Get started',
+  title: 'Create new organisation',
 })
 
 const orgCount = useOrganisations().getActiveOrganisations().length

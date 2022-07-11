@@ -5,6 +5,6 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'org',
-  title: useOrganisations().getCurrentOrganisation()?.name,
+  title: useOrganisations().getCurrentOrganisation().value?.name,
 })
 </script>

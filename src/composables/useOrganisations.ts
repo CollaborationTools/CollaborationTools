@@ -1,4 +1,5 @@
 import { useStorage } from '@vueuse/core'
+import { ComputedRef } from 'vue'
 
 import {
   addToOrganisations,
@@ -13,8 +14,9 @@ import {
 type UseOrganisation = {
   addOrganisation: (orgName: string) => Readonly<Organisation>
   getActiveOrganisations: () => Readonly<Organisation[]>
-  getCurrentOrganisation: () => Readonly<Organisation> | null
+  getCurrentOrganisation: () => ComputedRef<Readonly<Organisation> | null>
   getOrganisation: (organisationId: string) => Readonly<Organisation> | null
+  getRecentOrganisations: () => ComputedRef<Readonly<Organisation[]>>
   setCurrentOrganisation: (currentOrgId: string) => void
 }
 
@@ -47,13 +49,26 @@ export default function useOrganisations(): UseOrganisation {
     return readonly(activeOrganisations)
   }
 
-  const getCurrentOrganisation = (): Readonly<Organisation> | null => {
-    const recentOrgId = recentOrganisations.value.at(0)
-    if (recentOrgId === undefined) {
-      return null
-    }
-    return getOrganisation(recentOrgId)
-  }
+  const getRecentOrganisations = (): ComputedRef<Readonly<Organisation[]>> =>
+    computed(() => {
+      const maybeRecentOrganisations = recentOrganisations.value.map((orgId) =>
+        organisations.value.get(orgId ?? ''),
+      )
+      const filteredOrganisations = maybeRecentOrganisations.filter(
+        (org): org is Organisation => org !== null && org !== undefined,
+      )
+      return readonly(filteredOrganisations)
+    })
+
+  const getCurrentOrganisation =
+    (): ComputedRef<Readonly<Organisation> | null> =>
+      computed(() => {
+        const recentOrgId = recentOrganisations.value.at(0)
+        if (recentOrgId === undefined) {
+          return null
+        }
+        return getOrganisation(recentOrgId)
+      })
 
   const setCurrentOrganisation = (currentOrgId: string): void => {
     recentOrganisations.value = setFirstOrganisation(
@@ -71,8 +86,9 @@ export default function useOrganisations(): UseOrganisation {
   return {
     addOrganisation,
     getActiveOrganisations,
-    getOrganisation,
     getCurrentOrganisation,
+    getOrganisation,
+    getRecentOrganisations,
     setCurrentOrganisation,
   }
 }

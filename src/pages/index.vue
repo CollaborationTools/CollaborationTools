@@ -1,19 +1,25 @@
 <template>
   <main class="flex flex-col gap-2 prose prose-sm sm:prose-base">
     <AtomLogo with-header />
-    <AtomButton to="/get-started" primary data-id="get-started"
+    <AtomButton :to="visitorRoutes.getStarted" primary data-id="get-started"
       >Get started</AtomButton
     >
-    <AtomButton to="/guide" primary outline data-id="learn-more"
+    <AtomButton :to="visitorRoutes.guide" primary outline data-id="learn-more"
       >Learn more</AtomButton
     >
-    <AtomButton to="/tools" secondary disabled data-id="browse-tools"
+    <AtomButton
+      :to="visitorRoutes.tools"
+      secondary
+      disabled
+      data-id="browse-tools"
       >Browse tools</AtomButton
     >
   </main>
 </template>
 
 <script setup lang="ts">
+import { visitorRoutes } from '@/composables/useRouting'
+
 definePageMeta({
   layout: 'center',
   middleware: ['current-org'],

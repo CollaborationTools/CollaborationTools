@@ -39,7 +39,7 @@
         familiar with Collaboration&nbsp;Tools.</AtomInfoBox
       >
 
-      <AtomButton to="/guide/joining-organisation" primary outline class="mb-8"
+      <AtomButton :to="visitorRoutes.guideJoinOrg" primary outline class="mb-8"
         >Learn more</AtomButton
       >
     </div>
@@ -47,6 +47,8 @@
 </template>
 
 <script setup lang="ts">
+import { visitorRoutes } from '@/composables/useRouting'
+
 definePageMeta({
   layout: 'center',
   middleware: ['current-org'],

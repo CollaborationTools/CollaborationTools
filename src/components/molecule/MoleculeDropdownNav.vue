@@ -16,7 +16,7 @@
       >
       <li class="divider"></li>
       <li>
-        <NuxtLink to="/org/new" data-id="create-new-org">
+        <NuxtLink :to="organisationRoutes.new" data-id="create-new-org">
           <AtomIcon name="plus" class="mr-0" />
           Create new org
         </NuxtLink>
@@ -28,6 +28,7 @@
 <script setup lang="ts">
 import { ComputedRef } from 'vue'
 
+import { organisationRoutes } from '@/composables/useRouting'
 import { RecentOrgWithLink } from '@/layouts/org.vue'
 
 type Props = {

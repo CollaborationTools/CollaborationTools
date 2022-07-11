@@ -8,6 +8,7 @@
     </AtomInfoBox>
 
     <OrganismNewOrgSimpleForm />
+    <AtomBackButton />
   </main>
 </template>
 

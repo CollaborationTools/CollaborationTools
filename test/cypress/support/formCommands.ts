@@ -14,12 +14,12 @@ declare global {
 }
 
 Cypress.Commands.add('handleOrgCreation', (orgName: string) => {
-  cy.getId('org-name')
+  cy.getId('org-name-field')
     .click()
     .blur()
     .parent()
     .should('contain.text', 'required')
-  cy.getId('org-name')
+  cy.getId('org-name-field')
     .type(orgName)
     .blur()
     .parent()

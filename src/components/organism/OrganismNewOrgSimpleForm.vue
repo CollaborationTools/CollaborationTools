@@ -3,7 +3,7 @@
     <AtomInput
       v-model="state.orgName"
       label="Name of the organisation"
-      data-id="org-name"
+      data-id="org-name-field"
       :errors="v$.orgName.$errors"
       @blur="v$.orgName.$touch"
     />

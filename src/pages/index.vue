@@ -22,7 +22,7 @@ import { visitorRoutes } from '@/composables/useRouting'
 
 definePageMeta({
   layout: 'center',
-  middleware: ['current-org'],
+  middleware: ['open-current-org-if-exists'],
   title: 'Welcome',
 })
 </script>

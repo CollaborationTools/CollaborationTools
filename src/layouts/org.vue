@@ -37,6 +37,7 @@ watch(
     if (org.value === null) {
       if (!route.fullPath.includes('/new')) {
         throwError('Organisation was not found')
+        return undefined
       }
     } else {
       setCurrentOrganisation(org.value.id)
@@ -45,12 +46,17 @@ watch(
   { immediate: true },
 )
 
-const recentOrgsWithLinks: ComputedRef<RecentOrgWithLink[]> = computed(() =>
-  getRecentOrganisations().value.map((org) => ({
-    id: org.id,
-    name: org.name,
-    url: getMainOrgPathFor(org.id),
-  })),
+const recentOrgsWithLinks: ComputedRef<RecentOrgWithLink[] | null> = computed(
+  () => {
+    const recentOrgsWithLinks = getRecentOrganisations().value.map(
+      (recentOrg) => ({
+        id: recentOrg.id,
+        name: recentOrg.name,
+        url: getMainOrgPathFor(recentOrg.id),
+      }),
+    )
+    return recentOrgsWithLinks.length > 0 ? recentOrgsWithLinks : null
+  },
 )
 
 const links = computed(() =>

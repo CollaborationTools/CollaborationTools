@@ -14,7 +14,7 @@
         :data-uuid="org.id"
         >{{ org.name }}</AtomDropdownItem
       >
-      <li class="divider"></li>
+      <li v-if="otherOrgs.length > 0" class="divider"></li>
       <li>
         <NuxtLink :to="organisationRoutes.new" data-id="create-new-org">
           <AtomIcon name="plus" class="mr-0" />
@@ -32,15 +32,22 @@ import { organisationRoutes } from '@/composables/useRouting'
 import { RecentOrgWithLink } from '@/layouts/org.vue'
 
 type Props = {
-  recentOrgs: RecentOrgWithLink[]
+  recentOrgs: RecentOrgWithLink[] | null
 }
 
 const props = defineProps<Props>()
-const currentOrgName = computed(() => props.recentOrgs[0].name)
-
-const otherOrgs: ComputedRef<RecentOrgWithLink[]> = computed(() =>
-  props.recentOrgs.filter((org) => org.id !== props.recentOrgs[0].id),
+const currentOrgName = computed(() =>
+  props.recentOrgs ? props.recentOrgs[0].name : '[no organisation found]',
 )
+
+const otherOrgs: ComputedRef<RecentOrgWithLink[]> = computed(() => {
+  if (props.recentOrgs === null) {
+    return []
+  } else {
+    const currentOrgId = props.recentOrgs[0].id
+    return props.recentOrgs.filter((org) => org.id !== currentOrgId)
+  }
+})
 </script>
 
 <style scoped lang="postcss">

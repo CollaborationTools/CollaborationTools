@@ -26,8 +26,8 @@ export const createUserStorage = (
   const recentOrganisations: RecentOrganisations =
     createRecentOrganisations(orgIds)
 
-  const result: UserStorage = new Map()
-  result.set(ORGANISATIONS_KEY, orgMap)
-  result.set(RECENT_ORGANISATIONS_KEY, recentOrganisations)
-  return result
+  const userStorage: UserStorage = new Map()
+  userStorage.set(ORGANISATIONS_KEY, orgMap)
+  userStorage.set(RECENT_ORGANISATIONS_KEY, recentOrganisations)
+  return userStorage
 }

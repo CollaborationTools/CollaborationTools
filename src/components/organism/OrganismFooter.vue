@@ -3,7 +3,7 @@
     class="flex place-self-center fixed max-w-3xl md:max-w-2xl lg:max-w-4xl w-full h-16 bottom-0 md:bottom-2 md:rounded-2xl bg-white dark:bg-base-300 md:shadow-xl"
   >
     <AtomNavLink
-      v-for="link in links"
+      v-for="link in navigationLinks"
       :key="link.url"
       :to="link.url"
       :label="link.label"
@@ -14,11 +14,18 @@
 </template>
 
 <script setup lang="ts">
-import { NavLink } from '@/composables/useRouting'
+import { ComputedRef } from 'vue'
 
-type Props = {
-  links: NavLink[]
-}
+import { getOrgNavigationFor, NavLink } from '@/composables/useRouting'
+import useOrganisations from '@/stores/useOrganisations'
 
-const props = defineProps<Props>()
+const currentOrganisation = computed(() =>
+  useOrganisations().getCurrentOrganisation(),
+)
+
+const navigationLinks: ComputedRef<NavLink[]> = computed(() =>
+  currentOrganisation.value?.id
+    ? getOrgNavigationFor(currentOrganisation.value.id)
+    : [],
+)
 </script>

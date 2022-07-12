@@ -21,6 +21,8 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
+import useOrganisations from '@/stores/useOrganisations'
+
 const state = reactive({
   orgName: '',
 })

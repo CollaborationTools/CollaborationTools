@@ -1,14 +1,14 @@
 import {
-  ORGANISATIONS_KEY,
-  RECENT_ORGANISATIONS_KEY,
-} from '@/composables/useOrganisations'
-import {
   addToOrganisations,
   createRecentOrganisations,
   Organisation,
   OrganisationMap,
   RecentOrganisations,
 } from '@/features/organisation'
+import {
+  ORGANISATIONS_KEY,
+  RECENT_ORGANISATIONS_KEY,
+} from '@/stores/useOrganisations'
 
 export type UserStorage = Map<typeof ORGANISATIONS_KEY, OrganisationMap> &
   Map<typeof RECENT_ORGANISATIONS_KEY, RecentOrganisations>

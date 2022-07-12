@@ -28,24 +28,35 @@
 <script setup lang="ts">
 import { ComputedRef } from 'vue'
 
-import { organisationRoutes } from '@/composables/useRouting'
-import { RecentOrgWithLink } from '@/layouts/org.vue'
+import { getMainOrgPathFor, organisationRoutes } from '@/composables/useRouting'
+import { Organisation } from '@/features/organisation'
+import useOrganisations from '@/stores/useOrganisations'
 
-type Props = {
-  recentOrgs: RecentOrgWithLink[] | null
-}
+type RecentOrgWithLink = Organisation & { url: string }
 
-const props = defineProps<Props>()
+const recentOrganisations = computed(() =>
+  useOrganisations().getRecentOrganisations(),
+)
+
 const currentOrgName = computed(() =>
-  props.recentOrgs ? props.recentOrgs[0].name : '[no organisation found]',
+  recentOrganisations.value[0]
+    ? recentOrganisations.value[0].name
+    : '[no organisation found]',
 )
 
 const otherOrgs: ComputedRef<RecentOrgWithLink[]> = computed(() => {
-  if (props.recentOrgs === null) {
+  if (recentOrganisations.value.length === 0) {
     return []
   } else {
-    const currentOrgId = props.recentOrgs[0].id
-    return props.recentOrgs.filter((org) => org.id !== currentOrgId)
+    const currentOrgId = recentOrganisations.value[0].id
+    const otherOrganisations = recentOrganisations.value.filter(
+      (org) => org.id !== currentOrgId,
+    )
+    return otherOrganisations.map((recentOrg) => ({
+      id: recentOrg.id,
+      name: recentOrg.name,
+      url: getMainOrgPathFor(recentOrg.id),
+    }))
   }
 })
 </script>

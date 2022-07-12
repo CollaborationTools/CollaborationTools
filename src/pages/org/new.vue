@@ -13,10 +13,12 @@
 </template>
 
 <script setup lang="ts">
+import useOrganisations from '@/stores/useOrganisations'
+
 definePageMeta({
   layout: 'center',
   title: 'Create new organisation',
 })
 
-const orgCount = useOrganisations().getActiveOrganisations().length
+const orgCount = useOrganisations().getOrganisations().length
 </script>

@@ -904,6 +904,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pinia/nuxt@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@pinia/nuxt@npm:0.2.1"
+  dependencies:
+    vue-demi: "*"
+  peerDependencies:
+    pinia: ">=2.0.16"
+  checksum: a0820c95761aa5c996f396dda752a04f1221c5e75f8cbb5b0253de2b0c37317f7bc4105abccb83c68b59ae7e3f8281256faf8dccb063c37917c139139b7f1940
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-alias@npm:^3.1.9":
   version: 3.1.9
   resolution: "@rollup/plugin-alias@npm:3.1.9"
@@ -1430,6 +1441,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/devtools-api@npm:^6.1.4":
+  version: 6.2.0
+  resolution: "@vue/devtools-api@npm:6.2.0"
+  checksum: 20cc7a3393af1992e02dfdd21c494b33fc1ed00b7b6b57bea92ae360b43f938a416759e8c3c1a269ba44fe8ae4436b9520419a7a3f1a6d65fb3cf4d56c2e8763
+  languageName: node
+  linkType: hard
+
 "@vue/reactivity-transform@npm:3.2.37":
   version: 3.2.37
   resolution: "@vue/reactivity-transform@npm:3.2.37"
@@ -1585,6 +1603,7 @@ __metadata:
     "@nuxtjs/eslint-config-typescript": ^10.0.0
     "@nuxtjs/svg": ^0.4.0
     "@nuxtjs/tailwindcss": ^5.1.3
+    "@pinia/nuxt": ^0.2.1
     "@tailwindcss/typography": ^0.5.2
     "@typescript-eslint/eslint-plugin": ^5.30.0
     "@typescript-eslint/parser": ^5.30.0
@@ -1605,6 +1624,7 @@ __metadata:
     eslint-plugin-vuejs-accessibility: ^1.2.0
     lint-staged: ^13.0.3
     nuxt: ^3.0.0-rc.4
+    pinia: ^2.0.16
     prettier: ^2.7.1
     simple-git-hooks: ^2.8.0
     typescript: ^4.7.4
@@ -8432,6 +8452,25 @@ __metadata:
   version: 2.3.0
   resolution: "pify@npm:2.3.0"
   checksum: 9503aaeaf4577acc58642ad1d25c45c6d90288596238fb68f82811c08104c800e5a7870398e9f015d82b44ecbcbef3dc3d4251a1cbb582f6e5959fe09884b2ba
+  languageName: node
+  linkType: hard
+
+"pinia@npm:^2.0.16":
+  version: 2.0.16
+  resolution: "pinia@npm:2.0.16"
+  dependencies:
+    "@vue/devtools-api": ^6.1.4
+    vue-demi: "*"
+  peerDependencies:
+    "@vue/composition-api": ^1.4.0
+    typescript: ">=4.4.4"
+    vue: ^2.6.14 || ^3.2.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+    typescript:
+      optional: true
+  checksum: 226aaf57a8809848ec7f679999578308ad70b8939de6163af3ff62e91c2606a274fd8ab626af8071654d76316ff260fe3fc42a9725218bdbcd4b46b1a26e90d5
   languageName: node
   linkType: hard
 

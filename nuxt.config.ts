@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/svg',
     'unplugin-icons/nuxt',
+    '@pinia/nuxt',
   ],
   srcDir: 'src',
   ssr: false,

@@ -1,6 +1,6 @@
-import { Organisation } from '@/features/organisation/index'
+import { Organisation, OrganisationId } from '@/features/organisation'
 
-export type OrganisationMap = Map<string, Organisation | null>
+export type OrganisationMap = Map<OrganisationId, Organisation | null>
 
 export const addToOrganisations = (
   organisations: OrganisationMap,

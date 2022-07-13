@@ -1,7 +1,9 @@
 import { createUUID } from '@/services/browser/uuid'
 
+export type OrganisationId = string
+
 export type Organisation = {
-  id: string
+  id: OrganisationId
   name: string
 }
 

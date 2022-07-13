@@ -1,5 +1,5 @@
 import {
-  addToOrganisations,
+  setOrganisation,
   createRecentOrganisations,
   Organisation,
   OrganisationMap,
@@ -17,7 +17,7 @@ export const createUserStorage = (
   organisations: Organisation[],
 ): UserStorage => {
   const orgMap: OrganisationMap = organisations.reduce(
-    (orgMap: OrganisationMap, org) => addToOrganisations(orgMap, org),
+    (orgMap: OrganisationMap, org) => setOrganisation(orgMap, org),
     new Map<string, Organisation>(),
   )
 

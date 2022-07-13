@@ -2,7 +2,7 @@ import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
 import {
-  addToOrganisations,
+  setOrganisation,
   createOrganisation,
   createRecentOrganisations,
   Organisation,
@@ -66,7 +66,7 @@ export default defineStore('organisationStore', {
   actions: {
     addOrganisation(organisationName: string): Readonly<Organisation> {
       const organisation = createOrganisation(organisationName)
-      this.organisations = addToOrganisations(this.organisations, organisation)
+      this.organisations = setOrganisation(this.organisations, organisation)
       return readonly(organisation)
     },
     setCurrentOrganisationId(currentOrganisationId: string): void {

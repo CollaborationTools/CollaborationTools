@@ -2,18 +2,11 @@ import { Organisation, OrganisationId } from '@/features/organisation'
 
 export type OrganisationMap = Map<OrganisationId, Organisation | null>
 
-export const addToOrganisations = (
+export const setOrganisation = (
   organisations: OrganisationMap,
-  newOrganisation: Organisation,
+  organisation: Organisation,
 ): OrganisationMap => {
-  return new Map(organisations).set(newOrganisation.id, newOrganisation)
-}
-
-export const updateOrganisation = (
-  organisations: OrganisationMap,
-  updatedOrganisation: Organisation,
-): OrganisationMap => {
-  return new Map(organisations).set(updatedOrganisation.id, updatedOrganisation)
+  return new Map(organisations).set(organisation.id, organisation)
 }
 
 export const deleteOrganisation = (

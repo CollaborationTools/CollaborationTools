@@ -9,7 +9,7 @@ const removeExcess = (
   const filteredArray = recentOrganisations.filter(
     (item) => item !== null && item !== undefined,
   )
-  if (filteredArray.length > ARRAY_MAX_LENGTH) {
+  if (filteredArray.length > limit) {
     const excessiveArray = Array.from(filteredArray)
     excessiveArray.length = limit
     return excessiveArray
@@ -24,7 +24,7 @@ export const createRecentOrganisations = (
   return result
 }
 
-export const setFirstOrganisation = (
+export const setMostRecentOrganisation = (
   recentOrganisations: RecentOrganisations,
   organisationId: string,
 ): RecentOrganisations => {

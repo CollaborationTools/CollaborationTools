@@ -14,7 +14,7 @@ import {
 export const ORGANISATIONS_KEY = 'organisations' as const
 export const RECENT_ORGANISATIONS_KEY = 'recentOrganisations' as const
 
-export default defineStore('organisationStore', {
+export default defineStore('organisations', {
   state: () => ({
     organisations: useStorage<OrganisationMap>(
       ORGANISATIONS_KEY,

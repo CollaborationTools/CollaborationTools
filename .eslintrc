@@ -6,11 +6,13 @@
     "node": true
   },
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaVersion": "latest",
     "parser": "@typescript-eslint/parser",
-    "sourceType": "module"
+    "sourceType": "module",
+    "extraFileExtensions": [".vue"]
   },
-  "plugins": ["vue","@typescript-eslint", "sonarjs", "promise", "vuejs-accessibility"],
+  "plugins": ["vue", "@typescript-eslint", "sonarjs", "promise", "vuejs-accessibility", "total-functions"],
   "extends": [
     "eslint:recommended",
     "plugin:vue/vue3-recommended",
@@ -30,6 +32,9 @@
     // https://github.com/import-js/eslint-plugin-import
     "plugin:import/recommended",
     "plugin:import/typescript",
+
+    // https://github.com/danielnixon/eslint-plugin-total-functions
+    "plugin:total-functions/all",
 
     "plugin:@typescript-eslint/recommended",
     "@nuxtjs/eslint-config-typescript",

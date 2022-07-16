@@ -4,10 +4,10 @@ import member1 from 'cypress/fixtures/userStorage/member-1'
 const memberOrganisations = member1.get('organisations')
 const memberRecentOrganisations = member1.get('recentOrganisations')
 
-const currentOrgId = memberRecentOrganisations[0]
-const currentOrgName = memberOrganisations.get(currentOrgId).name
-const nextOrgId = memberRecentOrganisations[1]
-const nextOrgName = memberOrganisations.get(nextOrgId).name
+const currentOrgId = memberRecentOrganisations ? memberRecentOrganisations[0] ?? '' : ''
+const currentOrgName = memberOrganisations ? memberOrganisations.get(currentOrgId)?.name ?? '' : ''
+const nextOrgId = memberRecentOrganisations ? memberRecentOrganisations[1] ?? '' : ''
+const nextOrgName = memberOrganisations ? memberOrganisations.get(nextOrgId)?.name ?? '' : ''
 
 const newOrgName = 'Org 4'
 

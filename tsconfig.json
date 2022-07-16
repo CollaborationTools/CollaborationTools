@@ -3,5 +3,19 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "noUncheckedIndexedAccess": true,
+    "paths": {
+      "cypress/*": [
+        "./test/cypress/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "@@/*": [
+        "./*"
+      ],
+      "~/*": [
+        "./.nuxt/*"
+      ]
+    }
   }
 }

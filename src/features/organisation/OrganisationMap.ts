@@ -1,6 +1,6 @@
 import { Organisation, OrganisationId } from '@/features/organisation'
 
-export type OrganisationMap = Map<OrganisationId, Organisation | null>
+export type OrganisationMap = ReadonlyMap<OrganisationId, Organisation | null>
 
 export const setOrganisation = (
   organisations: OrganisationMap,

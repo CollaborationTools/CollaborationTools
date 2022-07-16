@@ -6,9 +6,10 @@ import {
   createOrganisation,
   createRecentOrganisations,
   Organisation,
+  OrganisationId,
   OrganisationMap,
   RecentOrganisations,
-  setFirstOrganisation,
+  setMostRecentOrganisation,
 } from '@/features/organisation'
 
 export const ORGANISATIONS_KEY = 'organisations' as const
@@ -18,7 +19,7 @@ export default defineStore('organisations', {
   state: () => ({
     organisations: useStorage<OrganisationMap>(
       ORGANISATIONS_KEY,
-      new Map<string, Organisation | null>(),
+      new Map<OrganisationId, Organisation | null>(),
     ),
     recentOrganisations: useStorage<RecentOrganisations>(
       RECENT_ORGANISATIONS_KEY,
@@ -70,7 +71,7 @@ export default defineStore('organisations', {
       return readonly(organisation)
     },
     setCurrentOrganisationId(currentOrganisationId: string): void {
-      this.recentOrganisations = setFirstOrganisation(
+      this.recentOrganisations = setMostRecentOrganisation(
         this.recentOrganisations,
         currentOrganisationId,
       )

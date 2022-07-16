@@ -1,4 +1,4 @@
-export type RecentOrganisations = readonly string[]
+export type RecentOrganisations = Readonly<string[]>
 
 const ARRAY_MAX_LENGTH = 5 as const
 

@@ -11,6 +11,7 @@
 const colorMode = useColorMode()
 const isLightMode = computed(() => colorMode.preference === 'light')
 const setColorMode = (event: Event): void => {
+  // eslint-disable-next-line total-functions/no-unsafe-type-assertion
   colorMode.preference = (event.target as HTMLInputElement).checked
     ? 'light'
     : 'dark'

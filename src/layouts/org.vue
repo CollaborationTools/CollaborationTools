@@ -17,9 +17,14 @@ const maybeOrgId = computed(() =>
 )
 
 const organisationsStore = useOrganisations()
-const org = computed(() => organisationsStore.getOrganisation(maybeOrgId.value))
+const org = computed(() =>
+  maybeOrgId.value
+    ? organisationsStore.getOrganisation(maybeOrgId.value)
+    : null,
+)
 
 watch(
+  // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
   org,
   () => {
     if (org.value === null) {

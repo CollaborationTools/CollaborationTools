@@ -48,7 +48,7 @@ const otherOrgs: ComputedRef<RecentOrgWithLink[]> = computed(() => {
   if (recentOrganisations.value.length === 0) {
     return []
   } else {
-    const currentOrgId = recentOrganisations.value[0].id
+    const currentOrgId = recentOrganisations.value.at(0)?.id ?? ''
     const otherOrganisations = recentOrganisations.value.filter(
       (org) => org.id !== currentOrgId,
     )

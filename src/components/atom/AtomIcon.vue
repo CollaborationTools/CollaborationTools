@@ -2,7 +2,7 @@
   <SvgIcon />
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 const icons = {
   sun: import('~icons/fluent/weather-sunny-28-regular'),
   moon: import('~icons/fluent/weather-moon-28-regular'),
@@ -12,10 +12,13 @@ const icons = {
   'chevron-down': import('~icons/fluent/chevron-down-24-filled'),
   plus: import('~icons/fluent/add-24-filled'),
   info: import('~icons/fluent/info-28-regular'),
-}
-export type AvailableIcon = keyof typeof icons
+} as const
 
-interface Props {
+export type AvailableIcon = keyof typeof icons
+</script>
+
+<script setup lang="ts">
+type Props = {
   name: AvailableIcon
 }
 

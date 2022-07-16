@@ -19,7 +19,7 @@
       :data-id="dataId"
       v-bind="$attrs"
       :value="value"
-      @input="value = $event.target.value"
+      @input="setValue"
     />
     <div v-if="hasError" class="label label-text text-red font-semibold">
       <label v-for="error in errors" :key="error.$uid" :for="fieldId">{{
@@ -62,8 +62,13 @@ const value = computed({
 })
 
 const fieldId = computed(() => {
-  return attrs.id ? attrs.id : `${props.label}[${createUUID()}]`
+  return attrs.id ? `${attrs.id}` : `${props.label}[${createUUID()}]`
 })
 
 const hasError = computed(() => !!props.errors?.length)
+
+const setValue = (event: Event): void => {
+  // eslint-disable-next-line total-functions/no-unsafe-type-assertion
+  value.value = (event.target as HTMLInputElement).value
+}
 </script>

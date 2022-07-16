@@ -8,7 +8,7 @@
       :to="link.url"
       :label="link.label"
     >
-      <AtomIcon :name="link.icon" class="h-6 w-6" />
+      <AtomIcon v-if="link.icon" :name="link.icon" class="h-6 w-6" />
     </AtomNavLink>
   </footer>
 </template>

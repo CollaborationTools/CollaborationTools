@@ -29,7 +29,7 @@
 import { ComputedRef } from 'vue'
 
 import { getMainOrgPathFor, organisationRoutes } from '@/composables/useRouting'
-import { Organisation } from '@/features/organisation'
+import { Organisation } from '@/core/organisation'
 import useOrganisations from '@/stores/useOrganisations'
 
 type RecentOrgWithLink = Organisation & { url: string }
@@ -38,10 +38,8 @@ const recentOrganisations = computed(() =>
   useOrganisations().getRecentOrganisations(),
 )
 
-const currentOrgName = computed(() =>
-  recentOrganisations.value[0]
-    ? recentOrganisations.value[0].name
-    : '[no organisation found]',
+const currentOrgName = computed(
+  () => recentOrganisations.value[0]?.name ?? '[no organisation found]',
 )
 
 const otherOrgs: ComputedRef<RecentOrgWithLink[]> = computed(() => {

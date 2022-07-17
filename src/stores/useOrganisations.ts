@@ -13,8 +13,8 @@ import {
   OrganisationMap,
   Organisations,
   RecentOrganisations,
-  setMostRecentOrganisation as coreSetMostRecentOrganisation,  
-} from '@/features/organisation'
+  setMostRecentOrganisation as coreSetMostRecentOrganisation,
+} from '@/core/organisation'
 
 export const ORGANISATIONS_KEY = 'organisations' as const
 export const RECENT_ORGANISATIONS_KEY = 'recentOrganisations' as const

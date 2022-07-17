@@ -4,7 +4,7 @@ import {
   Organisation,
   OrganisationMap,
   RecentOrganisations,
-} from '@/features/organisation'
+} from '@/core/organisation'
 import {
   ORGANISATIONS_KEY,
   RECENT_ORGANISATIONS_KEY,

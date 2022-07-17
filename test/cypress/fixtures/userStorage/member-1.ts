@@ -1,6 +1,5 @@
-import { createOrganisation } from '@/features/organisation'
+import { createOrganisation } from '@/core/organisation'
 import { createUserStorage } from 'cypress/support/storage'
-
 
 const org1 = createOrganisation('Org 1')
 const org2 = createOrganisation('Org 2')

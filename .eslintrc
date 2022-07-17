@@ -44,6 +44,9 @@
     // turned off because the rule returns false positives, e.g. select
     "vuejs-accessibility/label-has-for": "off",
 
+    // destructuring became possible with reactivity transform
+    "vue/no-setup-props-destructure": "off",
+
     "capitalized-comments": "off",
     "prefer-promise-reject-errors": "off",
 

@@ -16,6 +16,9 @@ export default defineNuxtConfig({
   dir: {
     public: '../public',
   },
+  experimental: {
+    reactivityTransform: true,
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',

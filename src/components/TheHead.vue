@@ -1,6 +1,5 @@
 <template>
   <Head>
-    <Title>{{ title }}</Title>
     <Link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -36,12 +35,10 @@ useHead({
   htmlAttrs: {
     lang: 'en',
   },
+  titleTemplate: (titleChunk) => {
+    return titleChunk
+      ? `${titleChunk} - Collaboration Tools`
+      : 'Collaboration Tools'
+  },
 })
-
-const route = useRoute()
-const title = computed(() =>
-  route.meta.title
-    ? `${route.meta.title} - Collaboration Tools`
-    : 'Collaboration Tools',
-)
 </script>

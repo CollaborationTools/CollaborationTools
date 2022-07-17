@@ -20,9 +20,12 @@
 <script setup lang="ts">
 import { visitorRoutes } from '@/composables/useRouting'
 
+useHead({
+  title: 'Welcome',
+})
+
 definePageMeta({
   layout: 'center',
   middleware: ['open-current-org-if-exists'],
-  title: 'Welcome',
 })
 </script>

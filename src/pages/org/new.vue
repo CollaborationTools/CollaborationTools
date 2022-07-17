@@ -15,9 +15,12 @@
 <script setup lang="ts">
 import useOrganisations from '@/stores/useOrganisations'
 
+useHead({
+  title: 'Create new organisation',
+})
+
 definePageMeta({
   layout: 'center',
-  title: 'Create new organisation',
 })
 
 const orgCount = useOrganisations().getOrganisations().length

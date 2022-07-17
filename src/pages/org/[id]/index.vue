@@ -3,9 +3,15 @@
 </template>
 
 <script setup lang="ts">
-// import useOrganisations from '@/stores/useOrganisations'
+import useOrganisations from '@/stores/useOrganisations'
+
+const organisationStore = useOrganisations()
+
+useHead({
+  title: organisationStore.getCurrentOrganisation()?.name,
+})
+
 definePageMeta({
   layout: 'org',
-  // title: useOrganisations().getCurrentOrganisation()?.name,
 })
 </script>

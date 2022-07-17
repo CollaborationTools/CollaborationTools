@@ -2,14 +2,18 @@ import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
 import {
-  setOrganisation,
-  createOrganisation,
-  createRecentOrganisations,
+  addOrganisation as coreAddOrganisation,
+  createRecentOrganisations as coreCreateRecentOrganisations,
+  getCurrentOrganisation as coreGetCurrentOrganisation,
+  getRecentOrganisations as coreGetRecentOrganisations,
+  getOrganisation as coreGetOrganisation,
+  getOrganisations as coreGetOrganisations,
   Organisation,
   OrganisationId,
   OrganisationMap,
+  Organisations,
   RecentOrganisations,
-  setMostRecentOrganisation,
+  setMostRecentOrganisation as coreSetMostRecentOrganisation,  
 } from '@/features/organisation'
 
 export const ORGANISATIONS_KEY = 'organisations' as const
@@ -17,61 +21,49 @@ export const RECENT_ORGANISATIONS_KEY = 'recentOrganisations' as const
 
 export default defineStore('organisations', {
   state: () => ({
-    organisations: useStorage<OrganisationMap>(
+    organisationsMap: useStorage<OrganisationMap>(
       ORGANISATIONS_KEY,
       new Map<OrganisationId, Organisation | null>(),
     ),
     recentOrganisations: useStorage<RecentOrganisations>(
       RECENT_ORGANISATIONS_KEY,
-      createRecentOrganisations(),
+      coreCreateRecentOrganisations(),
     ),
   }),
   getters: {
     getOrganisation(state) {
-      return (organisationId: string): Readonly<Organisation> | null => {
-        const organisation = state.organisations.get(organisationId)
-        return organisation ? readonly(organisation) : null
-      }
+      return (organisationId: string): Organisation | null =>
+        coreGetOrganisation(state.organisationsMap, organisationId)
     },
     getCurrentOrganisation(state) {
-      return (): Readonly<Organisation> | null => {
-        const recentOrganisationId = state.recentOrganisations.at(0)
-        if (recentOrganisationId === undefined) {
-          return null
-        }
-        return this.getOrganisation(recentOrganisationId)
-      }
+      return (): Organisation | null =>
+        coreGetCurrentOrganisation(
+          state.organisationsMap,
+          state.recentOrganisations,
+        )
     },
     getOrganisations(state) {
-      return (): Readonly<Organisation[]> => {
-        const organisations = Array.from(state.organisations.values())
-        const existingOrganisations = organisations.filter(
-          (organisation): organisation is Organisation => organisation !== null,
-        )
-        return readonly(existingOrganisations)
-      }
+      return (): Organisations => coreGetOrganisations(state.organisationsMap)
     },
     getRecentOrganisations(state) {
-      return (): Readonly<Organisation[]> => {
-        const recentOrganisations = state.recentOrganisations.map(
-          (organisationId) => state.organisations.get(organisationId ?? ''),
+      return (): Organisations =>
+        coreGetRecentOrganisations(
+          state.organisationsMap,
+          state.recentOrganisations,
         )
-        const existingOrganisations = recentOrganisations.filter(
-          (organisation): organisation is Organisation =>
-            organisation !== null && organisation !== undefined,
-        )
-        return readonly(existingOrganisations)
-      }
     },
   },
   actions: {
-    addOrganisation(organisationName: string): Readonly<Organisation> {
-      const organisation = createOrganisation(organisationName)
-      this.organisations = setOrganisation(this.organisations, organisation)
-      return readonly(organisation)
+    addOrganisation(organisationName: string): Organisation {
+      const { organisation, organisationMap } = coreAddOrganisation(
+        this.organisationsMap,
+        organisationName,
+      )
+      this.organisationsMap = organisationMap
+      return organisation
     },
     setCurrentOrganisationId(currentOrganisationId: string): void {
-      this.recentOrganisations = setMostRecentOrganisation(
+      this.recentOrganisations = coreSetMostRecentOrganisation(
         this.recentOrganisations,
         currentOrganisationId,
       )

@@ -2,8 +2,6 @@ import { AvailableIcon } from '@/components/atom/AtomIcon.vue'
 
 import { ORG_ID_PARAM, organisationRoutes } from './routes'
 
-
-
 export type NavLink = Readonly<{
   url: string
   icon?: AvailableIcon

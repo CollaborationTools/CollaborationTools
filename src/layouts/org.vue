@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <OrganismHeader />
-    <main>
+    <main class="block p-4 md:p-8 pb-20 w-full">
       <slot />
     </main>
     <OrganismFooter />

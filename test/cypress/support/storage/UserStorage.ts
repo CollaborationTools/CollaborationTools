@@ -2,20 +2,33 @@ import {
   setOrganisation,
   createRecentOrganisations,
   Organisation,
+  Organisations,
   OrganisationMap,
   RecentOrganisations,
 } from '@/core/organisation'
+import { AllOrganisationsMembersMap, User } from '@/core/user'
 import {
   ORGANISATIONS_KEY,
   RECENT_ORGANISATIONS_KEY,
 } from '@/stores/useOrganisations'
+import { ORGANISATION_MEMBERS_KEY, USER_PROFILE_KEY } from '@/stores/useUsers'
+
+export type UserData = {
+  organisations: Organisations
+  profile: User
+  allOrganisationsMembers: AllOrganisationsMembersMap
+}
 
 export type UserStorage = Map<typeof ORGANISATIONS_KEY, OrganisationMap> &
-  Map<typeof RECENT_ORGANISATIONS_KEY, RecentOrganisations>
+  Map<typeof RECENT_ORGANISATIONS_KEY, RecentOrganisations> &
+  Map<typeof USER_PROFILE_KEY, User> &
+  Map<typeof ORGANISATION_MEMBERS_KEY, AllOrganisationsMembersMap>
 
-export const createUserStorage = (
-  organisations: Organisation[],
-): UserStorage => {
+export const createUserStorage = ({
+  organisations,
+  profile,
+  allOrganisationsMembers,
+}: UserData): UserStorage => {
   const orgMap: OrganisationMap = organisations.reduce(
     (orgMap: OrganisationMap, org) => setOrganisation(orgMap, org),
     new Map<string, Organisation>(),
@@ -29,5 +42,7 @@ export const createUserStorage = (
   const userStorage: UserStorage = new Map()
   userStorage.set(ORGANISATIONS_KEY, orgMap)
   userStorage.set(RECENT_ORGANISATIONS_KEY, recentOrganisations)
+  userStorage.set(USER_PROFILE_KEY, profile)
+  userStorage.set(ORGANISATION_MEMBERS_KEY, allOrganisationsMembers)
   return userStorage
 }

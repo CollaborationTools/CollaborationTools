@@ -17,7 +17,7 @@ declare global {
 
 Cypress.Commands.add('setUserStorage', (userStorage: UserStorage) => {
   Array.from(userStorage).forEach((item) => {
-    localStorage.setItem(item[0], serialize(item[1]))
+    localStorage.setItem(item[0], serialize(item[0], item[1]))
     Cypress.log({
       name: 'localStorage',
       message: `Item ${item[0]} was set`,

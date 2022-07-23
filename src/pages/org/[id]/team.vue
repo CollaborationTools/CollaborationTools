@@ -12,6 +12,7 @@
         <AtomButton primary outline data-id="join-now" @click="joinNow"
           >Join as {{ me.name }}</AtomButton
         >
+        <OrganismSetName @update="setDisplayName" />
       </template>
     </template>
     <template v-else>
@@ -26,6 +27,7 @@
 
 <script setup lang="ts">
 import AtomButton from '@/components/atom/AtomButton.vue'
+import OrganismSetName from '@/components/organism/OrganismSetName.vue'
 import { createOrganisationMember } from '@/core/user'
 import useOrganisations from '@/stores/useOrganisations'
 import useUsers from '@/stores/useUsers'
@@ -54,6 +56,12 @@ const isOrganisationMember = $computed(
 const joinNow = (): void => {
   if (!me || !currentOrganisation?.id) return
   const organisationMember = createOrganisationMember(me, 'admin')
+  userStore.setOrganisationMember(currentOrganisation.id, organisationMember)
+}
+
+const setDisplayName = (displayName: string): void => {
+  if (!me || !currentOrganisation?.id) return
+  const organisationMember = createOrganisationMember(me, 'admin', displayName)
   userStore.setOrganisationMember(currentOrganisation.id, organisationMember)
 }
 </script>

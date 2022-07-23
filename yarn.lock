@@ -1055,16 +1055,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^8.4.2":
-  version: 8.4.5
-  resolution: "@types/eslint@npm:8.4.5"
-  dependencies:
-    "@types/estree": "*"
-    "@types/json-schema": "*"
-  checksum: 428b0c971a50adb0d08621e76f21b284580a0052a31341a0e6d553f72b54cd0142d549aa1497c7e3bc56e9f6bcc27286e66e0216e1ba76d1a5ecd2279c40bc8c
-  languageName: node
-  linkType: hard
-
 "@types/estree@npm:*":
   version: 1.0.0
   resolution: "@types/estree@npm:1.0.0"
@@ -1090,7 +1080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.8, @types/json-schema@npm:^7.0.9":
+"@types/json-schema@npm:^7.0.8, @types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
   checksum: 527bddfe62db9012fccd7627794bd4c71beb77601861055d87e3ee464f2217c85fca7a4b56ae677478367bbd248dbde13553312b7d4dbc702a2f2bbf60c4018d
@@ -1635,7 +1625,6 @@ __metadata:
     typescript: ^4.7.4
     unplugin-icons: ^0.14.7
     unplugin-vue-components: ^0.21.1
-    vite-plugin-eslint: ^1.6.1
     vite-svg-loader: ^3.4.0
   languageName: unknown
   linkType: soft
@@ -9488,7 +9477,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.59.0, rollup@npm:^2.70.2, rollup@npm:^2.75.6, rollup@npm:^2.76.0":
+"rollup@npm:^2.59.0, rollup@npm:^2.75.6, rollup@npm:^2.76.0":
   version: 2.77.0
   resolution: "rollup@npm:2.77.0"
   dependencies:
@@ -11245,20 +11234,6 @@ __metadata:
   bin:
     vite-plugin-checker-vls: bin/vls
   checksum: b3bff686c3a48335869376d01ceb98ec4a5fa961dcdb4968ab2e629ab989a7760f2ea29c3660cf3fa54f3354968c93415fc918f2bebea2ec8a6bb93692eec41a
-  languageName: node
-  linkType: hard
-
-"vite-plugin-eslint@npm:^1.6.1":
-  version: 1.6.1
-  resolution: "vite-plugin-eslint@npm:1.6.1"
-  dependencies:
-    "@rollup/pluginutils": ^4.2.1
-    "@types/eslint": ^8.4.2
-    rollup: ^2.70.2
-  peerDependencies:
-    eslint: ">=7"
-    vite: ^2.0.0
-  checksum: f6ffeee2af63d795470b061240b0feb38da392de167c57c3e7d816cd78ff39ba8eb5eda1eddbf7d80f0c442731ae813f2bc2f59c46eba64254b7dcb7b639d78c
   languageName: node
   linkType: hard
 

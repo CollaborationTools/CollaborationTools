@@ -4,7 +4,6 @@ import { defineNuxtConfig } from 'nuxt'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
-import eslintPlugin from 'vite-plugin-eslint'
 import svgLoader from 'vite-svg-loader'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
@@ -53,7 +52,6 @@ export default defineNuxtConfig({
       }),
       Icons(),
       svgLoader(),
-      eslintPlugin(),
     ],
     resolve: {
       alias: {

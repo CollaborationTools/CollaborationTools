@@ -3,6 +3,7 @@
     <MoleculeModal
       v-model="isModalOpen"
       label="Create profile"
+      data-id="create-profile"
       @cancel="resetFields"
       @confirm="createProfile"
     >

@@ -44,10 +44,10 @@
 <script setup lang="ts">
 type Props = {
   label: string
-  outline: boolean
   modelValue: boolean
   cancelLabel?: string
   confirmLabel?: string
+  outline?: boolean
 }
 
 type Emits = {
@@ -59,9 +59,9 @@ type Emits = {
 const {
   label,
   modelValue,
-  outline = false,
   cancelLabel = 'Cancel',
   confirmLabel = 'Confirm',
+  outline = false,
 } = defineProps<Props>()
 const emit = defineEmits<Emits>()
 

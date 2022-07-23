@@ -1,21 +1,36 @@
 /* eslint-disable sonarjs/no-duplicate-string, promise/catch-or-return */
-import { USER_PROFILE_KEY } from '@/stores/useUserStore'
+
+import {
+  ORGANISATIONS_KEY,
+  RECENT_ORGANISATIONS_KEY,
+} from '@/stores/useOrganisationStore'
+import {
+  ORGANISATION_MEMBERS_KEY,
+  USER_PROFILE_KEY,
+} from '@/stores/useUserStore'
 import member1 from 'cypress/fixtures/userStorage/member-1'
 
-const memberOrganisations = member1.get('organisations')
-const memberRecentOrganisations = member1.get('recentOrganisations')
-const memberProfile = member1.get('me')
-const memberAllOrgsMembers = member1.get('org-members')
+const memberOrganisations = member1.get(ORGANISATIONS_KEY)
+const memberRecentOrganisations = member1.get(RECENT_ORGANISATIONS_KEY)
+const memberProfile = member1.get(USER_PROFILE_KEY)
+const memberAllOrganisationsMembers = member1.get(ORGANISATION_MEMBERS_KEY)
 
 const currentMemberId = memberProfile?.id ?? ''
 const currentMemberName = memberProfile?.name ?? ''
-const currentOrgId = memberRecentOrganisations[0] ?? ''
-const currentOrgName = memberOrganisations.get(currentOrgId)?.name ?? ''
+const currentOrgId = memberRecentOrganisations
+  ? memberRecentOrganisations[0] ?? ''
+  : ''
+const currentOrgName = memberOrganisations?.get(currentOrgId)?.name ?? ''
 const currentDisplayName =
-  memberAllOrgsMembers.get(currentOrgId)?.get(currentMemberId)?.name ?? ''
-const nextOrgId = memberRecentOrganisations[1] ?? ''
-const nextOrgName = memberOrganisations.get(nextOrgId)?.name ?? ''
-const thirdOrgId = memberRecentOrganisations[2] ?? ''
+  memberAllOrganisationsMembers?.get(currentOrgId)?.get(currentMemberId)
+    ?.name ?? ''
+const nextOrgId = memberRecentOrganisations
+  ? memberRecentOrganisations[1] ?? ''
+  : ''
+const nextOrgName = memberOrganisations?.get(nextOrgId)?.name ?? ''
+const thirdOrgId = memberRecentOrganisations
+  ? memberRecentOrganisations[2] ?? ''
+  : ''
 
 const differentDisplayName = 'Admin 1C'
 const newProfileName = 'Admin 1X'

@@ -2,12 +2,15 @@
   <div class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto">
     <template v-if="me">
       <template v-if="isOrganisationMember">
-        <OrganismMemberList :members="organisationMembers" />
+        <OrganismMemberList :members="organisationMembers ?? []" />
       </template>
       <template v-else>
         <AtomInfoBox>
           You have your profile configured but you are not an active member of
-          <strong>{{ currentOrganisation.name }}</strong> yet.
+          <strong>{{
+            currentOrganisation?.name ?? 'current organisation'
+          }}</strong>
+          yet.
         </AtomInfoBox>
         <AtomButton primary outline data-id="join-now" @click="joinNow"
           >Join as {{ me.name }}</AtomButton

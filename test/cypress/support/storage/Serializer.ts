@@ -34,14 +34,16 @@ type Item = string | number | boolean | object | null
 //     : 'any'
 // }
 
-const Serializer = {
+const storageSerializer = {
   [ORGANISATIONS_KEY]: StorageSerializers.map,
   [RECENT_ORGANISATIONS_KEY]: StorageSerializers.object,
   [USER_PROFILE_KEY]: StorageSerializers.object,
   [ORGANISATION_MEMBERS_KEY]: MapOfMapsSerializer,
 }
 
-export const serialize = (type: string, item: Item): string => {
-  const serializer = Serializer[type]
+type StorageSerializerKey = keyof typeof storageSerializer
+
+export const serialize = (type: StorageSerializerKey, item: Item): string => {
+  const serializer = storageSerializer[type]
   return serializer.write(item)
 }

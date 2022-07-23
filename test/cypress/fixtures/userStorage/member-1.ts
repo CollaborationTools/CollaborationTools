@@ -13,13 +13,13 @@ const org3 = createOrganisation('Org 3')
 
 const organisations = [org1, org2, org3]
 
-const profile = createUser('Admin 1')
+const profile = createUser('Admin 1A')
 
 const emptyOrganisationsMembers = new Map<
   OrganisationId,
   OrganisationMembersMap | null
 >()
-const orgMember1 = createOrganisationMember(profile, 'admin', 'Admin 1A')
+const orgMember1 = createOrganisationMember(profile, 'admin', 'Admin 1B')
 const allOrganisationsMembers = setOrganisationMember(
   emptyOrganisationsMembers,
   org1.id,

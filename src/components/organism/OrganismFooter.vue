@@ -1,6 +1,7 @@
 <template>
   <footer
     class="flex place-self-center fixed max-w-3xl md:max-w-2xl lg:max-w-4xl w-full h-16 bottom-0 md:bottom-2 md:rounded-2xl bg-white dark:bg-base-300 md:shadow-xl"
+    data-id="navigation-links"
   >
     <AtomNavLink
       v-for="link in navigationLinks"

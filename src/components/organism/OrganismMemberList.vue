@@ -1,5 +1,8 @@
 <template>
-  <div class="grid gap-4 prose prose-sm md:prose-base mx-auto">
+  <div
+    class="grid gap-4 prose prose-sm md:prose-base mx-auto"
+    data-id="members"
+  >
     <h2 class="text-center">Members</h2>
     <MoleculeMember
       v-for="member in members"

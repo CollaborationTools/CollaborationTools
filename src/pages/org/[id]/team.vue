@@ -1,18 +1,32 @@
 <template>
-  <div v-if="me" class="grid grid-cols-1 gap-4">
-    <OrganismMemberList :members="organisationMembers" />
-  </div>
-  <div v-else class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto">
-    <AtomInfoBox>
-      You do not have your profile configured&nbsp;yet. Create it now so you
-      will be&nbsp;able to&nbsp;invite others to&nbsp;join
-      this&nbsp;organisation.
-    </AtomInfoBox>
-    <OrganismCreateUser />
+  <div class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto">
+    <template v-if="me">
+      <template v-if="isOrganisationMember">
+        <OrganismMemberList :members="organisationMembers" />
+      </template>
+      <template v-else>
+        <AtomInfoBox>
+          You have your profile configured but you are not an active member of
+          <strong>{{ currentOrganisation.name }}</strong> yet.
+        </AtomInfoBox>
+        <AtomButton primary outline data-id="join-now" @click="joinNow"
+          >Join as {{ me.name }}</AtomButton
+        >
+      </template>
+    </template>
+    <template v-else>
+      <AtomInfoBox>
+        You have your profile configured&nbsp;yet. Create it now so you will
+        be&nbsp;able to&nbsp;invite others to&nbsp;join this&nbsp;organisation.
+      </AtomInfoBox>
+      <OrganismCreateUser />
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
+import AtomButton from '@/components/atom/AtomButton.vue'
+import { createOrganisationMember } from '@/core/user'
 import useOrganisations from '@/stores/useOrganisations'
 import useUsers from '@/stores/useUsers'
 
@@ -29,8 +43,17 @@ definePageMeta({
   layout: 'org',
 })
 
-const me = computed(() => userStore.getMe())
-const organisationMembers = computed(() =>
+const me = $computed(() => userStore.getMe())
+const organisationMembers = $computed(() =>
   userStore.getOrganisationMembers(currentOrganisation?.id ?? ''),
 )
+const isOrganisationMember = $computed(
+  () => !!organisationMembers?.find((member) => member.id === me?.id),
+)
+
+const joinNow = (): void => {
+  if (!me || !currentOrganisation?.id) return
+  const organisationMember = createOrganisationMember(me, 'admin')
+  userStore.setOrganisationMember(currentOrganisation.id, organisationMember)
+}
 </script>

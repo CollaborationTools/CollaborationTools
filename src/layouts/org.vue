@@ -9,14 +9,14 @@
 </template>
 
 <script setup lang="ts">
-import useOrganisations from '@/stores/useOrganisations'
+import useOrganisationStore from '@/stores/useOrganisationStore'
 
 const route = useRoute()
 const maybeOrgId = computed(() =>
   route.params.id instanceof Array ? route.params.id[0] : route.params.id,
 )
 
-const organisationsStore = useOrganisations()
+const organisationsStore = useOrganisationStore()
 const org = computed(() =>
   maybeOrgId.value
     ? organisationsStore.getOrganisation(maybeOrgId.value)

@@ -18,10 +18,10 @@
 import { ComputedRef } from 'vue'
 
 import { getOrgNavigationFor, NavLink } from '@/composables/useRouting'
-import useOrganisations from '@/stores/useOrganisations'
+import useOrganisationStore from '@/stores/useOrganisationStore'
 
 const currentOrganisation = computed(() =>
-  useOrganisations().getCurrentOrganisation(),
+  useOrganisationStore().getCurrentOrganisation(),
 )
 
 const navigationLinks: ComputedRef<NavLink[]> = computed(() =>

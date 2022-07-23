@@ -4,8 +4,11 @@ import { MapOfMapsSerializer } from '@/stores/MapOfMapsSerializer'
 import {
   ORGANISATIONS_KEY,
   RECENT_ORGANISATIONS_KEY,
-} from '@/stores/useOrganisations'
-import { ORGANISATION_MEMBERS_KEY, USER_PROFILE_KEY } from '@/stores/useUsers'
+} from '@/stores/useOrganisationStore'
+import {
+  ORGANISATION_MEMBERS_KEY,
+  USER_PROFILE_KEY,
+} from '@/stores/useUserStore'
 
 type Item = string | number | boolean | object | null
 

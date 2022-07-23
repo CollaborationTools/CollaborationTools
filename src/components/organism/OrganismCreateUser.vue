@@ -29,12 +29,12 @@ import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
 import { createOrganisationMember } from '@/core/user'
-import useOrganisations from '@/stores/useOrganisations'
-import useUsers from '@/stores/useUsers'
+import useOrganisationStore from '@/stores/useOrganisationStore'
+import useUserStore from '@/stores/useUserStore'
 
 const isModalOpen = ref(false)
 
-const userStore = useUsers()
+const userStore = useUserStore()
 
 const state = reactive({
   preferredName: '',
@@ -54,7 +54,7 @@ const resetFields = (): void => {
 
 const createProfile = async (): Promise<void> => {
   const result = await v$.value.$validate()
-  const currentOrganisation = useOrganisations().getCurrentOrganisation()
+  const currentOrganisation = useOrganisationStore().getCurrentOrganisation()
   if (!result || currentOrganisation === null) {
     return
   }

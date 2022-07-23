@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string, promise/catch-or-return */
-import { USER_PROFILE_KEY } from '@/stores/useUsers'
+import { USER_PROFILE_KEY } from '@/stores/useUserStore'
 import member1 from 'cypress/fixtures/userStorage/member-1'
 
 const memberOrganisations = member1.get('organisations')

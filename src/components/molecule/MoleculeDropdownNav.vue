@@ -30,12 +30,12 @@ import { ComputedRef } from 'vue'
 
 import { getMainOrgPathFor, organisationRoutes } from '@/composables/useRouting'
 import { Organisation } from '@/core/organisation'
-import useOrganisations from '@/stores/useOrganisations'
+import useOrganisationStore from '@/stores/useOrganisationStore'
 
 type RecentOrgWithLink = Organisation & { url: string }
 
 const recentOrganisations = computed(() =>
-  useOrganisations().getRecentOrganisations(),
+  useOrganisationStore().getRecentOrganisations(),
 )
 
 const currentOrgName = computed(

@@ -29,11 +29,11 @@
 import AtomButton from '@/components/atom/AtomButton.vue'
 import OrganismSetName from '@/components/organism/OrganismSetName.vue'
 import { createOrganisationMember } from '@/core/user'
-import useOrganisations from '@/stores/useOrganisations'
-import useUsers from '@/stores/useUsers'
+import useOrganisationStore from '@/stores/useOrganisationStore'
+import useUserStore from '@/stores/useUserStore'
 
-const organisationStore = useOrganisations()
-const userStore = useUsers()
+const organisationStore = useOrganisationStore()
+const userStore = useUserStore()
 
 const currentOrganisation = organisationStore.getCurrentOrganisation()
 

@@ -10,8 +10,11 @@ import { AllOrganisationsMembersMap, User } from '@/core/user'
 import {
   ORGANISATIONS_KEY,
   RECENT_ORGANISATIONS_KEY,
-} from '@/stores/useOrganisations'
-import { ORGANISATION_MEMBERS_KEY, USER_PROFILE_KEY } from '@/stores/useUsers'
+} from '@/stores/useOrganisationStore'
+import {
+  ORGANISATION_MEMBERS_KEY,
+  USER_PROFILE_KEY,
+} from '@/stores/useUserStore'
 
 export type UserData = {
   organisations: Organisations

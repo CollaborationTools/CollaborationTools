@@ -21,7 +21,7 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
-import useOrganisations from '@/stores/useOrganisations'
+import useOrganisationStore from '@/stores/useOrganisationStore'
 
 const state = reactive({
   orgName: '',
@@ -38,7 +38,7 @@ const createOrg = async (): Promise<void> => {
     return
   }
 
-  const org = useOrganisations().addOrganisation(state.orgName)
+  const org = useOrganisationStore().addOrganisation(state.orgName)
   useRouting().openOrganisation(org.id)
 }
 </script>

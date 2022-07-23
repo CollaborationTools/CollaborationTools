@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import useOrganisations from '@/stores/useOrganisations'
+import useOrganisationStore from '@/stores/useOrganisationStore'
 
-const organisationStore = useOrganisations()
+const organisationStore = useOrganisationStore()
 
 useHead({
   title: organisationStore.getCurrentOrganisation()?.name,

@@ -28,13 +28,13 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
-import { createOrganisationMember } from '@/core/user'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 
 const isModalOpen = ref(false)
 
 const userStore = useUserStore()
+const { addNewOrganisationMember } = useOrganisationMembers()
 
 const state = reactive({
   preferredName: '',
@@ -61,14 +61,13 @@ const createProfile = async (): Promise<void> => {
 
   const user = userStore.setMe(state.profileName)
 
-  const preferredName =
+  const displayName =
     state.preferredName.length > 0 ? state.preferredName : undefined
-  const organisationMember = createOrganisationMember(
-    user,
-    'admin',
-    preferredName,
-  )
-  userStore.setOrganisationMember(currentOrganisation.id, organisationMember)
+
+  addNewOrganisationMember(user, currentOrganisation.id, {
+    role: 'admin',
+    displayName,
+  })
 
   isModalOpen.value = false
 }

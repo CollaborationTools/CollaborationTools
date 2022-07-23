@@ -12,10 +12,14 @@
           }}</strong>
           yet.
         </AtomInfoBox>
-        <AtomButton primary outline data-id="join-now" @click="joinNow"
+        <AtomButton
+          primary
+          outline
+          data-id="join-now"
+          @click="joinOrganisation(undefined)"
           >Join as {{ me.name }}</AtomButton
         >
-        <OrganismSetName @update="setDisplayName" />
+        <OrganismSetName @update="joinOrganisation" />
       </template>
     </template>
     <template v-else>
@@ -31,7 +35,6 @@
 <script setup lang="ts">
 import AtomButton from '@/components/atom/AtomButton.vue'
 import OrganismSetName from '@/components/organism/OrganismSetName.vue'
-import { createOrganisationMember } from '@/core/user'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 
@@ -39,6 +42,7 @@ const organisationStore = useOrganisationStore()
 const userStore = useUserStore()
 
 const currentOrganisation = organisationStore.getCurrentOrganisation()
+const { addNewOrganisationMember } = useOrganisationMembers()
 
 useHead({
   title: `Team @ ${currentOrganisation?.name}`,
@@ -56,15 +60,10 @@ const isOrganisationMember = $computed(
   () => !!organisationMembers?.find((member) => member.id === me?.id),
 )
 
-const joinNow = (): void => {
-  if (!me || !currentOrganisation?.id) return
-  const organisationMember = createOrganisationMember(me, 'admin')
-  userStore.setOrganisationMember(currentOrganisation.id, organisationMember)
-}
-
-const setDisplayName = (displayName: string): void => {
-  if (!me || !currentOrganisation?.id) return
-  const organisationMember = createOrganisationMember(me, 'admin', displayName)
-  userStore.setOrganisationMember(currentOrganisation.id, organisationMember)
+const joinOrganisation = (displayName?: string): void => {
+  addNewOrganisationMember(me, currentOrganisation?.id, {
+    role: 'admin',
+    displayName,
+  })
 }
 </script>

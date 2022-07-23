@@ -18,7 +18,7 @@ import {
 import { MapOfMapsSerializer } from './MapOfMapsSerializer'
 
 export const USER_PROFILE_KEY = 'me' as const
-export const ORGANISATION_MEMBERS_KEY = 'org-members' as const
+export const ORGANISATION_MEMBERS_KEY = 'organisationsMembers' as const
 
 export default defineStore('users', {
   state: () => ({

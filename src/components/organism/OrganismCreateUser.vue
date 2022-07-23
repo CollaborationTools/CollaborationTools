@@ -16,7 +16,7 @@
         @blur="v$.profileName.$touch"
       />
       <AtomInput
-        v-model="state.preferredName"
+        v-model="state.displayName"
         label="Display name in current organisation (optional, if different than full name)"
         data-id="display-name-field"
       />
@@ -37,7 +37,7 @@ const userStore = useUserStore()
 const { addNewOrganisationMember } = useOrganisationMembers()
 
 const state = reactive({
-  preferredName: '',
+  displayName: '',
   profileName: '',
 })
 const rules = {
@@ -47,7 +47,7 @@ const rules = {
 const v$ = useVuelidate(rules, state)
 
 const resetFields = (): void => {
-  state.preferredName = ''
+  state.displayName = ''
   state.profileName = ''
   v$.value.$reset()
 }
@@ -62,7 +62,7 @@ const createProfile = async (): Promise<void> => {
   const user = userStore.setMe(state.profileName)
 
   const displayName =
-    state.preferredName.length > 0 ? state.preferredName : undefined
+    state.displayName.length > 0 ? state.displayName : undefined
 
   addNewOrganisationMember(user, currentOrganisation.id, {
     role: 'admin',

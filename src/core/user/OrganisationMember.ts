@@ -19,14 +19,14 @@ export type OrganisationMembers = Readonly<OrganisationMember[]>
 export const createOrganisationMember = (
   user: User,
   role: OrganisationMemberRole = 'member',
-  preferredName?: string,
+  displayName?: string,
   status?: OrganisationMemberStatus,
 ): OrganisationMember => {
   return {
     devices: user.devices,
     id: user.id,
     joiningDate: new Date().toISOString(),
-    name: preferredName ?? user.name,
+    name: displayName ?? user.name,
     publicKey: '',
     role,
     status: status ?? 'active',

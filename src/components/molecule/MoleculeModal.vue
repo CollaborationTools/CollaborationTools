@@ -1,8 +1,12 @@
 <template>
   <div class="contents">
-    <AtomButton primary :outline="outline" @click="isModalOpen = true">{{
-      label
-    }}</AtomButton>
+    <AtomButton
+      primary
+      :outline="outline"
+      v-bind="$attrs"
+      @click="isModalOpen = true"
+      >{{ label }}</AtomButton
+    >
 
     <Teleport to="body">
       <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events -->
@@ -17,12 +21,19 @@
         <div class="modal-box grid gap-4" @click.stop>
           <slot />
           <div class="contents">
-            <AtomButton primary outline @click="cancelAction">{{
-              cancelLabel
-            }}</AtomButton>
-            <AtomButton primary @click="confirmAction">{{
-              confirmLabel
-            }}</AtomButton>
+            <AtomButton
+              primary
+              outline
+              data-id="modal-cancel"
+              @click="cancelAction"
+              >{{ cancelLabel }}</AtomButton
+            >
+            <AtomButton
+              primary
+              data-id="modal-confirm"
+              @click="confirmAction"
+              >{{ confirmLabel }}</AtomButton
+            >
           </div>
         </div>
       </div>

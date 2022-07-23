@@ -14,7 +14,9 @@ const currentDisplayName =
   memberAllOrgsMembers.get(currentOrgId)?.get(currentMemberId)?.name ?? ''
 const nextOrgId = memberRecentOrganisations[1] ?? ''
 const nextOrgName = memberOrganisations.get(nextOrgId)?.name ?? ''
+const thirdOrgId = memberRecentOrganisations[2] ?? ''
 
+const differentDisplayName = 'Admin 1C'
 const newOrgName = 'Org 4'
 
 describe('a member can', () => {
@@ -34,6 +36,13 @@ describe('a member can', () => {
     cy.getId('navigation-links').contains('Team').click()
     cy.getId('join-now').click()
     cy.getId('members').should('contain.text', currentMemberName)
+    cy.getId('org-name').click()
+    cy.getUUID(thirdOrgId).click()
+    cy.getId('navigation-links').contains('Team').click()
+    cy.getId('set-display-name').click()
+    cy.getId('name-field').type(differentDisplayName)
+    cy.getId('modal-confirm').click()
+    cy.getId('members').should('contain.text', differentDisplayName)
   })
 
   it('create another org', () => {

@@ -4,6 +4,7 @@
       v-model="isModalOpen"
       outline
       label="Set different display name"
+      data-id="set-display-name"
       @confirm="updateName"
       @cancel="resetFields"
     >

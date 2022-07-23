@@ -1,6 +1,8 @@
 <template>
   <div class="contents">
-    <AtomButton primary @click="isModalOpen = true">{{ label }}</AtomButton>
+    <AtomButton primary :outline="outline" @click="isModalOpen = true">{{
+      label
+    }}</AtomButton>
 
     <Teleport to="body">
       <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events -->
@@ -31,6 +33,7 @@
 <script setup lang="ts">
 type Props = {
   label: string
+  outline: boolean
   modelValue: boolean
   cancelLabel?: string
   confirmLabel?: string
@@ -45,6 +48,7 @@ type Emits = {
 const {
   label,
   modelValue,
+  outline = false,
   cancelLabel = 'Cancel',
   confirmLabel = 'Confirm',
 } = defineProps<Props>()

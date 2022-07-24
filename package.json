@@ -43,6 +43,7 @@
     "eslint-plugin-vuejs-accessibility": "^1.2.0",
     "lint-staged": "^13.0.3",
     "nuxt": "3.0.0-rc.5",
+    "peerjs": "^1.4.6",
     "pinia": "^2.0.16",
     "prettier": "^2.7.1",
     "simple-git-hooks": "^2.8.0",

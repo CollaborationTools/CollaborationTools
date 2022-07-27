@@ -1,3 +1,4 @@
+import { DeviceId } from '@/core/user/Device'
 import { User } from '@/core/user/User'
 
 export type OrganisationMemberId = string
@@ -5,7 +6,7 @@ export type OrganisationMemberRole = 'admin' | 'member'
 export type OrganisationMemberStatus = 'active' | 'inactive' | 'removed'
 
 export type OrganisationMember = Readonly<{
-  devices: Readonly<string[]>
+  devices: Readonly<DeviceId[]>
   id: OrganisationMemberId
   joiningDate: string
   name: string
@@ -23,7 +24,7 @@ export const createOrganisationMember = (
   status?: OrganisationMemberStatus,
 ): OrganisationMember => {
   return {
-    devices: user.devices,
+    devices: user.devices.map((device) => device.id),
     id: user.id,
     joiningDate: new Date().toISOString(),
     name: displayName ?? user.name,

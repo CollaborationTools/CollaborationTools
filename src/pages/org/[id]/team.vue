@@ -16,10 +16,10 @@
           primary
           outline
           data-id="join-now"
-          @click="joinOrganisation(undefined)"
+          @click="joinOwnOrganisation(undefined)"
           >Join as {{ me.name }}</AtomButton
         >
-        <OrganismSetName @update="joinOrganisation" />
+        <OrganismSetName @update="joinOwnOrganisation" />
       </template>
     </template>
     <template v-else>
@@ -27,14 +27,12 @@
         You have your profile configured&nbsp;yet. Create it now so you will
         be&nbsp;able to&nbsp;invite others to&nbsp;join this&nbsp;organisation.
       </AtomInfoBox>
-      <OrganismCreateUser />
+      <OrganismCreateProfile @update="createUser" />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import AtomButton from '@/components/atom/AtomButton.vue'
-import OrganismSetName from '@/components/organism/OrganismSetName.vue'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 
@@ -60,10 +58,15 @@ const isOrganisationMember = $computed(
   () => !!organisationMembers?.find((member) => member.id === me?.id),
 )
 
-const joinOrganisation = (displayName?: string): void => {
+const joinOwnOrganisation = (displayName?: string): void => {
   addNewOrganisationMember(me, currentOrganisation?.id, {
     role: 'admin',
     displayName,
   })
+}
+
+const createUser = (name: string, displayName?: string): void => {
+  userStore.setMe(name)
+  joinOwnOrganisation(displayName)
 }
 </script>

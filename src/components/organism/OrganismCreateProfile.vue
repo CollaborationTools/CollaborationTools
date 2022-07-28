@@ -9,15 +9,15 @@
     >
       <h3 class="font-bold text-lg text-center">Create your profile</h3>
       <AtomInput
-        v-model="state.profileName"
+        v-model="state.userName"
         label="Full name"
         data-id="user-name-field"
-        :errors="v$.profileName.$errors"
-        @blur="v$.profileName.$touch"
+        :errors="v$.userName.$errors"
+        @blur="v$.userName.$touch"
       />
       <AtomInput
         v-model="state.displayName"
-        label="Display name in current organisation (optional, if different than full name)"
+        :label="displayNameLabel"
         data-id="display-name-field"
       />
     </MoleculeModal>
@@ -28,46 +28,47 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
-import useOrganisationStore from '@/stores/useOrganisationStore'
-import useUserStore from '@/stores/useUserStore'
+type Emits = {
+  (eventName: 'update', name: string, displayName?: string): void
+}
+
+type Props = {
+  displayNameLabel?: string
+}
+
+const emit = defineEmits<Emits>()
+const {
+  displayNameLabel = 'Display name in current organisation (optional, if different than full name)',
+} = defineProps<Props>()
 
 const isModalOpen = ref(false)
 
-const userStore = useUserStore()
-const { addNewOrganisationMember } = useOrganisationMembers()
-
 const state = reactive({
   displayName: '',
-  profileName: '',
+  userName: '',
 })
 const rules = {
-  profileName: { required },
+  userName: { required },
 }
 
 const v$ = useVuelidate(rules, state)
 
 const resetFields = (): void => {
   state.displayName = ''
-  state.profileName = ''
+  state.userName = ''
   v$.value.$reset()
 }
 
 const createProfile = async (): Promise<void> => {
   const result = await v$.value.$validate()
-  const currentOrganisation = useOrganisationStore().getCurrentOrganisation()
-  if (!result || currentOrganisation === null) {
+
+  if (!result) {
     return
   }
 
-  const user = userStore.setMe(state.profileName)
-
   const displayName =
     state.displayName.length > 0 ? state.displayName : undefined
-
-  addNewOrganisationMember(user, currentOrganisation.id, {
-    role: 'admin',
-    displayName,
-  })
+  emit('update', state.userName, displayName)
 
   isModalOpen.value = false
 }

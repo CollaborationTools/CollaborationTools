@@ -4,7 +4,8 @@
       :for="fieldId"
       :class="{ 'label label-text': true, 'text-red': hasError }"
     >
-      {{ label }}
+      <span>{{ label }}</span>
+      <span v-if="optional" class="label-text-alt">(optional)</span>
     </label>
     <input
       :id="fieldId"
@@ -42,6 +43,7 @@ type Props = {
   primary?: boolean
   secondary?: boolean
   accent?: boolean
+  optional?: boolean
 }
 
 type Emits = {

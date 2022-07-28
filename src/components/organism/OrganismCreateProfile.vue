@@ -17,7 +17,8 @@
       />
       <AtomInput
         v-model="state.displayName"
-        :label="displayNameLabel"
+        optional
+        label="Display name for this organisation"
         data-id="display-name-field"
       />
     </MoleculeModal>
@@ -31,15 +32,7 @@ import { required } from '@vuelidate/validators'
 type Emits = {
   (eventName: 'update', name: string, displayName?: string): void
 }
-
-type Props = {
-  displayNameLabel?: string
-}
-
 const emit = defineEmits<Emits>()
-const {
-  displayNameLabel = 'Display name in current organisation (optional, if different than full name)',
-} = defineProps<Props>()
 
 const isModalOpen = ref(false)
 

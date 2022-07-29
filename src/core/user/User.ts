@@ -1,7 +1,8 @@
-import { createDevice, Device } from '@/core/user/Device'
+import { createDevice, Device, DeviceId } from '@/core/user'
 import { createUUID } from '@/services/browser/uuid'
 
 export type User = Readonly<{
+  currentDevice: DeviceId
   devices: Readonly<Device[]>
   id: string
   name: string
@@ -9,11 +10,11 @@ export type User = Readonly<{
   publicKey: string
 }>
 
-export type Users = Readonly<User[]>
-
 export const createUser = (name: string): User => {
+  const currentDevice = createDevice()
   return {
-    devices: [createDevice()],
+    currentDevice: currentDevice.id,
+    devices: [currentDevice],
     id: createUUID(),
     name,
     privateKey: '',

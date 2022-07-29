@@ -30,6 +30,7 @@
     "@vueuse/core": "^8.9.4",
     "@vueuse/nuxt": "^8.9.4",
     "cypress": "^10.3.0",
+    "cypress-real-events": "^1.7.1",
     "daisyui": "^2.19.0",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",

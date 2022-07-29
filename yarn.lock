@@ -1677,6 +1677,7 @@ __metadata:
     "@vueuse/core": ^8.9.4
     "@vueuse/nuxt": ^8.9.4
     cypress: ^10.3.0
+    cypress-real-events: ^1.7.1
     daisyui: ^2.19.0
     eslint: ^8.20.0
     eslint-config-prettier: ^8.5.0
@@ -3261,6 +3262,15 @@ __metadata:
   version: 0.2.2
   resolution: "cuint@npm:0.2.2"
   checksum: b8127a93a7f16ce120ffcb22108014327c9808b258ee20e7dbb4c6740d7cb0f0c12d18a054eb716b0f2470090666abaae8a082d3cd5ef0e94fa447dd155842c4
+  languageName: node
+  linkType: hard
+
+"cypress-real-events@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "cypress-real-events@npm:1.7.1"
+  peerDependencies:
+    cypress: ^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x || ^10.x
+  checksum: b31c2facfa03e01e298926cd0925260b12474770fc1a3ce8998da21818db7e6d9fc2f9eb60d1771aa4ce3c29aca63d04da21e1a63e3bb117b1506a72ab0c3eb1
   languageName: node
   linkType: hard
 

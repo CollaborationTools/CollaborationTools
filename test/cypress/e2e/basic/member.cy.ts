@@ -78,4 +78,29 @@ describe('a member can', () => {
     cy.getId('modal-confirm').click()
     cy.getId('members').should('contain.text', newDisplayName)
   })
+
+  it('invite new member', () => {
+    if (Cypress.isBrowser('chrome')) {
+      cy.wrap(
+        Cypress.automation('remote:debugger:protocol', {
+          command: 'Browser.grantPermissions',
+          params: {
+            permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
+            origin: window.location.origin,
+          },
+        }),
+      )
+    }
+    cy.getId('org-name').should('contain.text', currentOrgName)
+    cy.getId('navigation-links').contains('Team').click()
+    cy.getId('invite-new-member').click()
+    cy.getId('modal-confirm').realClick()
+    cy.window()
+      .its('navigator.clipboard')
+      .invoke('readText')
+      .then((link) => {
+        return cy.visit(link)
+      })
+    cy.getId('org-name').contains(currentOrgName)
+  })
 })

@@ -7,6 +7,8 @@ import {
   createUser,
   getOrganisationMember as coreGetOrganisationMember,
   getOrganisationMembers as coreGetOrganisationMembers,
+  Invitation,
+  Invitations,
   OrganisationMember,
   OrganisationMemberId,
   OrganisationMembers,
@@ -17,8 +19,9 @@ import {
 
 import { MapOfMapsSerializer } from './MapOfMapsSerializer'
 
-export const USER_PROFILE_KEY = 'me' as const
 export const ORGANISATION_MEMBERS_KEY = 'organisationsMembers' as const
+export const USER_PROFILE_KEY = 'me' as const
+export const INVITATIONS_KEY = 'invitations' as const
 
 export default defineStore('users', {
   state: () => ({
@@ -31,8 +34,25 @@ export default defineStore('users', {
       undefined,
       { serializer: MapOfMapsSerializer },
     ),
+    invitations: useStorage<Invitations>(INVITATIONS_KEY, []),
   }),
   getters: {
+    getInvitation(state) {
+      return (invitationId: string): Invitation | null => {
+        const invitation = state.invitations.find(
+          (invite) => invite.id === invitationId,
+        )
+        return invitation ? readonly(invitation) : null
+      }
+    },
+    getActiveInvitations(state) {
+      return (): Invitations =>
+        readonly(
+          state.invitations.filter(
+            (invite) => invite.expiryDate > new Date().toISOString(),
+          ),
+        )
+    },
     getMe(state) {
       return (): User | null => (state.me ? readonly(state.me) : null)
     },
@@ -62,8 +82,14 @@ export default defineStore('users', {
     },
   },
   actions: {
+    setInvitation(invitation: Invitation): void {
+      const otherInvitations = this.invitations.filter(
+        (invite) => invite.id !== invitation.id,
+      )
+      this.invitations = [...otherInvitations, invitation]
+    },
     setMe(name: string): User {
-      this.me = this.me ? Object.assign(this.me, { name }) : createUser(name)
+      this.me = this.me ? { ...this.me, name } : createUser(name)
       return readonly(this.me)
     },
     setOrganisationMember(

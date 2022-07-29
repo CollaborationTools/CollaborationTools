@@ -2,6 +2,7 @@
   <div class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto">
     <template v-if="me">
       <template v-if="isOrganisationMember">
+        <OrganismInvitations :invitations="invitations" />
         <OrganismMemberList :members="organisationMembers ?? []" />
       </template>
       <template v-else>
@@ -40,7 +41,6 @@ const organisationStore = useOrganisationStore()
 const userStore = useUserStore()
 
 const currentOrganisation = organisationStore.getCurrentOrganisation()
-const { addNewOrganisationMember } = useOrganisationMembers()
 
 useHead({
   title: `Team @ ${currentOrganisation?.name}`,
@@ -50,6 +50,8 @@ definePageMeta({
   layout: 'org',
 })
 
+const { addNewOrganisationMember } = useOrganisationMembers()
+const invitations = $computed(() => userStore.getActiveInvitations())
 const me = $computed(() => userStore.getMe())
 const organisationMembers = $computed(() =>
   userStore.getOrganisationMembers(currentOrganisation?.id ?? ''),

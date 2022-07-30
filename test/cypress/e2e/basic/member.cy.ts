@@ -1,3 +1,4 @@
+/// <reference types="cypress-real-events" />
 /* eslint-disable sonarjs/no-duplicate-string, promise/catch-or-return */
 
 import {

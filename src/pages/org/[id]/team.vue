@@ -61,9 +61,12 @@ const isOrganisationMember = $computed(
 )
 
 const joinOwnOrganisation = (displayName?: string): void => {
-  addNewOrganisationMember(me, currentOrganisation?.id, {
+  addNewOrganisationMember({
+    devices: me?.devices.map((device) => device.id),
+    id: me?.id,
+    name: displayName ?? me?.name,
+    organisationId: currentOrganisation?.id,
     role: 'admin',
-    displayName,
   })
 }
 

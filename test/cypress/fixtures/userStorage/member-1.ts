@@ -19,7 +19,14 @@ const emptyOrganisationsMembers = new Map<
   OrganisationId,
   OrganisationMembersMap | null
 >()
-const orgMember1 = createOrganisationMember(profile, 'admin', 'Admin 1B')
+
+const orgMember1 = createOrganisationMember({
+  devices: profile.devices.map((device) => device.id),
+  id: profile.id,
+  name: 'Admin 1B',
+  role: 'admin',
+})
+
 const allOrganisationsMembers = setOrganisationMember(
   emptyOrganisationsMembers,
   org1.id,

@@ -1,9 +1,16 @@
 import { DeviceId } from '@/core/user/Device'
-import { User } from '@/core/user/User'
 
 export type OrganisationMemberId = string
 export type OrganisationMemberRole = 'admin' | 'member'
 export type OrganisationMemberStatus = 'active' | 'inactive' | 'removed'
+
+type CreateOrganisationMemberParams = {
+  devices: Readonly<DeviceId[]>
+  id: OrganisationMemberId
+  name: string
+  role?: OrganisationMemberRole
+  status?: OrganisationMemberStatus
+}
 
 export type OrganisationMember = Readonly<{
   devices: Readonly<DeviceId[]>
@@ -17,19 +24,20 @@ export type OrganisationMember = Readonly<{
 
 export type OrganisationMembers = Readonly<OrganisationMember[]>
 
-export const createOrganisationMember = (
-  user: User,
-  role: OrganisationMemberRole = 'member',
-  displayName?: string,
-  status?: OrganisationMemberStatus,
-): OrganisationMember => {
+export const createOrganisationMember = ({
+  id,
+  devices,
+  name,
+  role = 'member',
+  status = 'active',
+}: CreateOrganisationMemberParams): OrganisationMember => {
   return {
-    devices: user.devices.map((device) => device.id),
-    id: user.id,
+    devices,
+    id,
     joiningDate: new Date().toISOString(),
-    name: displayName ?? user.name,
+    name,
     publicKey: '',
     role,
-    status: status ?? 'active',
+    status,
   }
 }

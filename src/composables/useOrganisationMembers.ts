@@ -1,32 +1,42 @@
 import { OrganisationId } from '@/core/organisation'
 import {
   createOrganisationMember,
+  OrganisationMemberId,
   OrganisationMemberRole,
-  User,
 } from '@/core/user'
 import useUserStore from '@/stores/useUserStore'
 
+type AddNewOrganisationMemberProps = {
+  devices: string[] | undefined
+  id: OrganisationMemberId | undefined
+  name: string | undefined
+  organisationId: OrganisationId | undefined
+  role?: OrganisationMemberRole
+}
+
 type UseOrganisationMembers = {
-  addNewOrganisationMember: (
-    user: User | null,
-    organisationId: OrganisationId | undefined,
-    options: { role?: OrganisationMemberRole; displayName?: string },
-  ) => void
+  addNewOrganisationMember: (props: AddNewOrganisationMemberProps) => void
 }
 
 export default function useOrganisationMembers(): UseOrganisationMembers {
   const userStore = useUserStore()
 
-  const addNewOrganisationMember = (
-    user: User | null,
-    organisationId: OrganisationId | undefined,
-    {
+  const addNewOrganisationMember = ({
+    devices,
+    id,
+    name,
+    organisationId,
+    role,
+  }: AddNewOrganisationMemberProps): void => {
+    if (!devices || !id || !name || !organisationId) {
+      return
+    }
+    const organisationMember = createOrganisationMember({
+      id,
+      devices,
+      name,
       role,
-      displayName,
-    }: { role?: OrganisationMemberRole; displayName?: string },
-  ): void => {
-    if (!user || !organisationId) return
-    const organisationMember = createOrganisationMember(user, role, displayName)
+    })
     userStore.setOrganisationMember(organisationId, organisationMember)
   }
 

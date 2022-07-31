@@ -1,14 +1,78 @@
-import { createInvitation, Invitation } from '@/core/user'
+import { createEvent } from '@/core/connector'
+import {
+  createInvitation,
+  Invitation,
+  createInviteResponse,
+  CreateInviteResponseProps,
+  closeInvitation,
+  InviteResponse,
+} from '@/core/user'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 
+type AcceptInviteProps = {
+  inviterId: string
+  invitationId: string
+  userName: string
+}
+
 type UseInvitations = {
+  acceptInvite: (acceptInviteProps: AcceptInviteProps) => void
+  closeInvite: (invitationResponse: InviteResponse) => void
+  connectToInviter: (inviterId?: string) => void
   createInvite: () => Invitation | null
 }
 
 export default function useInvitations(): UseInvitations {
   const userStore = useUserStore()
   const organisationStore = useOrganisationStore()
+
+  const acceptInvite = ({
+    inviterId,
+    invitationId,
+    userName,
+  }: AcceptInviteProps): void => {
+    const me = userStore.getMe()
+    if (!me || !inviterId) {
+      return
+    }
+
+    const inviteEvent = createInviteEvent({
+      invitationId,
+      deviceId: me.currentDevice,
+      userId: me.id,
+      userName,
+    })
+
+    useConnections().sendDirectlyTo(inviterId, inviteEvent)
+  }
+
+  const closeInvite = (inviteResponse: InviteResponse): void => {
+    const invitation = userStore.getInvitation(inviteResponse.invitationId)
+    if (!invitation) {
+      return
+    }
+
+    useOrganisationMembers().addNewOrganisationMember({
+      devices: [inviteResponse.deviceId],
+      id: inviteResponse.userId,
+      name: inviteResponse.userName,
+      organisationId: invitation.organisationId,
+    })
+
+    const closedInvitation = closeInvitation(invitation, inviteResponse.userId)
+    userStore.setInvitation(closedInvitation)
+  }
+
+  const connectToInviter = (inviterId?: string): void => {
+    const currentDeviceId = userStore.getMe()?.currentDevice
+    if (!currentDeviceId || !inviterId) {
+      return
+    }
+
+    useConnections().runConnector(currentDeviceId)
+    useConnections().connectDirectlyTo(inviterId)
+  }
 
   const createInvite = (): Invitation | null => {
     const inviterId = userStore.getMe()?.id
@@ -30,7 +94,23 @@ export default function useInvitations(): UseInvitations {
     return invitation
   }
 
+  const createInviteEvent = (
+    inviteResponseData: CreateInviteResponseProps,
+  ): string => {
+    const invitationResponse = createInviteResponse(inviteResponseData)
+    const data = JSON.stringify(invitationResponse)
+    const event = createEvent({
+      data,
+      senderId: invitationResponse.userId,
+      type: 'invite',
+    })
+    return JSON.stringify(event)
+  }
+
   return {
+    acceptInvite,
+    closeInvite,
+    connectToInviter,
     createInvite,
   }
 }

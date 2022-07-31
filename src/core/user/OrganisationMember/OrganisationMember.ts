@@ -1,4 +1,4 @@
-import { DeviceId } from '@/core/user/Device'
+import { DeviceId } from '@/core/user'
 
 export type OrganisationMemberId = string
 export type OrganisationMemberRole = 'admin' | 'member'

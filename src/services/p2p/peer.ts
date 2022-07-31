@@ -31,10 +31,6 @@ export const createPeer = ({
     )
   }
 
-  peer.on('error', (error) => {
-    console.error('[PeerJS] ' + error)
-  })
-
   peer.on('open', () => {
     isReady = true
   })
@@ -51,9 +47,7 @@ export const createPeer = ({
       clearConnectionTo(dataConnection.peer)
     })
 
-    dataConnection.on('error', (error) => {
-      console.error('[PeerJS] [connection] ' + error)
-
+    dataConnection.on('error', () => {
       if (!dataConnection.open) {
         clearConnectionTo(dataConnection.peer)
       }
@@ -80,20 +74,18 @@ export const createPeer = ({
         clearConnectionTo(remoteDeviceId)
       })
 
-      newConnection.on('error', (error) => {
-        console.error('[PeerJS] [connection] ' + error)
-
+      newConnection.on('error', () => {
         if (!newConnection.open) {
           clearConnectionTo(remoteDeviceId)
         }
       })
-    } else if (attempt < 3) {
+    } else if (attempt < 10) {
       setTimeout(() => {
         connectTo(remoteDeviceId, ++attempt)
-      }, 1500)
+      }, 500)
     } else {
       console.error(
-        `[PeerJS] Cannot connect to ${remoteDeviceId}, signaling server was not connected.`,
+        `[PeerJS] Cannot connect to ${remoteDeviceId}, because signaling server was not connected yet.`,
       )
     }
   }

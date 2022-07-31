@@ -1,9 +1,9 @@
 <template>
   <main
-    v-if="!isError"
+    v-if="state === 'invite'"
     class="grid grid-col gap-4 prose prose-sm md:prose-base"
   >
-    <h1 class="text-center !mt-0 text-white">Welcome to</h1>
+    <h1 class="text-center !mt-0 dark:text-white">Welcome to</h1>
     <AtomLogo with-header />
 
     <h2 class="!mt-2">
@@ -17,11 +17,18 @@
       <OrganismCreateProfile @update="createUser" />
     </template>
     <template v-if="me">
-      <AtomButton primary disabled @click="acceptInvite">Join</AtomButton>
+      <AtomButton primary @click="acceptInvite">Join</AtomButton>
     </template>
   </main>
+  <main
+    v-else-if="state === 'loading'"
+    class="grid grid-col prose prose-sm md:prose-base"
+  >
+    <p class="text-center">loading...</p>
+    <progress class="progress w-40"></progress>
+  </main>
   <OrganismError
-    v-else
+    v-else-if="state === 'error'"
     :error="isInviteLinkExpired ? '408' : '400'"
     :error-message="
       isInviteLinkExpired
@@ -35,16 +42,17 @@
 <script setup lang="ts">
 import { Ref } from 'vue'
 
+import useInvitations from '@/composables/useInvitations'
 import { InviteLinkData, parseInviteLinkData } from '@/core/user'
 import useUserStore from '@/stores/useUserStore'
 
 const userStore = useUserStore()
 const route = useRoute()
 
-const me = computed(() => userStore.getMe())
+const me = $computed(() => userStore.getMe())
 const displayName: Ref<string | undefined> = ref(undefined)
 const maybeInviteData: Ref<InviteLinkData | null> = ref(null)
-const isError = ref(false)
+const state: Ref<'error' | 'invite' | 'loading'> = ref('invite')
 const isInviteLinkExpired = ref(false)
 
 const maybeEncodedInviteData = computed(() =>
@@ -55,21 +63,21 @@ const maybeEncodedInviteData = computed(() =>
 
 watchEffect(() => {
   if (!maybeEncodedInviteData.value) {
-    isError.value = true
+    state.value = 'error'
     return
   }
 
   maybeInviteData.value = parseInviteLinkData(maybeEncodedInviteData.value)
 
   if (maybeInviteData.value === null) {
-    isError.value = true
+    state.value = 'error'
   }
 
   if (
     maybeInviteData.value?.expiryDate &&
     maybeInviteData.value.expiryDate < new Date().toISOString()
   ) {
-    isError.value = true
+    state.value = 'error'
     isInviteLinkExpired.value = true
   }
 })
@@ -77,10 +85,22 @@ watchEffect(() => {
 const createUser = (userName: string, newDisplayName?: string): void => {
   displayName.value = newDisplayName
   userStore.setMe(userName)
+
+  useInvitations().connectToInviter(maybeInviteData.value?.inviterId)
 }
 
 const acceptInvite = (): void => {
-  //
+  if (!maybeInviteData.value || !me) {
+    return
+  }
+
+  useInvitations().acceptInvite({
+    inviterId: maybeInviteData.value.inviterId,
+    invitationId: maybeInviteData.value.invitationId,
+    userName: displayName.value ?? me.name,
+  })
+
+  state.value = 'loading'
 }
 
 useHead({

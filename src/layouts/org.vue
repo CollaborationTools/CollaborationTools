@@ -10,18 +10,25 @@
 
 <script setup lang="ts">
 import useOrganisationStore from '@/stores/useOrganisationStore'
+import useUserStore from '@/stores/useUserStore'
 
 const route = useRoute()
-const maybeOrgId = computed(() =>
+const maybeOrgId = $computed(() =>
   route.params.id instanceof Array ? route.params.id[0] : route.params.id,
 )
 
-const organisationsStore = useOrganisationStore()
+const organisationStore = useOrganisationStore()
 const org = computed(() =>
-  maybeOrgId.value
-    ? organisationsStore.getOrganisation(maybeOrgId.value)
-    : null,
+  maybeOrgId ? organisationStore.getOrganisation(maybeOrgId) : null,
 )
+
+const userStore = useUserStore()
+const me = userStore.getMe()
+
+if (me && org.value) {
+  const organisationMembers = userStore.getOrganisationMembers(org.value.id)
+  useConnections().runConnector(me.currentDevice, organisationMembers ?? [])
+}
 
 watch(
   // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
@@ -33,7 +40,7 @@ watch(
         return undefined
       }
     } else {
-      organisationsStore.setCurrentOrganisationId(org.value.id)
+      organisationStore.setCurrentOrganisationId(org.value.id)
     }
   },
   { immediate: true },

@@ -12,6 +12,11 @@
     "sourceType": "module",
     "extraFileExtensions": [".vue"]
   },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
   "plugins": ["vue", "@typescript-eslint", "sonarjs", "promise", "vuejs-accessibility", "total-functions"],
   "extends": [
     "eslint:recommended",

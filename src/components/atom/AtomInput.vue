@@ -31,6 +31,8 @@
 </template>
 
 <script setup lang="ts">
+// disable false positive
+// eslint-disable-next-line import/named
 import { ErrorObject } from '@vuelidate/core'
 
 import { createUUID } from '@/services/browser/uuid'

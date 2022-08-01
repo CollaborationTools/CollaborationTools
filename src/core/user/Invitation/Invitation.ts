@@ -39,6 +39,7 @@ export const createInvitation = ({
     expiryDate,
     invitationId: id,
     inviterId,
+    organisationId,
     organisationName,
   })
 

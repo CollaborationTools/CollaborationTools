@@ -1,4 +1,5 @@
 import { getInviteLink } from '@/composables/useRouting'
+import { OrganisationId } from '@/core/organisation'
 import { OrganisationMemberId } from '@/core/user'
 import { decode, encode } from '@/services/crypto/encoder'
 
@@ -6,6 +7,7 @@ export type InviteLinkData = {
   expiryDate: string
   invitationId: string
   inviterId: OrganisationMemberId
+  organisationId: OrganisationId
   organisationName: string
 }
 
@@ -13,9 +15,16 @@ export const createInviteLink = ({
   expiryDate,
   invitationId,
   inviterId,
+  organisationId,
   organisationName,
 }: InviteLinkData): string => {
-  const inviteLinkData = [inviterId, organisationName, invitationId, expiryDate]
+  const inviteLinkData = [
+    inviterId,
+    organisationName,
+    invitationId,
+    expiryDate,
+    organisationId,
+  ]
   const encodedData = encode(inviteLinkData.toString())
   return getInviteLink(encodedData)
 }
@@ -27,7 +36,7 @@ export const parseInviteLinkData = (
     const inviteData = decode(encodedInviteLinkData)
     const maybeInviteLinkData = inviteData.split(',')
 
-    if (maybeInviteLinkData.length !== 4) {
+    if (maybeInviteLinkData.length !== 5) {
       return null
     }
 
@@ -36,6 +45,7 @@ export const parseInviteLinkData = (
       organisationName: String(maybeInviteLinkData.at(1)),
       invitationId: String(maybeInviteLinkData.at(2)),
       expiryDate: String(maybeInviteLinkData.at(3)),
+      organisationId: String(maybeInviteLinkData.at(4)),
     }
   } catch (e) {
     return null

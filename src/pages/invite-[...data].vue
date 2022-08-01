@@ -42,8 +42,8 @@
 <script setup lang="ts">
 import { Ref } from 'vue'
 
-import useInvitations from '@/composables/useInvitations'
 import { InviteLinkData, parseInviteLinkData } from '@/core/user'
+import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 
 const userStore = useUserStore()
@@ -71,12 +71,10 @@ watchEffect(() => {
 
   if (maybeInviteData.value === null) {
     state.value = 'error'
+    return
   }
 
-  if (
-    maybeInviteData.value?.expiryDate &&
-    maybeInviteData.value.expiryDate < new Date().toISOString()
-  ) {
+  if (maybeInviteData.value.expiryDate < new Date().toISOString()) {
     state.value = 'error'
     isInviteLinkExpired.value = true
   }
@@ -102,6 +100,17 @@ const acceptInvite = (): void => {
 
   state.value = 'loading'
 }
+
+watchEffect(() => {
+  const organisation = useOrganisationStore().getOrganisation(
+    maybeInviteData.value?.organisationId ?? '',
+  )
+  if (!organisation) {
+    return
+  }
+
+  useRouting().openOrganisation(organisation.id)
+})
 
 useHead({
   title: maybeInviteData.value?.organisationName

@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto">
+  <div class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto mb-16">
     <template v-if="me">
       <template v-if="isOrganisationMember">
         <OrganismInvitations :invitations="invitations" />

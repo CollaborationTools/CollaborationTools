@@ -78,6 +78,10 @@ watchEffect(() => {
     state.value = 'error'
     isInviteLinkExpired.value = true
   }
+
+  if (me) {
+    useInvitations().connectToInviter(maybeInviteData.value.inviterId)
+  }
 })
 
 const createUser = (userName: string, newDisplayName?: string): void => {

@@ -1,3 +1,4 @@
+import { OrganisationId } from '@/core/organisation'
 import { DeviceId } from '@/core/user'
 
 export type OrganisationMemberId = string
@@ -23,6 +24,10 @@ export type OrganisationMember = Readonly<{
 }>
 
 export type OrganisationMembers = Readonly<OrganisationMember[]>
+export type OrganisationMembersInContext = Readonly<{
+  organisationId: OrganisationId
+  organisationMembers: OrganisationMembers
+}>
 
 export const createOrganisationMember = ({
   id,
@@ -40,4 +45,11 @@ export const createOrganisationMember = ({
     role,
     status,
   }
+}
+
+export const createOrganisationMembersInContext = (
+  organisationId: OrganisationId,
+  organisationMembers: OrganisationMembers,
+): OrganisationMembersInContext => {
+  return { organisationId, organisationMembers }
 }

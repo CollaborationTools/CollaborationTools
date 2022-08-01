@@ -29,6 +29,10 @@ export default function useConnections(): UseConnections {
     currentDeviceId: DeviceId,
     currentOrganisationMembers: OrganisationMembers = [],
   ): void => {
+    if (connector.value) {
+      return
+    }
+
     const createReactiveArray = (): string[] => reactive([])
 
     connector.value = createConnector({

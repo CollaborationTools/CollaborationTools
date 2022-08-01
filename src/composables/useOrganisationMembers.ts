@@ -1,8 +1,11 @@
+import { createEvent } from '@/core/connector'
 import { OrganisationId } from '@/core/organisation'
 import {
   createOrganisationMember,
+  createOrganisationMembersInContext,
   OrganisationMemberId,
   OrganisationMemberRole,
+  OrganisationMembers,
 } from '@/core/user'
 import useUserStore from '@/stores/useUserStore'
 
@@ -16,6 +19,11 @@ type AddNewOrganisationMemberProps = {
 
 type UseOrganisationMembers = {
   addNewOrganisationMember: (props: AddNewOrganisationMemberProps) => void
+  createOrganisationMembersEvent: (
+    senderId: OrganisationMemberId,
+    organisationId: OrganisationId,
+    organisationMembers: OrganisationMembers,
+  ) => string
 }
 
 export default function useOrganisationMembers(): UseOrganisationMembers {
@@ -40,5 +48,23 @@ export default function useOrganisationMembers(): UseOrganisationMembers {
     userStore.setOrganisationMember(organisationId, organisationMember)
   }
 
-  return { addNewOrganisationMember }
+  const createOrganisationMembersEvent = (
+    senderId: OrganisationMemberId,
+    organisationId: OrganisationId,
+    organisationMembers: OrganisationMembers,
+  ): string => {
+    const organisationMembersInContext = createOrganisationMembersInContext(
+      organisationId,
+      organisationMembers,
+    )
+    const data = JSON.stringify(organisationMembersInContext)
+    const event = createEvent({
+      data,
+      senderId,
+      type: 'organisationMembers',
+    })
+    return JSON.stringify(event)
+  }
+
+  return { addNewOrganisationMember, createOrganisationMembersEvent }
 }

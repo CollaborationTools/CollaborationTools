@@ -2,7 +2,7 @@ import { OrganisationMemberId } from '@/core/user'
 import { createUUID } from '@/services/browser/uuid'
 
 export type EventId = string
-export type EventType = 'invite'
+export type EventType = 'invite' | 'organisation' | 'organisationMembers'
 
 type CreateEventProps = {
   data: string

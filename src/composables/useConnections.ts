@@ -1,12 +1,16 @@
 import { Ref } from 'vue'
 
 import { Connector, createConnector, Event } from '@/core/connector'
+import { Organisation } from '@/core/organisation'
 import {
   DeviceId,
   InviteResponse,
   OrganisationMemberId,
   OrganisationMembers,
+  OrganisationMembersInContext,
 } from '@/core/user'
+import useOrganisationStore from '@/stores/useOrganisationStore'
+import useUserStore from '@/stores/useUserStore'
 
 type UseConnections = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
@@ -47,6 +51,20 @@ export default function useConnections(): UseConnections {
           if (event.type === 'invite') {
             const inviteResponse: InviteResponse = JSON.parse(event.data)
             useInvitations().closeInvite(inviteResponse)
+          } else if (event.type === 'organisation') {
+            const organisation: Organisation = JSON.parse(event.data)
+            useOrganisationStore().setOrganisation(organisation)
+          } else if (event.type === 'organisationMembers') {
+            const {
+              organisationId,
+              organisationMembers,
+            }: OrganisationMembersInContext = JSON.parse(event.data)
+            organisationMembers.forEach((organisationMember) =>
+              useUserStore().setOrganisationMember(
+                organisationId,
+                organisationMember,
+              ),
+            )
           }
         }
       },

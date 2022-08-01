@@ -14,6 +14,7 @@ import {
   Organisations,
   RecentOrganisations,
   setMostRecentOrganisation as coreSetMostRecentOrganisation,
+  setOrganisation as coreSetOrganisation,
 } from '@/core/organisation'
 
 export const ORGANISATIONS_KEY = 'organisations' as const
@@ -61,6 +62,12 @@ export default defineStore('organisations', {
       )
       this.organisationsMap = organisationMap
       return organisation
+    },
+    setOrganisation(organisation: Organisation): void {
+      this.organisationsMap = coreSetOrganisation(
+        this.organisationsMap,
+        organisation,
+      )
     },
     setCurrentOrganisationId(currentOrganisationId: string): void {
       this.recentOrganisations = coreSetMostRecentOrganisation(

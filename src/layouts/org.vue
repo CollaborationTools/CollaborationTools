@@ -41,6 +41,8 @@ watch(
       }
     } else {
       organisationStore.setCurrentOrganisationId(org.value.id)
+      const organisationMembers = userStore.getOrganisationMembers(org.value.id)
+      useConnections().setOrganisationMembers(organisationMembers ?? [])
     }
   },
   { immediate: true },

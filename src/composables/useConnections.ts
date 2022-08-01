@@ -20,6 +20,7 @@ type UseConnections = {
   ) => void
   sendDataTo: (recipient: OrganisationMemberId, data: string) => void
   sendDirectlyTo: (remoteDeviceId: DeviceId, data: string) => void
+  setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
 }
 
 const connector: Ref<Connector | null> = ref(null)
@@ -97,10 +98,20 @@ export default function useConnections(): UseConnections {
     connector.value.sendDirectlyTo(remoteDeviceId, data)
   }
 
+  const setOrganisationMembers = (
+    organisationMembers: OrganisationMembers,
+  ): void => {
+    if (!connector.value) {
+      return
+    }
+    connector.value.setOrganisationMembers(organisationMembers)
+  }
+
   return {
     connectDirectlyTo,
     runConnector,
     sendDataTo,
     sendDirectlyTo,
+    setOrganisationMembers,
   }
 }

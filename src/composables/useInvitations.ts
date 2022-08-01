@@ -1,4 +1,5 @@
 import { createEvent } from '@/core/connector'
+import { OrganisationId } from '@/core/organisation'
 import {
   createInvitation,
   Invitation,
@@ -6,6 +7,7 @@ import {
   CreateInviteResponseProps,
   closeInvitation,
   InviteResponse,
+  OrganisationMemberId,
 } from '@/core/user'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
@@ -60,6 +62,8 @@ export default function useInvitations(): UseInvitations {
       organisationId: invitation.organisationId,
     })
 
+    sendOrganisationDataTo(inviteResponse.deviceId, invitation.organisationId)
+
     const closedInvitation = closeInvitation(invitation, inviteResponse.userId)
     userStore.setInvitation(closedInvitation)
   }
@@ -105,6 +109,34 @@ export default function useInvitations(): UseInvitations {
       type: 'invite',
     })
     return JSON.stringify(event)
+  }
+
+  const sendOrganisationDataTo = (
+    inviteeId: OrganisationMemberId,
+    organisationId: OrganisationId,
+  ): void => {
+    const me = userStore.getMe()
+    const organisation = organisationStore.getOrganisation(organisationId)
+    const organisationMembers = userStore.getOrganisationMembers(organisationId)
+
+    if (!me || !organisation || !organisationMembers) {
+      return
+    }
+
+    const organisationEvent = useOrganisations().createOrganisationEvent(
+      me.id,
+      organisation,
+    )
+    const organisationMembersEvent =
+      useOrganisationMembers().createOrganisationMembersEvent(
+        me.id,
+        organisation.id,
+        organisationMembers,
+      )
+
+    const { sendDirectlyTo } = useConnections()
+    sendDirectlyTo(inviteeId, organisationEvent)
+    sendDirectlyTo(inviteeId, organisationMembersEvent)
   }
 
   return {

@@ -1,6 +1,6 @@
 import { Ref } from 'vue'
 
-import { Connector, createConnector, Event } from '@/core/connector'
+import { Connector, createConnector, Event } from '@/core/event'
 import { Organisation } from '@/core/organisation'
 import {
   DeviceId,

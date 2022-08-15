@@ -1,4 +1,4 @@
-import { createEvent } from '@/core/connector'
+import { createEvent } from '@/core/event'
 import { OrganisationId } from '@/core/organisation'
 import {
   createInvitation,

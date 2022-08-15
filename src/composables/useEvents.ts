@@ -12,9 +12,9 @@ import {
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 
-type UseConnections = {
+type UseEvents = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
-  runConnector: (
+  runEventManager: (
     currentDeviceId: DeviceId,
     currentOrganisationMembers?: OrganisationMembers,
   ) => void
@@ -23,30 +23,30 @@ type UseConnections = {
   setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
 }
 
-const connector: Ref<EventManager | null> = ref(null)
+const eventManager: Ref<EventManager | null> = ref(null)
 
-export default function useConnections(): UseConnections {
-  const runConnector = (
+export default function useEvents(): UseEvents {
+  const runEventManager = (
     currentDeviceId: DeviceId,
     currentOrganisationMembers: OrganisationMembers = [],
   ): void => {
-    if (connector.value) {
+    if (eventManager.value) {
       return
     }
 
     const createReactiveArray = (): string[] => reactive([])
 
-    connector.value = createEventManager({
+    eventManager.value = createEventManager({
       currentDeviceId,
       currentOrganisationMembers,
       createReactiveArray,
     })
 
-    if (!connector.value) {
+    if (!eventManager.value) {
       return
     }
 
-    const dataFeed = connector.value.getDataFeed()
+    const dataFeed = eventManager.value.getDataFeed()
 
     watch(
       dataFeed,
@@ -78,38 +78,38 @@ export default function useConnections(): UseConnections {
   }
 
   const connectDirectlyTo = (remoteDeviceId: DeviceId): void => {
-    if (!connector.value) {
+    if (!eventManager.value) {
       return
     }
-    connector.value.connectDirectlyTo(remoteDeviceId)
+    eventManager.value.connectDirectlyTo(remoteDeviceId)
   }
 
   const sendDataTo = (recipient: OrganisationMemberId, data: string): void => {
-    if (!connector.value) {
+    if (!eventManager.value) {
       return
     }
-    connector.value.sendDataTo(recipient, data)
+    eventManager.value.sendDataTo(recipient, data)
   }
 
   const sendDirectlyTo = (remoteDeviceId: DeviceId, data: string): void => {
-    if (!connector.value) {
+    if (!eventManager.value) {
       return
     }
-    connector.value.sendDirectlyTo(remoteDeviceId, data)
+    eventManager.value.sendDirectlyTo(remoteDeviceId, data)
   }
 
   const setOrganisationMembers = (
     organisationMembers: OrganisationMembers,
   ): void => {
-    if (!connector.value) {
+    if (!eventManager.value) {
       return
     }
-    connector.value.setOrganisationMembers(organisationMembers)
+    eventManager.value.setOrganisationMembers(organisationMembers)
   }
 
   return {
     connectDirectlyTo,
-    runConnector,
+    runEventManager,
     sendDataTo,
     sendDirectlyTo,
     setOrganisationMembers,

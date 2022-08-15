@@ -46,7 +46,7 @@ export default function useInvitations(): UseInvitations {
       userName,
     })
 
-    useConnections().sendDirectlyTo(inviterId, inviteEvent)
+    useEvents().sendDirectlyTo(inviterId, inviteEvent)
   }
 
   const closeInvite = (inviteResponse: InviteResponse): void => {
@@ -74,8 +74,8 @@ export default function useInvitations(): UseInvitations {
       return
     }
 
-    useConnections().runConnector(currentDeviceId)
-    useConnections().connectDirectlyTo(inviterId)
+    useEvents().runEventManager(currentDeviceId)
+    useEvents().connectDirectlyTo(inviterId)
   }
 
   const createInvite = (): Invitation | null => {
@@ -134,7 +134,7 @@ export default function useInvitations(): UseInvitations {
         organisationMembers,
       )
 
-    const { sendDirectlyTo } = useConnections()
+    const { sendDirectlyTo } = useEvents()
     sendDirectlyTo(inviteeId, organisationEvent)
     sendDirectlyTo(inviteeId, organisationMembersEvent)
   }

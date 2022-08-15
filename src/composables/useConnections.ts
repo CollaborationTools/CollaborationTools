@@ -1,6 +1,6 @@
 import { Ref } from 'vue'
 
-import { Connector, createConnector, Event } from '@/core/event'
+import { EventManager, createEventManager, Event } from '@/core/event'
 import { Organisation } from '@/core/organisation'
 import {
   DeviceId,
@@ -23,7 +23,7 @@ type UseConnections = {
   setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
 }
 
-const connector: Ref<Connector | null> = ref(null)
+const connector: Ref<EventManager | null> = ref(null)
 
 export default function useConnections(): UseConnections {
   const runConnector = (
@@ -36,7 +36,7 @@ export default function useConnections(): UseConnections {
 
     const createReactiveArray = (): string[] => reactive([])
 
-    connector.value = createConnector({
+    connector.value = createEventManager({
       currentDeviceId,
       currentOrganisationMembers,
       createReactiveArray,

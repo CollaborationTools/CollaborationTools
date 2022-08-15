@@ -1,2 +1,2 @@
-export * from './Connector'
+export * from './EventManager'
 export * from './Event'

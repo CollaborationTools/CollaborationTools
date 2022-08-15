@@ -5,7 +5,7 @@ import {
 } from '@/core/user'
 import { createPeer } from '@/services/p2p/peer'
 
-export type Connector = {
+export type EventManager = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
   getActiveConnections: () => string[]
   getDataFeed: () => string[]
@@ -14,17 +14,17 @@ export type Connector = {
   setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
 }
 
-type CreateConnectorParams = {
+type CreateEventManagerParams = {
   currentDeviceId: DeviceId
   currentOrganisationMembers: OrganisationMembers
   createReactiveArray: () => string[]
 }
 
-export const createConnector = ({
+export const createEventManager = ({
   currentDeviceId,
   currentOrganisationMembers,
   createReactiveArray,
-}: CreateConnectorParams): Connector => {
+}: CreateEventManagerParams): EventManager => {
   const activeConnections = createReactiveArray()
   const dataFeed = createReactiveArray()
   let organisationMembers = currentOrganisationMembers

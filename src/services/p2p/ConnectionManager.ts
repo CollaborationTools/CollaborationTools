@@ -1,6 +1,6 @@
-import { DataConnection, PeerErrorType, Peer as PeerJs } from 'peerjs'
+import { PeerErrorType, Peer as PeerJs } from 'peerjs'
 
-import { clearConnectionTo } from '@/services/p2p/Connection'
+import { clearConnectionTo, DataConnection } from '@/services/p2p/Connection'
 
 type PeerError = Error & {
   type?: PeerErrorType

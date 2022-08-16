@@ -1,4 +1,8 @@
+import { DataConnection as PeerDataConnection } from 'peerjs'
+
 import { ConnectionManager } from '@/services/p2p/ConnectionManager'
+
+export type DataConnection = PeerDataConnection
 
 export const clearConnectionTo = (
   connectionManager: ConnectionManager,

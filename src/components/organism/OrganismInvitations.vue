@@ -37,7 +37,6 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
 
-import AtomDot from '@/components/atom/AtomDot.vue'
 import {
   createInvitation,
   INVITATION_EXPIRY_TIME_IN_MINUTES,

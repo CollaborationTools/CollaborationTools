@@ -50,7 +50,6 @@ definePageMeta({
   layout: 'org',
 })
 
-const { addNewOrganisationMember } = useOrganisationMembers()
 const invitations = $computed(() => userStore.getActiveInvitations())
 const me = $computed(() => userStore.getMe())
 const organisationMembers = $computed(() =>
@@ -61,7 +60,7 @@ const isOrganisationMember = $computed(
 )
 
 const joinOwnOrganisation = (displayName?: string): void => {
-  addNewOrganisationMember({
+  useOrganisationMembers().addNewOrganisationMember({
     devices: me?.devices.map((device) => device.id),
     id: me?.id,
     name: displayName ?? me?.name,

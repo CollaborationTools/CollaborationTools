@@ -15,13 +15,13 @@ declare global {
        */
       getId: (dataId: string, visible?: boolean) => Chainable<JQuery>
       /**
-       * Custom command to select DOM element by data-id attribute.
+       * Custom command to select DOM element by data-uuid attribute.
        *
        * Optionally you can pass *false* as a second argument to select non-visible element.
-       * @param {string} dataUUID element's data-id
+       * @param {string} dataUUID element's data-uuid
        * @param {boolean} visible=true determines if only visible elements will be returned
-       * @example cy.getId('954346a2-f110-4db9-9b95-08d3844edc86')
-       * @example cy.getId('954346a2-f110-4db9-9b95-08d3844edc86', false)
+       * @example cy.getUUID('954346a2-f110-4db9-9b95-08d3844edc86')
+       * @example cy.getUUID('954346a2-f110-4db9-9b95-08d3844edc86', false)
        */
       getUUID: (dataUUID: string, visible?: boolean) => Chainable<JQuery>
     }

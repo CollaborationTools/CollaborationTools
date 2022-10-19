@@ -8,9 +8,6 @@ import svgLoader from 'vite-svg-loader'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  autoImports: {
-    dirs: ['composables', 'composables/*/index.ts'],
-  },
   colorMode: {
     classSuffix: '',
     dataValue: 'theme',
@@ -20,6 +17,9 @@ export default defineNuxtConfig({
   },
   experimental: {
     reactivityTransform: true,
+  },
+  imports: {
+    dirs: ['composables', 'composables/*/index.ts'],
   },
   modules: [
     '@nuxtjs/tailwindcss',

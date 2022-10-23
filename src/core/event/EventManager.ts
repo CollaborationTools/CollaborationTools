@@ -4,16 +4,15 @@ import {
   OrganisationMembers,
 } from '@/core/user'
 import {
+  PeerEvent,
   connectTo,
-  createConnectionManager,
-  disconnectFrom,
+  createPeerConnector,
+  getConnectionId,
   sendTo,
 } from '@/services/p2p'
 
 export type EventManager = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
-  getDataConnections: () => string[]
-  getDataFeed: () => string[]
   sendDataTo: (recipient: OrganisationMemberId, data: string) => void
   sendDirectlyTo: (remoteDeviceId: DeviceId, data: string) => void
   setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
@@ -28,16 +27,15 @@ type CreateEventManagerParams = {
 export const createEventManager = ({
   currentDeviceId,
   currentOrganisationMembers,
-  createReactiveArray,
 }: CreateEventManagerParams): EventManager => {
-  const dataConnections = createReactiveArray()
-  const dataFeed = createReactiveArray()
   let organisationMembers = currentOrganisationMembers
 
-  const connectionManager = createConnectionManager(currentDeviceId)
+  const eventHandler = (connectionEvent: PeerEvent): void => {
+    console.log(connectionEvent)
+  }
 
-  const getDataConnections = (): string[] => dataConnections
-  const getDataFeed = (): string[] => dataFeed
+  const connectionManager = createPeerConnector(currentDeviceId, eventHandler)
+  console.log(connectionManager)
 
   const connectDirectlyTo = (remoteDeviceId: DeviceId): void => {
     connectTo(connectionManager, remoteDeviceId)
@@ -68,9 +66,6 @@ export const createEventManager = ({
     newOrganisationMembers: OrganisationMembers,
   ): void => {
     organisationMembers = newOrganisationMembers
-    dataConnections.forEach((connection) =>
-      disconnectFrom(connectionManager, connection),
-    )
 
     connectToOrganisationMembers(newOrganisationMembers)
   }
@@ -78,7 +73,13 @@ export const createEventManager = ({
   const getConnectedDevicesIds = (
     devicesIds: Readonly<DeviceId[]>,
   ): Readonly<DeviceId[]> =>
-    devicesIds.filter((device) => dataConnections.includes(device))
+    devicesIds.filter((device) => {
+      const connectionId = getConnectionId(
+        device,
+        connectionManager.currentDeviceId,
+      )
+      return !!connectionManager.connections.get(connectionId)
+    })
 
   const sendDataTo = (recipient: OrganisationMemberId, data: string): void => {
     const organisationMember = organisationMembers.find(
@@ -109,8 +110,6 @@ export const createEventManager = ({
 
   return {
     connectDirectlyTo,
-    getDataConnections,
-    getDataFeed,
     sendDataTo,
     sendDirectlyTo,
     setOrganisationMembers,

@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     'unplugin-icons/nuxt',
     '@pinia/nuxt',
   ],
-  srcDir: 'src',
+  srcDir: 'platform/framework',
   ssr: false,
   tailwindcss: {
     configPath: './tailwind.config.ts',
@@ -54,7 +54,7 @@ export default defineNuxtConfig({
     ],
     resolve: {
       alias: {
-        '@/': `${path.resolve(__dirname, 'src')}/`,
+        '@/': `${path.resolve(__dirname, 'platform/framework')}/`,
       },
     },
   },

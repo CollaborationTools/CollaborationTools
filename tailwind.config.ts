@@ -2,9 +2,9 @@ import colors from 'tailwindcss/colors'
 
 export default {
   content: [
-    './src/components/**/*.vue',
-    './src/layouts/**/*.vue',
-    './src/pages/**/*.vue',
+    './platform/framework/components/**/*.vue',
+    './platform/framework/layouts/**/*.vue',
+    './platform/framework/pages/**/*.vue',
   ],
   daisyui: {
     themes: [

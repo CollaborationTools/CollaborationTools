@@ -1,4 +1,4 @@
-<p style="text-align: center;"><img alt="logo" src="public/images/logo-256x256.png" width="256"></p>
+<p style="text-align: center;"><img alt="logo" src="platform/framework/public/images/logo-256x256.png" width="256"></p>
 
 # Collaboration Tools
 

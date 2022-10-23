@@ -8,7 +8,7 @@
         "./test/cypress/*"
       ],
       "@/*": [
-        "./src/*"
+        "./platform/framework/*"
       ],
       "@@/*": [
         "./*"

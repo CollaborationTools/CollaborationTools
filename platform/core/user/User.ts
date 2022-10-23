@@ -1,6 +1,5 @@
-import { createUUID } from '@/services/browser/uuid'
 import { createDevice, Device, DeviceId } from 'core/user'
-
+import { createUUID } from 'services/browser/uuid'
 
 export type User = Readonly<{
   currentDevice: DeviceId

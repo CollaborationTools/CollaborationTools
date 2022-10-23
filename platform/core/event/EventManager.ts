@@ -1,12 +1,11 @@
+import { DeviceId, OrganisationMemberId, OrganisationMembers } from 'core/user'
 import {
   PeerEvent,
   connectTo,
   createPeerConnector,
   getConnectionId,
   sendTo,
-} from '@/services/p2p'
-import { DeviceId, OrganisationMemberId, OrganisationMembers } from 'core/user'
-
+} from 'services/p2p'
 
 export type EventManager = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void

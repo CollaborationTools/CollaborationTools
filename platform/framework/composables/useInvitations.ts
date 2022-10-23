@@ -12,7 +12,6 @@ import {
 } from 'core/organisation'
 import { OrganisationMemberId } from 'core/user'
 
-
 type AcceptInviteProps = {
   inviterId: string
   invitationId: string

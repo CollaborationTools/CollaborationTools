@@ -9,7 +9,6 @@ import {
   OrganisationMembers,
 } from 'core/user'
 
-
 type AddNewOrganisationMemberProps = {
   devices: string[] | undefined
   id: OrganisationMemberId | undefined

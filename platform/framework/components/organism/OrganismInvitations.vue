@@ -37,7 +37,6 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
 
-
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 import {

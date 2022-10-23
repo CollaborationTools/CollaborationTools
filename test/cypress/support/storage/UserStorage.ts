@@ -16,7 +16,6 @@ import {
 } from 'core/organisation'
 import { AllOrganisationsMembersMap, User } from 'core/user'
 
-
 export type UserData = {
   organisations: Organisations
   profile: User

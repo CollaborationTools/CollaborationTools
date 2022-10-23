@@ -1,7 +1,7 @@
-import { createUUID } from '@/services/browser/uuid'
+
 import { OrganisationId, createInviteLink } from 'core/organisation'
 import { OrganisationMemberId } from 'core/user/OrganisationMember'
-
+import { createUUID } from 'services/browser/uuid'
 
 export type InvitationProps = {
   inviterId: OrganisationMemberId

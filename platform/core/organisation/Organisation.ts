@@ -1,4 +1,4 @@
-import { createUUID } from '@/services/browser/uuid'
+import { createUUID } from 'services/browser/uuid'
 
 export type OrganisationId = string
 

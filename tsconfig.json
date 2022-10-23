@@ -13,6 +13,9 @@
       "core/*": [
         "./platform/core/*"
       ],
+      "services/*": [
+        "./platform/services/*"
+      ],
       "@@/*": [
         "./*"
       ],

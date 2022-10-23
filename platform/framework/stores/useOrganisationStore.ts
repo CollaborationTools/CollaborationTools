@@ -15,7 +15,7 @@ import {
   RecentOrganisations,
   setMostRecentOrganisation as coreSetMostRecentOrganisation,
   setOrganisation as coreSetOrganisation,
-} from '@/core/organisation'
+} from 'core/organisation'
 
 export const ORGANISATIONS_KEY = 'organisations' as const
 export const RECENT_ORGANISATIONS_KEY = 'recentOrganisations' as const

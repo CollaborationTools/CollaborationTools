@@ -1,5 +1,5 @@
-import { OrganisationMemberId } from '@/core/user'
 import { createUUID } from '@/services/browser/uuid'
+import { OrganisationMemberId } from 'core/user'
 
 export type EventId = string
 export type EventType = 'invite' | 'organisation' | 'organisationMembers'

@@ -1,7 +1,8 @@
 import { getInviteLink } from '@/composables/useRouting'
-import { OrganisationId } from '@/core/organisation'
-import { OrganisationMemberId } from '@/core/user'
 import { decode, encode } from '@/services/crypto/encoder'
+import { OrganisationId } from 'core/organisation'
+import { OrganisationMemberId } from 'core/user'
+
 
 export type InviteLinkData = {
   expiryDate: string

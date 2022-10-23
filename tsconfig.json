@@ -10,6 +10,9 @@
       "@/*": [
         "./platform/framework/*"
       ],
+      "core/*": [
+        "./platform/core/*"
+      ],
       "@@/*": [
         "./*"
       ],

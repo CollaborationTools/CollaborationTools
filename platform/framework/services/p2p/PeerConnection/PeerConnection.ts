@@ -3,7 +3,7 @@ import {
   MediaConnection as PeerjsMediaConnection,
 } from 'peerjs'
 
-import { DeviceId } from '@/core/user'
+import { DeviceId } from 'core/user'
 
 import { PeerConnectionType } from './PeerConnectionType'
 

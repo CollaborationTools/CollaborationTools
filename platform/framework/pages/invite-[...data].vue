@@ -42,9 +42,9 @@
 <script setup lang="ts">
 import { Ref } from 'vue'
 
-import { InviteLinkData, parseInviteLinkData } from '@/core/organisation'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
+import { InviteLinkData, parseInviteLinkData } from 'core/organisation'
 
 const userStore = useUserStore()
 const route = useRoute()

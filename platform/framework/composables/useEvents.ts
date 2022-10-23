@@ -1,14 +1,14 @@
 import { Ref } from 'vue'
 
-import { EventManager, createEventManager } from '@/core/event'
-// import { EventManager, createEventManager, Event } from '@/core/event'
-// import { Organisation, InviteResponse } from '@/core/organisation'
+import { EventManager, createEventManager } from 'core/event'
+// import { EventManager, createEventManager, Event } from 'core/event'
+// import { Organisation, InviteResponse } from 'core/organisation'
 import {
   DeviceId,
   OrganisationMemberId,
   OrganisationMembers,
   // OrganisationMembersInContext,
-} from '@/core/user'
+} from 'core/user'
 // import useOrganisationStore from '@/stores/useOrganisationStore'
 // import useUserStore from '@/stores/useUserStore'
 

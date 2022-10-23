@@ -37,13 +37,14 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
 
+
+import useOrganisationStore from '@/stores/useOrganisationStore'
+import useUserStore from '@/stores/useUserStore'
 import {
   createInvitation,
   INVITATION_EXPIRY_TIME_IN_MINUTES,
   Invitations,
-} from '@/core/organisation'
-import useOrganisationStore from '@/stores/useOrganisationStore'
-import useUserStore from '@/stores/useUserStore'
+} from 'core/organisation'
 
 type Props = {
   invitations: Invitations

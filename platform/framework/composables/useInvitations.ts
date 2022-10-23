@@ -1,4 +1,6 @@
-import { createEvent } from '@/core/event'
+import useOrganisationStore from '@/stores/useOrganisationStore'
+import useUserStore from '@/stores/useUserStore'
+import { createEvent } from 'core/event'
 import {
   OrganisationId,
   createInvitation,
@@ -7,10 +9,9 @@ import {
   CreateInviteResponseProps,
   closeInvitation,
   InviteResponse,
-} from '@/core/organisation'
-import { OrganisationMemberId } from '@/core/user'
-import useOrganisationStore from '@/stores/useOrganisationStore'
-import useUserStore from '@/stores/useUserStore'
+} from 'core/organisation'
+import { OrganisationMemberId } from 'core/user'
+
 
 type AcceptInviteProps = {
   inviterId: string

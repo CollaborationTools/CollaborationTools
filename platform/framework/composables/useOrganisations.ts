@@ -1,6 +1,6 @@
-import { createEvent } from '@/core/event'
-import { Organisation } from '@/core/organisation'
-import { OrganisationMemberId } from '@/core/user'
+import { createEvent } from 'core/event'
+import { Organisation } from 'core/organisation'
+import { OrganisationMemberId } from 'core/user'
 
 type UseOrganisations = {
   createOrganisationEvent: (

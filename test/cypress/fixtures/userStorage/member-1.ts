@@ -1,10 +1,10 @@
-import { createOrganisation, OrganisationId } from '@/core/organisation'
+import { createOrganisation, OrganisationId } from 'core/organisation'
 import {
   createOrganisationMember,
   createUser,
   OrganisationMembersMap,
   setOrganisationMember,
-} from '@/core/user'
+} from 'core/user'
 import { createUserStorage } from 'cypress/support/storage'
 
 const org1 = createOrganisation('Org 1')

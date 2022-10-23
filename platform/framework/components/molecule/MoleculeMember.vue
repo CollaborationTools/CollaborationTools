@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { OrganisationMember } from '@/core/user'
+import { OrganisationMember } from 'core/user'
 
 type Props = {
   member: OrganisationMember

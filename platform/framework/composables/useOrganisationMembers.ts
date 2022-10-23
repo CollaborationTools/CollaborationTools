@@ -1,13 +1,14 @@
-import { createEvent } from '@/core/event'
-import { OrganisationId } from '@/core/organisation'
+import useUserStore from '@/stores/useUserStore'
+import { createEvent } from 'core/event'
+import { OrganisationId } from 'core/organisation'
 import {
   createOrganisationMember,
   createOrganisationMembersInContext,
   OrganisationMemberId,
   OrganisationMemberRole,
   OrganisationMembers,
-} from '@/core/user'
-import useUserStore from '@/stores/useUserStore'
+} from 'core/user'
+
 
 type AddNewOrganisationMemberProps = {
   devices: string[] | undefined

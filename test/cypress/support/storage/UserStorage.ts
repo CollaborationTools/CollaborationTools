@@ -1,13 +1,4 @@
 import {
-  setOrganisation,
-  createRecentOrganisations,
-  Organisation,
-  Organisations,
-  OrganisationMap,
-  RecentOrganisations,
-} from '@/core/organisation'
-import { AllOrganisationsMembersMap, User } from '@/core/user'
-import {
   ORGANISATIONS_KEY,
   RECENT_ORGANISATIONS_KEY,
 } from '@/stores/useOrganisationStore'
@@ -15,6 +6,16 @@ import {
   ORGANISATION_MEMBERS_KEY,
   USER_PROFILE_KEY,
 } from '@/stores/useUserStore'
+import {
+  setOrganisation,
+  createRecentOrganisations,
+  Organisation,
+  Organisations,
+  OrganisationMap,
+  RecentOrganisations,
+} from 'core/organisation'
+import { AllOrganisationsMembersMap, User } from 'core/user'
+
 
 export type UserData = {
   organisations: Organisations

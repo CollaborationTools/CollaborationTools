@@ -1,7 +1,7 @@
 import { StorageSerializers, useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
-import { OrganisationId, Invitation, Invitations } from '@/core/organisation'
+import { OrganisationId, Invitation, Invitations } from 'core/organisation'
 import {
   AllOrganisationsMembersMap,
   createUser,
@@ -13,7 +13,7 @@ import {
   OrganisationMembersMap,
   setOrganisationMember as coreSetOrganisationMember,
   User,
-} from '@/core/user'
+} from 'core/user'
 
 import { MapOfMapsSerializer } from './MapOfMapsSerializer'
 

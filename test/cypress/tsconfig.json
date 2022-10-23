@@ -6,10 +6,13 @@
     "types": ["cypress", "node", "cypress-real-events"],
     "paths": {
       "cypress/*": [
-        "./*"
+        "../cypress/*"
       ],
       "@/*": [
         "../../platform/framework/*"
+      ],
+      "core/*": [
+        "../../platform/core/*"
       ],
       "@@/*": [
         "../../*"

@@ -54,6 +54,7 @@ export default defineNuxtConfig({
     ],
     resolve: {
       alias: {
+        'core/': `${path.resolve(__dirname, 'platform/core')}/`,
         '@/': `${path.resolve(__dirname, 'platform/framework')}/`,
       },
     },

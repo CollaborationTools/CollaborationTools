@@ -4,7 +4,7 @@ import {
   OrganisationId,
   Organisations,
   RecentOrganisations,
-} from '@/core/organisation'
+} from 'core/organisation'
 
 export type OrganisationMap = ReadonlyMap<OrganisationId, Organisation | null>
 

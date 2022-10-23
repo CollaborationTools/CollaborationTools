@@ -1,6 +1,6 @@
 import { DataConnection as PeerJsDataConnection } from 'peerjs'
 
-import { DeviceId } from '@/core/user'
+import { DeviceId } from 'core/user'
 
 import { PeerConnector } from './PeerConnector'
 

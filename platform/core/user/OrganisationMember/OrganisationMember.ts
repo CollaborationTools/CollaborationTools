@@ -1,5 +1,5 @@
-import { OrganisationId } from '@/core/organisation'
-import { DeviceId } from '@/core/user'
+import { OrganisationId } from 'core/organisation'
+import { DeviceId } from 'core/user'
 
 export type OrganisationMemberId = string
 export type OrganisationMemberRole = 'admin' | 'member'

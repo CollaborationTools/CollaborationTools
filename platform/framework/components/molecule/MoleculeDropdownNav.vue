@@ -29,8 +29,8 @@
 import { ComputedRef } from 'vue'
 
 import { getMainOrgPathFor, organisationRoutes } from '@/composables/useRouting'
-import { Organisation } from '@/core/organisation'
 import useOrganisationStore from '@/stores/useOrganisationStore'
+import { Organisation } from 'core/organisation'
 
 type RecentOrgWithLink = Organisation & { url: string }
 

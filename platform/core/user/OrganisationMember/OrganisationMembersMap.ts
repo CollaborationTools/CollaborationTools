@@ -1,4 +1,4 @@
-import { OrganisationId } from '@/core/organisation'
+import { OrganisationId } from 'core/organisation'
 
 import {
   OrganisationMember,

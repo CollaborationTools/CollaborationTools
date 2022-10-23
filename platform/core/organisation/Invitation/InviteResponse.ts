@@ -1,4 +1,4 @@
-import { DeviceId, OrganisationMemberId } from '@/core/user'
+import { DeviceId, OrganisationMemberId } from 'core/user'
 
 export type CreateInviteResponseProps = {
   invitationId: string

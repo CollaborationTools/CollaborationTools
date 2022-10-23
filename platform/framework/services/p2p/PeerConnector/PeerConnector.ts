@@ -1,6 +1,6 @@
 import { Peer as PeerJsInstance } from 'peerjs'
 
-import { DeviceId } from '@/core/user'
+import { DeviceId } from 'core/user'
 
 import { PeerConnectionsMap } from '../PeerConnection'
 import { attachServerEventListeners, PeerEvent } from '../PeerEvent'

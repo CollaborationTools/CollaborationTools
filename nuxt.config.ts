@@ -11,9 +11,6 @@ export default defineNuxtConfig({
     classSuffix: '',
     dataValue: 'theme',
   },
-  dir: {
-    public: '../public',
-  },
   experimental: {
     reactivityTransform: true,
   },
@@ -58,7 +55,6 @@ export default defineNuxtConfig({
     resolve: {
       alias: {
         '@/': `${path.resolve(__dirname, 'src')}/`,
-        'public/': `${path.resolve(__dirname, 'public')}/`,
       },
     },
   },

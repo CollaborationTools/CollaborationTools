@@ -5,20 +5,20 @@
     "lib": ["es5", "dom"],
     "types": ["cypress", "node", "cypress-real-events"],
     "paths": {
-      "cypress/*": [
-        "../cypress/*"
-      ],
-      "@/*": [
-        "../../platform/framework/*"
+      "composables/*": [
+        "../../platform/framework/composables/*"
       ],
       "core/*": [
         "../../platform/core/*"
       ],
+      "cypress/*": [
+        "../cypress/*"
+      ],
       "services/*": [
         "../../platform/services/*"
       ],
-      "@@/*": [
-        "../../*"
+      "stores/*": [
+        "../../platform/framework/stores/*"
       ]
     }
   },

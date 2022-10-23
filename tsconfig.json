@@ -4,17 +4,26 @@
   "compilerOptions": {
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "cypress/*": [
-        "./test/cypress/*"
-      ],
       "@/*": [
         "./platform/framework/*"
       ],
       "core/*": [
         "./platform/core/*"
       ],
+      "components/*": [
+        "./platform/framework/components/*"
+      ],
+      "composables/*": [
+        "./platform/framework/composables/*"
+      ],
+      "cypress/*": [
+        "./test/cypress/*"
+      ],
       "services/*": [
         "./platform/services/*"
+      ],
+      "stores/*": [
+        "./platform/framework/stores/*"
       ],
       "@@/*": [
         "./*"

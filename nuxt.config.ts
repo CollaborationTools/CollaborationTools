@@ -54,9 +54,18 @@ export default defineNuxtConfig({
     ],
     resolve: {
       alias: {
+        '@/': `${path.resolve(__dirname, 'platform/framework')}/`,
+        'components/': `${path.resolve(
+          __dirname,
+          'platform/framework/components',
+        )}/`,
+        'composables/': `${path.resolve(
+          __dirname,
+          'platform/framework/composables',
+        )}/`,
         'core/': `${path.resolve(__dirname, 'platform/core')}/`,
         'services/': `${path.resolve(__dirname, 'platform/services')}/`,
-        '@/': `${path.resolve(__dirname, 'platform/framework')}/`,
+        'stores/': `${path.resolve(__dirname, 'platform/framework/stores')}/`,
       },
     },
   },

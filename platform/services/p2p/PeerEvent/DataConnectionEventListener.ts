@@ -18,7 +18,7 @@ export const attachDataConnectionEventListeners = (
     const connection = createDataConnection(dataConnection)
 
     peerConnector.eventHandler({
-      type: DataConnectionEventType.PeerConnected,
+      type: DataConnectionEventType.PeerConnectionProposed,
       data: {
         connection,
       },
@@ -29,6 +29,22 @@ export const attachDataConnectionEventListeners = (
       connection,
     )
   }
+
+  dataConnection.on('open', () => {
+    const connection = createDataConnection(dataConnection)
+
+    peerConnector.eventHandler({
+      type: DataConnectionEventType.PeerConnected,
+      data: {
+        connection,
+      },
+    })
+
+    peerConnector.connections = setConnection(
+      peerConnector.connections,
+      connection,
+    )
+  })
 
   dataConnection.on('close', () => {
     const connection = createDataConnection(dataConnection)

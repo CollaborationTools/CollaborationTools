@@ -1,6 +1,7 @@
 import { DataConnection } from '../PeerConnection'
 
 export enum DataConnectionEventType {
+  PeerConnectionProposed = 'PeerConnectionProposed',
   PeerConnected = 'PeerConnected',
   PeerClosed = 'PeerClosed',
   PeerError = 'PeerError',
@@ -10,6 +11,7 @@ export enum DataConnectionEventType {
 export type DataConnectionEvent =
   | {
       type:
+        | DataConnectionEventType.PeerConnectionProposed
         | DataConnectionEventType.PeerConnected
         | DataConnectionEventType.PeerClosed
       data: {

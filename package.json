@@ -4,7 +4,7 @@
   "repository": "https://github.com/CollaborationTools/CollaborationTools.git",
   "version": "0.1.0",
   "license": "AGPL-3.0",
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.4",
   "scripts": {
     "dev": "nuxt build && nuxt dev",
     "tailwind": "echo 'Preview Tailwind config.\n\nIt requires a separate command as long as this is not fixed:\nhttps://github.com/nuxt-community/tailwindcss-module/issues/459\n' && npx tailwind-config-viewer --port 3002",

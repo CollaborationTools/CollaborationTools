@@ -1,6 +1,5 @@
 import path from 'path'
 
-import { defineNuxtConfig } from 'nuxt'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -53,7 +52,7 @@ export default defineNuxtConfig({
           }),
         ],
       }),
-      Icons(),
+      Icons({}),
       svgLoader(),
     ],
     resolve: {

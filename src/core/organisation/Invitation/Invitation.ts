@@ -1,5 +1,4 @@
-import { OrganisationId } from '@/core/organisation'
-import { createInviteLink } from '@/core/user'
+import { OrganisationId, createInviteLink } from '@/core/organisation'
 import { OrganisationMemberId } from '@/core/user/OrganisationMember'
 import { createUUID } from '@/services/browser/uuid'
 

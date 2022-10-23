@@ -1,14 +1,12 @@
 import { StorageSerializers, useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
-import { OrganisationId } from '@/core/organisation'
+import { OrganisationId, Invitation, Invitations } from '@/core/organisation'
 import {
   AllOrganisationsMembersMap,
   createUser,
   getOrganisationMember as coreGetOrganisationMember,
   getOrganisationMembers as coreGetOrganisationMembers,
-  Invitation,
-  Invitations,
   OrganisationMember,
   OrganisationMemberId,
   OrganisationMembers,

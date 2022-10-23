@@ -1,16 +1,16 @@
 import { Ref } from 'vue'
 
-import { EventManager, createEventManager, Event } from '@/core/event'
-import { Organisation } from '@/core/organisation'
+import { EventManager, createEventManager } from '@/core/event'
+// import { EventManager, createEventManager, Event } from '@/core/event'
+// import { Organisation, InviteResponse } from '@/core/organisation'
 import {
   DeviceId,
-  InviteResponse,
   OrganisationMemberId,
   OrganisationMembers,
-  OrganisationMembersInContext,
+  // OrganisationMembersInContext,
 } from '@/core/user'
-import useOrganisationStore from '@/stores/useOrganisationStore'
-import useUserStore from '@/stores/useUserStore'
+// import useOrganisationStore from '@/stores/useOrganisationStore'
+// import useUserStore from '@/stores/useUserStore'
 
 type UseEvents = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
@@ -42,39 +42,39 @@ export default function useEvents(): UseEvents {
       createReactiveArray,
     })
 
-    if (!eventManager.value) {
-      return
-    }
-
-    const dataFeed = eventManager.value.getDataFeed()
-
-    watch(
-      dataFeed,
-      () => {
-        if (dataFeed.length > 0) {
-          const event: Event = JSON.parse(String(dataFeed.shift()))
-          if (event.type === 'invite') {
-            const inviteResponse: InviteResponse = JSON.parse(event.data)
-            useInvitations().closeInvite(inviteResponse)
-          } else if (event.type === 'organisation') {
-            const organisation: Organisation = JSON.parse(event.data)
-            useOrganisationStore().setOrganisation(organisation)
-          } else if (event.type === 'organisationMembers') {
-            const {
-              organisationId,
-              organisationMembers,
-            }: OrganisationMembersInContext = JSON.parse(event.data)
-            organisationMembers.forEach((organisationMember) =>
-              useUserStore().setOrganisationMember(
-                organisationId,
-                organisationMember,
-              ),
-            )
-          }
-        }
-      },
-      { deep: true, immediate: true },
-    )
+    // if (!eventManager.value) {
+    //   return
+    // }
+    //
+    // const dataFeed = eventManager.value.getDataFeed()
+    //
+    // watch(
+    //   dataFeed,
+    //   () => {
+    //     if (dataFeed.length > 0) {
+    //       const event: Event = JSON.parse(String(dataFeed.shift()))
+    //       if (event.type === 'invite') {
+    //         const inviteResponse: InviteResponse = JSON.parse(event.data)
+    //         useInvitations().closeInvite(inviteResponse)
+    //       } else if (event.type === 'organisation') {
+    //         const organisation: Organisation = JSON.parse(event.data)
+    //         useOrganisationStore().setOrganisation(organisation)
+    //       } else if (event.type === 'organisationMembers') {
+    //         const {
+    //           organisationId,
+    //           organisationMembers,
+    //         }: OrganisationMembersInContext = JSON.parse(event.data)
+    //         organisationMembers.forEach((organisationMember) =>
+    //           useUserStore().setOrganisationMember(
+    //             organisationId,
+    //             organisationMember,
+    //           ),
+    //         )
+    //       }
+    //     }
+    //   },
+    //   { deep: true, immediate: true },
+    // )
   }
 
   const connectDirectlyTo = (remoteDeviceId: DeviceId): void => {

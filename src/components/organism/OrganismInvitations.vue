@@ -41,7 +41,7 @@ import {
   createInvitation,
   INVITATION_EXPIRY_TIME_IN_MINUTES,
   Invitations,
-} from '@/core/user'
+} from '@/core/organisation'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 

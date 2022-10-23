@@ -70,7 +70,7 @@ export const attachServerEventListeners = (
   peerConnector.peerJS.on('call', (mediaConnection) => {
     const connection = createMediaConnection(mediaConnection)
     peerConnector.eventHandler({
-      type: MediaConnectionEventType.PeerCalling,
+      type: MediaConnectionEventType.PeerCalled,
       data: {
         connection,
       },

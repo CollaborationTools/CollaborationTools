@@ -1,7 +1,7 @@
 import { MediaConnection } from '../PeerConnection'
 
 export enum MediaConnectionEventType {
-  PeerCalling = 'PeerCalling',
+  PeerCalled = 'PeerCalled',
   PeerClosed = 'PeerClosed',
   PeerError = 'PeerError',
   StreamReceived = 'StreamReceived',
@@ -10,7 +10,7 @@ export enum MediaConnectionEventType {
 export type MediaConnectionEvent =
   | {
       type:
-        | MediaConnectionEventType.PeerCalling
+        | MediaConnectionEventType.PeerCalled
         | MediaConnectionEventType.PeerClosed
       data: {
         connection: MediaConnection

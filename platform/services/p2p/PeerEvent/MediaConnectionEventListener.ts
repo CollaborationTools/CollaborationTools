@@ -20,7 +20,7 @@ export const attachMediaConnectionEventListeners = (
     const connection = createMediaConnection(mediaConnection)
 
     peerConnector.eventHandler({
-      type: MediaConnectionEventType.PeerCalling,
+      type: MediaConnectionEventType.PeerCalled,
       data: {
         connection,
       },

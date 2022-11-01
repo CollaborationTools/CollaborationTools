@@ -1,15 +1,12 @@
 /// <reference types="cypress-real-events" />
 /* eslint-disable sonarjs/no-duplicate-string, promise/catch-or-return */
 
+import member1 from 'cypress/fixtures/userStorage/member-1'
 import {
   ORGANISATIONS_KEY,
   RECENT_ORGANISATIONS_KEY,
-} from '@/stores/useOrganisationStore'
-import {
-  ORGANISATION_MEMBERS_KEY,
-  USER_PROFILE_KEY,
-} from '@/stores/useUserStore'
-import member1 from 'cypress/fixtures/userStorage/member-1'
+} from 'stores/useOrganisationStore'
+import { ORGANISATION_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 
 const memberOrganisations = member1.get(ORGANISATIONS_KEY)
 const memberRecentOrganisations = member1.get(RECENT_ORGANISATIONS_KEY)

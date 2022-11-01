@@ -2,7 +2,7 @@ import { DataConnection as PeerJsDataConnection } from 'peerjs'
 
 import { DataConnectionEventType } from './DataConnectionEvent'
 
-import { setConnection, createDataConnection } from '../PeerConnection'
+import { createDataConnection } from '../PeerConnection'
 import { PeerConnector, PeerError } from '../PeerConnector'
 
 type AttachDataConnectionEventListenersOptions = { isConnectingToPeer: boolean }
@@ -24,10 +24,7 @@ export const attachDataConnectionEventListeners = (
       },
     })
 
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
   }
 
   dataConnection.on('open', () => {
@@ -40,10 +37,7 @@ export const attachDataConnectionEventListeners = (
       },
     })
 
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
   })
 
   dataConnection.on('close', () => {
@@ -56,10 +50,7 @@ export const attachDataConnectionEventListeners = (
       },
     })
 
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
   })
 
   dataConnection.on('error', (error: PeerError) => {
@@ -74,10 +65,7 @@ export const attachDataConnectionEventListeners = (
       },
     })
 
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
   })
 
   dataConnection.on('data', (data) => {

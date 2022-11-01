@@ -2,7 +2,7 @@ import { MediaConnection as PeerJsMediaConnection } from 'peerjs'
 
 import { MediaConnectionEventType } from './MediaConnectionEvent'
 
-import { setConnection, createMediaConnection } from '../PeerConnection'
+import { createMediaConnection } from '../PeerConnection'
 import { PeerConnector, PeerError } from '../PeerConnector'
 
 type AttachMediaConnectionEventListenersOptions = {
@@ -26,10 +26,7 @@ export const attachMediaConnectionEventListeners = (
       },
     })
 
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
   }
 
   mediaConnection.on('close', () => {
@@ -42,10 +39,7 @@ export const attachMediaConnectionEventListeners = (
       },
     })
 
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
   })
 
   mediaConnection.on('error', (error: PeerError) => {
@@ -60,10 +54,7 @@ export const attachMediaConnectionEventListeners = (
       },
     })
 
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
   })
 
   mediaConnection.on('stream', (stream) => {

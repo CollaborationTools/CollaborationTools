@@ -4,11 +4,7 @@ import { MediaConnectionEventType } from './MediaConnectionEvent'
 import { attachMediaConnectionEventListeners } from './MediaConnectionEventListener'
 import { ServerEventType } from './ServerConnectionEvent'
 
-import {
-  createDataConnection,
-  createMediaConnection,
-  setConnection,
-} from '../PeerConnection'
+import { createDataConnection, createMediaConnection } from '../PeerConnection'
 import { PeerConnector, PeerError } from '../PeerConnector'
 
 export const attachServerEventListeners = (
@@ -59,10 +55,7 @@ export const attachServerEventListeners = (
         connection,
       },
     })
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
 
     attachDataConnectionEventListeners(dataConnection, peerConnector)
   })
@@ -75,10 +68,7 @@ export const attachServerEventListeners = (
         connection,
       },
     })
-    peerConnector.connections = setConnection(
-      peerConnector.connections,
-      connection,
-    )
+    peerConnector.connections.set(connection.id, connection)
 
     attachMediaConnectionEventListeners(mediaConnection, peerConnector)
   })

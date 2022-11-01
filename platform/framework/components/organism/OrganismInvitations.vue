@@ -38,9 +38,7 @@
 import { useClipboard } from '@vueuse/core'
 
 import useOrganisationStore from '@/stores/useOrganisationStore'
-import useUserStore from '@/stores/useUserStore'
 import {
-  createInvitation,
   INVITATION_EXPIRY_TIME_IN_MINUTES,
   Invitations,
 } from 'core/organisation'
@@ -51,25 +49,17 @@ type Props = {
 
 const { invitations } = defineProps<Props>()
 
-const userStore = useUserStore()
-
-const inviterId = userStore.getMe()?.currentDevice
 const organisation = useOrganisationStore().getCurrentOrganisation()
 
 const isModalOpen = ref(false)
 
 const createNewInvitation = (): void => {
-  if (!inviterId || !organisation) {
+  const invitation = useInvitations().createInvite()
+
+  if (!invitation) {
     return
   }
 
-  const invitation = createInvitation({
-    inviterId,
-    organisationName: organisation.name,
-    organisationId: organisation.id,
-  })
-
-  userStore.setInvitation(invitation)
   useClipboard().copy(invitation.inviteLink)
 
   isModalOpen.value = false

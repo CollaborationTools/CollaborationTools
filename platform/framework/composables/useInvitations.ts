@@ -1,5 +1,6 @@
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
+import { getInviteLink } from 'composables/useRouting'
 import {
   OrganisationId,
   createInvitation,
@@ -8,9 +9,13 @@ import {
   CreateInviteResponseProps,
   closeInvitation,
   InviteResponse,
+  createInviteString,
+  createInviteExpiryDate,
 } from 'core/organisation'
 import { OrganisationMemberId } from 'core/user'
+import { createUUID } from 'services/browser/uuid'
 import { createEvent } from 'services/connectionHub'
+import { encode } from 'services/crypto/encoder'
 
 type AcceptInviteProps = {
   inviterId: string
@@ -89,7 +94,23 @@ export default function useInvitations(): UseInvitations {
     const organisationId = currentOrganisation.id
     const organisationName = currentOrganisation.name
 
+    const invitationId = createUUID()
+    const inviteExpiryDate = createInviteExpiryDate()
+
+    const inviteString = createInviteString({
+      expiryDate: inviteExpiryDate,
+      invitationId,
+      inviterId,
+      organisationId,
+      organisationName,
+    })
+
+    const inviteLink = getInviteLink(encode(inviteString))
+
     const invitation = createInvitation({
+      expiryDate: inviteExpiryDate,
+      id: invitationId,
+      inviteLink,
       inviterId,
       organisationId,
       organisationName,

@@ -45,6 +45,7 @@ import { Ref } from 'vue'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 import { InviteLinkData, parseInviteLinkData } from 'core/organisation'
+import { decode } from 'services/crypto/encoder'
 
 const userStore = useUserStore()
 const route = useRoute()
@@ -67,7 +68,9 @@ watchEffect(() => {
     return
   }
 
-  maybeInviteData.value = parseInviteLinkData(maybeEncodedInviteData.value)
+  maybeInviteData.value = parseInviteLinkData(
+    decode(maybeEncodedInviteData.value),
+  )
 
   if (maybeInviteData.value === null) {
     state.value = 'error'

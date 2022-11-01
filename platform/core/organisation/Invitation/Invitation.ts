@@ -1,9 +1,10 @@
-
-import { OrganisationId, createInviteLink } from 'core/organisation'
+import { OrganisationId } from 'core/organisation'
 import { OrganisationMemberId } from 'core/user/OrganisationMember'
-import { createUUID } from 'services/browser/uuid'
 
 export type InvitationProps = {
+  expiryDate: string
+  id: string
+  inviteLink: string
   inviterId: OrganisationMemberId
   organisationId: OrganisationId
   organisationName: string
@@ -11,9 +12,6 @@ export type InvitationProps = {
 
 export type Invitation = Readonly<
   InvitationProps & {
-    expiryDate: string
-    id: string
-    inviteLink: string
     inviteeId?: OrganisationMemberId
   }
 >
@@ -24,25 +22,18 @@ export const INVITATION_EXPIRY_TIME_IN_MINUTES = 30
 export const INVITATION_EXPIRY_TIME =
   INVITATION_EXPIRY_TIME_IN_MINUTES * 60 * 1000
 
+export const createInviteExpiryDate = (): string => {
+  return new Date(new Date().valueOf() + INVITATION_EXPIRY_TIME).toISOString()
+}
+
 export const createInvitation = ({
+  expiryDate,
+  id,
+  inviteLink,
   inviterId,
   organisationId,
   organisationName,
 }: InvitationProps): Invitation => {
-  const expiryDate = new Date(
-    new Date().valueOf() + INVITATION_EXPIRY_TIME,
-  ).toISOString()
-
-  const id = createUUID()
-
-  const inviteLink = createInviteLink({
-    expiryDate,
-    invitationId: id,
-    inviterId,
-    organisationId,
-    organisationName,
-  })
-
   return {
     expiryDate,
     id,

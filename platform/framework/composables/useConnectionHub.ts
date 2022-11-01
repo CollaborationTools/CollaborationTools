@@ -14,9 +14,11 @@ import {
   createConnectionHub,
   Event,
 } from 'services/connectionHub'
+import { PeerConnectionsMap } from 'services/p2p'
 
 type UseConnectionHub = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
+  getConnections: () => PeerConnectionsMap | null
   runConnectionHub: (
     currentDeviceId: DeviceId,
     currentOrganisationMembers?: OrganisationMembers,
@@ -64,6 +66,13 @@ export default function useConnectionHub(): UseConnectionHub {
       currentOrganisationMembers,
       dataEventHandler,
     })
+
+    if (connectionHub.value === null) {
+      return
+    }
+
+    const peerConnector = connectionHub.value.getPeerConnector()
+    peerConnector.connections = reactive(peerConnector.connections)
   }
 
   const connectDirectlyTo = (remoteDeviceId: DeviceId): void => {
@@ -71,6 +80,14 @@ export default function useConnectionHub(): UseConnectionHub {
       return
     }
     connectionHub.value.connectDirectlyTo(remoteDeviceId)
+  }
+
+  const getConnections = (): PeerConnectionsMap | null => {
+    if (!connectionHub.value || !useUserStore().getIsDebug()) {
+      return null
+    }
+
+    return connectionHub.value.getPeerConnector().connections
   }
 
   const sendDataTo = (recipient: OrganisationMemberId, data: string): void => {
@@ -98,6 +115,7 @@ export default function useConnectionHub(): UseConnectionHub {
 
   return {
     connectDirectlyTo,
+    getConnections,
     runConnectionHub,
     sendDataTo,
     sendDirectlyTo,

@@ -5,7 +5,9 @@ import { OrganisationId, Invitation, Invitations } from 'core/organisation'
 import {
   AllOrganisationsMembersMap,
   createUser,
+  DeviceId,
   getOrganisationMember as coreGetOrganisationMember,
+  getOrganisationMemberByDeviceId as coreGetOrganisationMemberByDeviceId,
   getOrganisationMembers as coreGetOrganisationMembers,
   OrganisationMember,
   OrganisationMemberId,
@@ -33,6 +35,7 @@ export default defineStore('users', {
       { serializer: MapOfMapsSerializer },
     ),
     invitations: useStorage<Invitations>(INVITATIONS_KEY, []),
+    isDebug: useStorage<boolean>('isDebug', false),
   }),
   getters: {
     getInvitation(state) {
@@ -54,6 +57,9 @@ export default defineStore('users', {
     getMe(state) {
       return (): User | null => (state.me ? readonly(state.me) : null)
     },
+    getIsDebug(state) {
+      return (): boolean => state.isDebug
+    },
     getOrganisationMember(state) {
       return (
         organisationId: OrganisationId,
@@ -63,6 +69,16 @@ export default defineStore('users', {
           state.allOrganisationsMembersMap,
           organisationId,
           organisationMemberId,
+        )
+
+        return organisationMember ? readonly(organisationMember) : null
+      }
+    },
+    getOrganisationMemberByDeviceId(state) {
+      return (deviceId: DeviceId): OrganisationMember | null => {
+        const organisationMember = coreGetOrganisationMemberByDeviceId(
+          state.allOrganisationsMembersMap,
+          deviceId,
         )
 
         return organisationMember ? readonly(organisationMember) : null

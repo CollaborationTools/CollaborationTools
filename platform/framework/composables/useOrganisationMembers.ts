@@ -3,6 +3,7 @@ import { OrganisationId } from 'core/organisation'
 import {
   createOrganisationMember,
   createOrganisationMembersInContext,
+  DeviceId,
   OrganisationMemberId,
   OrganisationMemberRole,
   OrganisationMembers,
@@ -24,6 +25,7 @@ type UseOrganisationMembers = {
     organisationId: OrganisationId,
     organisationMembers: OrganisationMembers,
   ) => string
+  getOrgMemberNameByDeviceId: (deviceId: DeviceId) => string
 }
 
 export default function useOrganisationMembers(): UseOrganisationMembers {
@@ -66,5 +68,12 @@ export default function useOrganisationMembers(): UseOrganisationMembers {
     return JSON.stringify(event)
   }
 
-  return { addNewOrganisationMember, createOrganisationMembersEvent }
+  const getOrgMemberNameByDeviceId = (deviceId: DeviceId): string =>
+    userStore.getOrganisationMemberByDeviceId(deviceId)?.name ?? deviceId
+
+  return {
+    addNewOrganisationMember,
+    createOrganisationMembersEvent,
+    getOrgMemberNameByDeviceId,
+  }
 }

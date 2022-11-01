@@ -1,4 +1,5 @@
 import { OrganisationId } from 'core/organisation'
+import { DeviceId } from 'core/user'
 
 import {
   OrganisationMember,
@@ -25,6 +26,25 @@ export const getOrganisationMember = (
   if (!organisationMembersMap) return null
 
   return organisationMembersMap.get(organisationMemberId) ?? null
+}
+
+export const getOrganisationMemberByDeviceId = (
+  allOrganisationsMembersMap: AllOrganisationsMembersMap,
+  deviceId: DeviceId,
+): OrganisationMember | null => {
+  let result: OrganisationMember | null = null
+  allOrganisationsMembersMap.forEach((organisation) => {
+    if (!organisation) {
+      return
+    }
+    organisation.forEach((organisationMember) => {
+      if (organisationMember && organisationMember.devices.includes(deviceId)) {
+        result = organisationMember
+      }
+    })
+  })
+
+  return result
 }
 
 export const getOrganisationMembers = (

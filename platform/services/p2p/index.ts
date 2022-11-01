@@ -2,6 +2,7 @@ export { getConnectionId } from './PeerConnection'
 export type {
   PeerConnection,
   PeerConnectionId,
+  PeerConnectionsMap,
   PeerConnectionType,
 } from './PeerConnection'
 export { connectTo, createPeerConnector, exit, sendTo } from './PeerConnector'

@@ -4,6 +4,7 @@
       <MoleculeDropdownNav />
     </div>
     <div class="flex-none">
+      <MoleculeConnectionsState />
       <MoleculeColorMode />
     </div>
   </header>

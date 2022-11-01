@@ -6,6 +6,7 @@ import {
   getConnectionId,
   sendTo,
   PeerEventType,
+  PeerConnector,
 } from 'services/p2p'
 
 export type ConnectionHub = {
@@ -13,6 +14,7 @@ export type ConnectionHub = {
   sendDataTo: (recipient: OrganisationMemberId, data: string) => void
   sendDirectlyTo: (remoteDeviceId: DeviceId, data: string) => void
   setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
+  getPeerConnector: () => PeerConnector
 }
 
 type CreateConnectionHubParams = {
@@ -35,6 +37,8 @@ export const createConnectionHub = ({
   }
 
   const peerConnector = createPeerConnector(currentDeviceId, peerEventHandler)
+
+  const getPeerConnector = (): PeerConnector => peerConnector
 
   const connectDirectlyTo = (remoteDeviceId: DeviceId): void => {
     connectTo(peerConnector, remoteDeviceId)
@@ -109,6 +113,7 @@ export const createConnectionHub = ({
 
   return {
     connectDirectlyTo,
+    getPeerConnector,
     sendDataTo,
     sendDirectlyTo,
     setOrganisationMembers,

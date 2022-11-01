@@ -5,36 +5,39 @@ import {
   createPeerConnector,
   getConnectionId,
   sendTo,
+  PeerEventType,
 } from 'services/p2p'
 
-export type EventManager = {
+export type ConnectionHub = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
   sendDataTo: (recipient: OrganisationMemberId, data: string) => void
   sendDirectlyTo: (remoteDeviceId: DeviceId, data: string) => void
   setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
 }
 
-type CreateEventManagerParams = {
+type CreateConnectionHubParams = {
   currentDeviceId: DeviceId
   currentOrganisationMembers: OrganisationMembers
-  createReactiveArray: () => string[]
+  dataEventHandler: (dataEvent: string) => void
 }
 
-export const createEventManager = ({
+export const createConnectionHub = ({
   currentDeviceId,
   currentOrganisationMembers,
-}: CreateEventManagerParams): EventManager => {
+  dataEventHandler,
+}: CreateConnectionHubParams): ConnectionHub => {
   let organisationMembers = currentOrganisationMembers
 
-  const eventHandler = (connectionEvent: PeerEvent): void => {
-    console.log(connectionEvent)
+  const peerEventHandler = (peerEvent: PeerEvent): void => {
+    if (peerEvent.type === PeerEventType.peer.data.DataReceived) {
+      dataEventHandler(peerEvent.data.message)
+    }
   }
 
-  const connectionManager = createPeerConnector(currentDeviceId, eventHandler)
-  console.log(connectionManager)
+  const peerConnector = createPeerConnector(currentDeviceId, peerEventHandler)
 
   const connectDirectlyTo = (remoteDeviceId: DeviceId): void => {
-    connectTo(connectionManager, remoteDeviceId)
+    connectTo(peerConnector, remoteDeviceId)
   }
 
   const getOrgMembersDevices = (
@@ -52,7 +55,7 @@ export const createEventManager = ({
     )
 
     orgDevices.forEach((device) => {
-      connectTo(connectionManager, device)
+      connectTo(peerConnector, device)
     })
   }
 
@@ -72,9 +75,9 @@ export const createEventManager = ({
     devicesIds.filter((device) => {
       const connectionId = getConnectionId(
         device,
-        connectionManager.currentDeviceId,
+        peerConnector.currentDeviceId,
       )
-      return !!connectionManager.connections.get(connectionId)
+      return !!peerConnector.connections.get(connectionId)
     })
 
   const sendDataTo = (recipient: OrganisationMemberId, data: string): void => {
@@ -90,18 +93,18 @@ export const createEventManager = ({
     const connectedDevicesIds = getConnectedDevicesIds(recipientDevices)
 
     if (connectedDevicesIds.length === 0) {
-      recipientDevices.forEach((device) => connectTo(connectionManager, device))
+      recipientDevices.forEach((device) => connectTo(peerConnector, device))
     }
 
     if (connectedDevicesIds.length > 0) {
       connectedDevicesIds.forEach((device) =>
-        sendTo(connectionManager, device, data),
+        sendTo(peerConnector, device, data),
       )
     }
   }
 
   const sendDirectlyTo = (remoteDeviceId: DeviceId, data: string): void => {
-    sendTo(connectionManager, remoteDeviceId, data)
+    sendTo(peerConnector, remoteDeviceId, data)
   }
 
   return {

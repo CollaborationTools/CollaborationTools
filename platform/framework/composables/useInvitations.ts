@@ -1,6 +1,5 @@
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
-import { createEvent } from 'core/event'
 import {
   OrganisationId,
   createInvitation,
@@ -11,6 +10,7 @@ import {
   InviteResponse,
 } from 'core/organisation'
 import { OrganisationMemberId } from 'core/user'
+import { createEvent } from 'services/connectionHub'
 
 type AcceptInviteProps = {
   inviterId: string
@@ -46,7 +46,7 @@ export default function useInvitations(): UseInvitations {
       userName,
     })
 
-    useEvents().sendDirectlyTo(inviterId, inviteEvent)
+    useConnectionHub().sendDirectlyTo(inviterId, inviteEvent)
   }
 
   const closeInvite = (inviteResponse: InviteResponse): void => {
@@ -74,8 +74,8 @@ export default function useInvitations(): UseInvitations {
       return
     }
 
-    useEvents().runEventManager(currentDeviceId)
-    useEvents().connectDirectlyTo(inviterId)
+    useConnectionHub().runConnectionHub(currentDeviceId)
+    useConnectionHub().connectDirectlyTo(inviterId)
   }
 
   const createInvite = (): Invitation | null => {
@@ -134,7 +134,7 @@ export default function useInvitations(): UseInvitations {
         organisationMembers,
       )
 
-    const { sendDirectlyTo } = useEvents()
+    const { sendDirectlyTo } = useConnectionHub()
     sendDirectlyTo(inviteeId, organisationEvent)
     sendDirectlyTo(inviteeId, organisationMembersEvent)
   }

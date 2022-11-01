@@ -1,5 +1,4 @@
 import useUserStore from '@/stores/useUserStore'
-import { createEvent } from 'core/event'
 import { OrganisationId } from 'core/organisation'
 import {
   createOrganisationMember,
@@ -8,6 +7,7 @@ import {
   OrganisationMemberRole,
   OrganisationMembers,
 } from 'core/user'
+import { createEvent } from 'services/connectionHub'
 
 type AddNewOrganisationMemberProps = {
   devices: string[] | undefined

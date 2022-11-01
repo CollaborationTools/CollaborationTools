@@ -48,10 +48,6 @@ export const connectTo = (
     setTimeout(() => {
       connectTo(peerConnector, remoteDeviceId, ++attempt)
     }, 500)
-  } else {
-    console.error(
-      `[PeerJS] Cannot connect to ${remoteDeviceId}, because signaling server was not connected yet.`,
-    )
   }
 }
 

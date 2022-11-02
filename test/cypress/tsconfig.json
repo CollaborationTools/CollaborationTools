@@ -5,6 +5,12 @@
     "lib": ["es5", "dom"],
     "types": ["cypress", "node", "cypress-real-events"],
     "paths": {
+      "@/*": [
+        "../../platform/framework/*"
+      ],
+      "components/*": [
+        "../../platform/framework/components/*"
+      ],
       "composables/*": [
         "../../platform/framework/composables/*"
       ],
@@ -19,6 +25,12 @@
       ],
       "stores/*": [
         "../../platform/framework/stores/*"
+      ],
+      "@@/*": [
+        "../../*"
+      ],
+      "~/*": [
+        "../../.nuxt/*"
       ]
     }
   },

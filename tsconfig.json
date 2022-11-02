@@ -7,14 +7,14 @@
       "@/*": [
         "./platform/framework/*"
       ],
-      "core/*": [
-        "./platform/core/*"
-      ],
       "components/*": [
         "./platform/framework/components/*"
       ],
       "composables/*": [
         "./platform/framework/composables/*"
+      ],
+      "core/*": [
+        "./platform/core/*"
       ],
       "cypress/*": [
         "./test/cypress/*"

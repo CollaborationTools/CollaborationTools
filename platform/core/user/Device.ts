@@ -1,5 +1,3 @@
-import { createUUID } from 'services/browser/uuid'
-
 export type DeviceId = string
 
 export type Device = Readonly<{
@@ -7,9 +5,9 @@ export type Device = Readonly<{
   name: string
 }>
 
-export const createDevice = (name = 'default'): Device => {
+export const createDevice = (id: DeviceId, name = 'default'): Device => {
   return {
-    id: createUUID(),
+    id,
     name,
   }
 }

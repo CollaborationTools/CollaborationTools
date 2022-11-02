@@ -1,5 +1,4 @@
 import {
-  createOrganisation,
   Organisation,
   OrganisationId,
   Organisations,
@@ -17,9 +16,8 @@ export const setOrganisation = (
 
 export const addOrganisation = (
   organisationsMap: OrganisationMap,
-  organisationName: string,
+  organisation: Organisation,
 ): { organisationMap: OrganisationMap; organisation: Organisation } => {
-  const organisation = createOrganisation(organisationName)
   return {
     organisationMap: new Map(organisationsMap).set(
       organisation.id,

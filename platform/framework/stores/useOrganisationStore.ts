@@ -16,6 +16,7 @@ import {
   setMostRecentOrganisation as coreSetMostRecentOrganisation,
   setOrganisation as coreSetOrganisation,
 } from 'core/organisation'
+import { createUUID } from 'services/browser/uuid'
 
 export const ORGANISATIONS_KEY = 'organisations' as const
 export const RECENT_ORGANISATIONS_KEY = 'recentOrganisations' as const
@@ -56,9 +57,10 @@ export default defineStore('organisations', {
   },
   actions: {
     addOrganisation(organisationName: string): Organisation {
+      const organisationId = createUUID()
       const { organisation, organisationMap } = coreAddOrganisation(
         this.organisationsMap,
-        organisationName,
+        { id: organisationId, name: organisationName },
       )
       this.organisationsMap = organisationMap
       return organisation

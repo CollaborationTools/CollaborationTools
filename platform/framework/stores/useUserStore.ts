@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { OrganisationId, Invitation, Invitations } from 'core/organisation'
 import {
   AllOrganisationsMembersMap,
+  createDevice,
   createUser,
   DeviceId,
   getOrganisationMember as coreGetOrganisationMember,
@@ -16,6 +17,7 @@ import {
   setOrganisationMember as coreSetOrganisationMember,
   User,
 } from 'core/user'
+import { createUUID } from 'services/browser/uuid'
 
 import { MapOfMapsSerializer } from './MapOfMapsSerializer'
 
@@ -103,7 +105,17 @@ export default defineStore('users', {
       this.invitations = [...otherInvitations, invitation]
     },
     setMe(name: string): User {
-      this.me = this.me ? { ...this.me, name } : createUser(name)
+      if (this.me) {
+        this.me = { ...this.me, name }
+      } else {
+        const newDeviceId = createUUID()
+        const newDevice = createDevice(newDeviceId)
+        this.me = createUser({
+          device: newDevice,
+          userId: createUUID(),
+          username: name,
+        })
+      }
       return readonly(this.me)
     },
     setOrganisationMember(

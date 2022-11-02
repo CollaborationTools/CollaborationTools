@@ -1,5 +1,3 @@
-import { createUUID } from 'services/browser/uuid'
-
 export type OrganisationId = string
 
 export type Organisation = Readonly<{
@@ -7,10 +5,3 @@ export type Organisation = Readonly<{
   name: string
 }>
 export type Organisations = Readonly<Organisation[]>
-
-export const createOrganisation = (name: string): Organisation => {
-  return {
-    id: createUUID(),
-    name,
-  }
-}

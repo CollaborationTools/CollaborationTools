@@ -63,8 +63,6 @@ export const createConnectionHub = ({
     })
   }
 
-  connectToOrganisationMembers(currentOrganisationMembers)
-
   const setOrganisationMembers = (
     newOrganisationMembers: OrganisationMembers,
   ): void => {

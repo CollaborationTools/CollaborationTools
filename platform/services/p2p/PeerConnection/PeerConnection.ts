@@ -42,7 +42,9 @@ export const createDataConnection = (
   const type = PeerConnectionType.Data
 
   const remoteDeviceId = connection.peer
-  const id = getConnectionId(remoteDeviceId, connection.provider.id, type)
+  const id =
+    connection.label ??
+    getConnectionId(remoteDeviceId, connection.provider.id, type)
   const isOpen = (): boolean => connection.open
 
   return {

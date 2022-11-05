@@ -12,9 +12,11 @@
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 
-const route = useRoute()
+const router = useRouter()
 const maybeOrgId = $computed(() =>
-  route.params.id instanceof Array ? route.params.id[0] : route.params.id,
+  router.currentRoute.value.params.id instanceof Array
+    ? router.currentRoute.value.params.id[0]
+    : router.currentRoute.value.params.id,
 )
 
 const organisationStore = useOrganisationStore()
@@ -38,7 +40,7 @@ watch(
   org,
   () => {
     if (org.value === null) {
-      if (!route.fullPath.includes('/new')) {
+      if (!router.currentRoute.value.fullPath.includes('/new')) {
         throwError('Organisation was not found')
         return undefined
       }

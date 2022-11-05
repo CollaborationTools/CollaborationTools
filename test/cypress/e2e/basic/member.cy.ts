@@ -41,7 +41,7 @@ describe('a member can', () => {
     cy.visit('/')
   })
 
-  it.skip('browse and join existing orgs', () => {
+  it('browse and join existing orgs', () => {
     cy.url().should('contain', '/org/' + currentOrgId)
     cy.getId('navigation-links').contains('Team').click()
     cy.getId('members').should('contain.text', currentDisplayName)
@@ -61,7 +61,7 @@ describe('a member can', () => {
     cy.getId('members').should('contain.text', differentDisplayName)
   })
 
-  it.skip('create another org and a profile', () => {
+  it('create another org and a profile', () => {
     cy.window().then((window) =>
       window.localStorage.removeItem(USER_PROFILE_KEY),
     )
@@ -77,7 +77,7 @@ describe('a member can', () => {
     cy.getId('members').should('contain.text', newDisplayName)
   })
 
-  it.skip('invite new member', () => {
+  it('invite new member', () => {
     if (Cypress.isBrowser('chrome')) {
       cy.wrap(
         Cypress.automation('remote:debugger:protocol', {

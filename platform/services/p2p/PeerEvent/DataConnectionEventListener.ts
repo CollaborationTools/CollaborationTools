@@ -23,8 +23,6 @@ export const attachDataConnectionEventListeners = (
         connection,
       },
     })
-
-    peerConnector.connections.set(connection.id, connection)
   }
 
   dataConnection.on('open', () => {

@@ -90,8 +90,6 @@ watchEffect(() => {
 const createUser = (userName: string, newDisplayName?: string): void => {
   displayName.value = newDisplayName
   userStore.setMe(userName)
-
-  useInvitations().connectToInviter(maybeInviteData.value?.inviterId)
 }
 
 const acceptInvite = (): void => {

@@ -1,4 +1,4 @@
-export { getConnectionId } from './PeerConnection'
+export { getActiveConnectionsFrom, getConnectionId } from './PeerConnection'
 export type {
   PeerConnection,
   PeerConnectionId,

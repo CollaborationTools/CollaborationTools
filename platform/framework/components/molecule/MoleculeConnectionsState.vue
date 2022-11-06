@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown dropdown-end">
+  <div v-if="isDebug" class="dropdown dropdown-end">
     <div class="indicator">
       <span
         class="indicator-item indicator-bottom bottom-2 right-2 badge badge-secondary"
@@ -32,7 +32,9 @@
 
 <script setup lang="ts">
 import { getActiveConnectionsFrom } from 'services/p2p'
+import useUserStore from 'stores/useUserStore'
 
+const isDebug = useUserStore().getIsDebug()
 const allConnections = useConnectionHub().getConnections()
 const activeConnections = $computed(() =>
   allConnections ? getActiveConnectionsFrom(allConnections) : [],

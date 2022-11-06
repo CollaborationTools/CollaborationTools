@@ -4,7 +4,11 @@ import { MediaConnectionEventType } from './MediaConnectionEvent'
 import { attachMediaConnectionEventListeners } from './MediaConnectionEventListener'
 import { ServerEventType } from './ServerConnectionEvent'
 
-import { createDataConnection, createMediaConnection } from '../PeerConnection'
+import {
+  createDataConnection,
+  createMediaConnection,
+  PeerConnectionStatus,
+} from '../PeerConnection'
 import { PeerConnector, PeerError } from '../PeerConnector'
 
 export const attachServerEventListeners = (
@@ -48,7 +52,11 @@ export const attachServerEventListeners = (
   })
 
   peerConnector.peerJS.on('connection', (dataConnection) => {
-    const connection = createDataConnection(dataConnection)
+    const connection = createDataConnection(
+      dataConnection,
+      PeerConnectionStatus.Open,
+    )
+
     peerConnector.eventHandler({
       type: DataConnectionEventType.PeerConnected,
       data: {
@@ -61,7 +69,10 @@ export const attachServerEventListeners = (
   })
 
   peerConnector.peerJS.on('call', (mediaConnection) => {
-    const connection = createMediaConnection(mediaConnection)
+    const connection = createMediaConnection(
+      mediaConnection,
+      PeerConnectionStatus.Connecting,
+    )
     peerConnector.eventHandler({
       type: MediaConnectionEventType.PeerCalled,
       data: {

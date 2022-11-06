@@ -2,7 +2,7 @@ import { MediaConnection as PeerJsMediaConnection } from 'peerjs'
 
 import { MediaConnectionEventType } from './MediaConnectionEvent'
 
-import { createMediaConnection } from '../PeerConnection'
+import { createMediaConnection, PeerConnectionStatus } from '../PeerConnection'
 import { PeerConnector, PeerError } from '../PeerConnector'
 
 type AttachMediaConnectionEventListenersOptions = {
@@ -17,7 +17,10 @@ export const attachMediaConnectionEventListeners = (
   },
 ): void => {
   if (options.isConnectingToPeer) {
-    const connection = createMediaConnection(mediaConnection)
+    const connection = createMediaConnection(
+      mediaConnection,
+      PeerConnectionStatus.Connecting,
+    )
 
     peerConnector.eventHandler({
       type: MediaConnectionEventType.PeerCalled,
@@ -30,7 +33,10 @@ export const attachMediaConnectionEventListeners = (
   }
 
   mediaConnection.on('close', () => {
-    const connection = createMediaConnection(mediaConnection)
+    const connection = createMediaConnection(
+      mediaConnection,
+      PeerConnectionStatus.Closed,
+    )
 
     peerConnector.eventHandler({
       type: MediaConnectionEventType.PeerClosed,
@@ -43,7 +49,10 @@ export const attachMediaConnectionEventListeners = (
   })
 
   mediaConnection.on('error', (error: PeerError) => {
-    const connection = createMediaConnection(mediaConnection)
+    const status = mediaConnection.open
+      ? PeerConnectionStatus.Open
+      : PeerConnectionStatus.Closed
+    const connection = createMediaConnection(mediaConnection, status)
 
     peerConnector.eventHandler({
       type: MediaConnectionEventType.PeerError,
@@ -58,7 +67,10 @@ export const attachMediaConnectionEventListeners = (
   })
 
   mediaConnection.on('stream', (stream) => {
-    const connection = createMediaConnection(mediaConnection)
+    const connection = createMediaConnection(
+      mediaConnection,
+      PeerConnectionStatus.Open,
+    )
 
     peerConnector.eventHandler({
       type: MediaConnectionEventType.StreamReceived,

@@ -8,11 +8,17 @@ import { DeviceId } from 'core/user'
 import { PeerConnectionType } from './PeerConnectionType'
 
 export type PeerConnectionId = string
+export enum PeerConnectionStatus {
+  'Connecting' = 'Connecting',
+  'Open' = 'Open',
+  'Closed' = 'Closed',
+}
 
 type BasicPeerConnection = {
   id: PeerConnectionId
   isOpen: () => boolean
   remoteDeviceId: DeviceId
+  status: PeerConnectionStatus
 }
 
 export type DataConnection = BasicPeerConnection & {
@@ -38,6 +44,7 @@ export const getConnectionId = (
 
 export const createDataConnection = (
   connection: PeerJsDataConnection,
+  status: PeerConnectionStatus,
 ): DataConnection => {
   const type = PeerConnectionType.Data
 
@@ -52,11 +59,13 @@ export const createDataConnection = (
     id,
     isOpen,
     remoteDeviceId,
+    status,
     type,
   }
 }
 export const createMediaConnection = (
   connection: PeerjsMediaConnection,
+  status: PeerConnectionStatus,
 ): MediaConnection => {
   const type = PeerConnectionType.Media
 
@@ -69,6 +78,7 @@ export const createMediaConnection = (
     id,
     isOpen,
     remoteDeviceId,
+    status,
     type,
   }
 }

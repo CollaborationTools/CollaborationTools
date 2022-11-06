@@ -1,7 +1,7 @@
 import { StorageSerializers, useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
-import { OrganisationId, Invitation, Invitations } from 'core/organisation'
+import { OrganisationId, Invite, Invites } from 'core/organisation'
 import {
   AllOrganisationsMembersMap,
   createDevice,
@@ -23,7 +23,7 @@ import { MapOfMapsSerializer } from './MapOfMapsSerializer'
 
 export const ORGANISATION_MEMBERS_KEY = 'organisationsMembers' as const
 export const USER_PROFILE_KEY = 'me' as const
-export const INVITATIONS_KEY = 'invitations' as const
+export const INVITES_KEY = 'invites' as const
 
 export default defineStore('users', {
   state: () => ({
@@ -36,22 +36,20 @@ export default defineStore('users', {
       undefined,
       { serializer: MapOfMapsSerializer },
     ),
-    invitations: useStorage<Invitations>(INVITATIONS_KEY, []),
+    invites: useStorage<Invites>(INVITES_KEY, []),
     isDebug: useStorage<boolean>('isDebug', false),
   }),
   getters: {
-    getInvitation(state) {
-      return (invitationId: string): Invitation | null => {
-        const invitation = state.invitations.find(
-          (invite) => invite.id === invitationId,
-        )
-        return invitation ? readonly(invitation) : null
+    getInvite(state) {
+      return (inviteId: string): Invite | null => {
+        const invite = state.invites.find((invite) => invite.id === inviteId)
+        return invite ? readonly(invite) : null
       }
     },
-    getActiveInvitations(state) {
-      return (): Invitations =>
+    getActiveInvites(state) {
+      return (): Invites =>
         readonly(
-          state.invitations.filter(
+          state.invites.filter(
             (invite) => invite.expiryDate > new Date().toISOString(),
           ),
         )
@@ -98,11 +96,11 @@ export default defineStore('users', {
     },
   },
   actions: {
-    setInvitation(invitation: Invitation): void {
-      const otherInvitations = this.invitations.filter(
-        (invite) => invite.id !== invitation.id,
+    setInvite(invite: Invite): void {
+      const otherInvites = this.invites.filter(
+        (oldInvite) => oldInvite.id !== invite.id,
       )
-      this.invitations = [...otherInvitations, invitation]
+      this.invites = [...otherInvites, invite]
     },
     setMe(name: string): User {
       if (this.me) {

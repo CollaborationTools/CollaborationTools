@@ -9,7 +9,7 @@
     <h2 class="!mt-2">
       You are invited to join
       <span data-id="org-name">{{
-        maybeInviteData?.organisationName?.replace(' ', '&nbsp;')
+        maybeInviteLinkData?.organisationName?.replace(' ', '&nbsp;')
       }}</span
       ><AtomDot />
     </h2>
@@ -52,7 +52,7 @@ const route = useRoute()
 
 const me = $computed(() => userStore.getMe())
 const displayName: Ref<string | undefined> = ref(undefined)
-const maybeInviteData: Ref<InviteLinkData | null> = ref(null)
+const maybeInviteLinkData: Ref<InviteLinkData | null> = ref(null)
 const state: Ref<'error' | 'invite' | 'loading'> = ref('invite')
 const isInviteLinkExpired = ref(false)
 
@@ -68,22 +68,22 @@ watchEffect(() => {
     return
   }
 
-  maybeInviteData.value = parseInviteLinkData(
+  maybeInviteLinkData.value = parseInviteLinkData(
     decode(maybeEncodedInviteData.value),
   )
 
-  if (maybeInviteData.value === null) {
+  if (maybeInviteLinkData.value === null) {
     state.value = 'error'
     return
   }
 
-  if (maybeInviteData.value.expiryDate < new Date().toISOString()) {
+  if (maybeInviteLinkData.value.expiryDate < new Date().toISOString()) {
     state.value = 'error'
     isInviteLinkExpired.value = true
   }
 
   if (me) {
-    useInvitations().connectToInviter(maybeInviteData.value.inviterId)
+    useInvites().connectToInviter(maybeInviteLinkData.value.inviterId)
   }
 })
 
@@ -93,13 +93,13 @@ const createUser = (userName: string, newDisplayName?: string): void => {
 }
 
 const acceptInvite = (): void => {
-  if (!maybeInviteData.value || !me) {
+  if (!maybeInviteLinkData.value || !me) {
     return
   }
 
-  useInvitations().acceptInvite({
-    inviterId: maybeInviteData.value.inviterId,
-    invitationId: maybeInviteData.value.invitationId,
+  useInvites().acceptInvite({
+    inviterId: maybeInviteLinkData.value.inviterId,
+    inviteId: maybeInviteLinkData.value.inviteId,
     userName: displayName.value ?? me.name,
   })
 
@@ -108,7 +108,7 @@ const acceptInvite = (): void => {
 
 watchEffect(() => {
   const organisation = useOrganisationStore().getOrganisation(
-    maybeInviteData.value?.organisationId ?? '',
+    maybeInviteLinkData.value?.organisationId ?? '',
   )
   if (!organisation) {
     return
@@ -118,8 +118,8 @@ watchEffect(() => {
 })
 
 useHead({
-  title: maybeInviteData.value?.organisationName
-    ? 'Joining ' + maybeInviteData.value.organisationName
+  title: maybeInviteLinkData.value?.organisationName
+    ? 'Joining ' + maybeInviteLinkData.value.organisationName
     : isInviteLinkExpired.value
     ? 'Invite link has expired'
     : 'Wrong invite link',

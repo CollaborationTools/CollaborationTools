@@ -1,15 +1,18 @@
-const INVITATION_DATA = ':data' as const
+import type { InviteLink } from 'core/organisation'
+
+const INVITE_LINK_ENCODED_DATA = ':data' as const
 
 export const visitorRoutes = {
   getStarted: 'get-started',
   guide: 'guide',
   guideJoinOrg: '/guide/joining-organisation',
-  invite: `/invite-${INVITATION_DATA}`,
+  invite: `/invite-${INVITE_LINK_ENCODED_DATA}`,
   tools: 'tools',
 } as const
 
-export const getInviteLink = (encodedData: string): string =>
-  location.origin + visitorRoutes.invite.replace(INVITATION_DATA, encodedData)
+export const createInviteLink = (encodedData: string): InviteLink =>
+  location.origin +
+  visitorRoutes.invite.replace(INVITE_LINK_ENCODED_DATA, encodedData)
 
 export const ORG_PATH = '/org' as const
 export const ORG_ID_PARAM = ':id' as const

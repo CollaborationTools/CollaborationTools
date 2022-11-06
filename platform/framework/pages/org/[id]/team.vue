@@ -2,7 +2,7 @@
   <div class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto mb-16">
     <template v-if="me">
       <template v-if="isOrganisationMember">
-        <OrganismInvitations :invitations="invitations" />
+        <OrganismInvites :invites="invites" />
         <OrganismMemberList :members="organisationMembers ?? []" />
       </template>
       <template v-else>
@@ -50,7 +50,7 @@ definePageMeta({
   layout: 'org',
 })
 
-const invitations = $computed(() => userStore.getActiveInvitations())
+const invites = $computed(() => userStore.getActiveInvites())
 const me = $computed(() => userStore.getMe())
 const organisationMembers = $computed(() =>
   userStore.getOrganisationMembers(currentOrganisation?.id ?? ''),

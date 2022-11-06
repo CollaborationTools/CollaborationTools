@@ -43,7 +43,7 @@ export default function useConnectionHub(): UseConnectionHub {
       const event: Event = JSON.parse(dataEventString)
       if (event.type === 'invite') {
         const inviteResponse: InviteResponse = JSON.parse(event.data)
-        useInvitations().closeInvite(inviteResponse)
+        useInvites().closeInvite(inviteResponse)
       } else if (event.type === 'organisation') {
         const organisation: Organisation = JSON.parse(event.data)
         useOrganisationStore().setOrganisation(organisation)

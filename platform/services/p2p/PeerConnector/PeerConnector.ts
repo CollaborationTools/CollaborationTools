@@ -2,6 +2,8 @@ import { Peer as PeerJsInstance } from 'peerjs'
 
 import { DeviceId } from 'core/user'
 
+import { connectTo } from './PeerConnectorActions'
+
 import { PeerConnectionsMap } from '../PeerConnection'
 import { attachServerEventListeners, PeerEvent } from '../PeerEvent'
 
@@ -27,6 +29,20 @@ export const createPeerConnector = (
   }
 
   attachServerEventListeners(peerConnector)
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      connections.forEach((connection) => connection.peerConnection.close())
+      peerJS.disconnect()
+    }
+
+    if (document.visibilityState === 'visible') {
+      peerJS.reconnect()
+      connections.forEach((connection) =>
+        connectTo(peerConnector, connection.remoteDeviceId),
+      )
+    }
+  })
 
   return peerConnector
 }

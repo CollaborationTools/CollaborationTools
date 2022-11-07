@@ -10,20 +10,20 @@ import {
   createInviteLinkData,
   createInviteExpiryDate,
 } from 'core/organisation'
-import { OrganisationMemberId } from 'core/user'
+import { MemberId } from 'core/user'
 import { createUUID } from 'services/browser/uuid'
 import { createEvent } from 'services/connectionHub'
 import { encode } from 'services/crypto/encoder'
 
 type AcceptInviteProps = {
-  inviterId: OrganisationMemberId
-  inviteId: OrganisationMemberId
+  inviterId: MemberId
+  inviteId: MemberId
   userName: string
 }
 
 type UseInvites = {
   createInvite: () => Invite | null
-  connectToInviter: (inviterId?: OrganisationMemberId) => void
+  connectToInviter: (inviterId?: MemberId) => void
   acceptInvite: (acceptInviteProps: AcceptInviteProps) => void
   closeInvite: (inviteResponse: InviteResponse) => void
 }
@@ -69,7 +69,7 @@ export default function useInvites(): UseInvites {
     return invite
   }
 
-  const connectToInviter = (inviterId?: OrganisationMemberId): void => {
+  const connectToInviter = (inviterId?: MemberId): void => {
     const currentDeviceId = userStore.getMe()?.currentDevice
     if (!currentDeviceId || !inviterId) {
       return
@@ -110,14 +110,14 @@ export default function useInvites(): UseInvites {
   }
 
   const sendOrganisationDataTo = (
-    inviteeId: OrganisationMemberId,
+    inviteeId: MemberId,
     organisationId: OrganisationId,
   ): void => {
     const me = userStore.getMe()
     const organisation = organisationStore.getOrganisation(organisationId)
-    const organisationMembers = userStore.getOrganisationMembers(organisationId)
+    const members = userStore.getMembers(organisationId)
 
-    if (!me || !organisation || !organisationMembers) {
+    if (!me || !organisation || !members) {
       return
     }
 
@@ -125,16 +125,15 @@ export default function useInvites(): UseInvites {
       me.id,
       organisation,
     )
-    const organisationMembersEvent =
-      useOrganisationMembers().createOrganisationMembersEvent(
-        me.id,
-        organisation.id,
-        organisationMembers,
-      )
+    const membersEvent = useMembers().createMembersEvent(
+      me.id,
+      organisation.id,
+      members,
+    )
 
     const { sendDirectlyTo } = useConnectionHub()
     sendDirectlyTo(inviteeId, organisationEvent)
-    sendDirectlyTo(inviteeId, organisationMembersEvent)
+    sendDirectlyTo(inviteeId, membersEvent)
   }
 
   const closeInvite = (inviteResponse: InviteResponse): void => {
@@ -143,7 +142,7 @@ export default function useInvites(): UseInvites {
       return
     }
 
-    useOrganisationMembers().addNewOrganisationMember({
+    useMembers().addNewMember({
       devices: [inviteResponse.deviceId],
       id: inviteResponse.userId,
       name: inviteResponse.userName,

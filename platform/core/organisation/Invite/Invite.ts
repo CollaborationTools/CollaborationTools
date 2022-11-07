@@ -1,15 +1,15 @@
 import type { InviteLink } from './InviteLink'
 import type { OrganisationId } from 'core/organisation'
-import type { OrganisationMemberId } from 'core/user/OrganisationMember'
+import type { MemberId } from 'core/user/Member'
 
 export type InviteId = string
 
 export type Invite = Readonly<{
   expiryDate: string
   id: InviteId
-  inviteeId?: OrganisationMemberId
+  inviteeId?: MemberId
   inviteLink: InviteLink
-  inviterId: OrganisationMemberId
+  inviterId: MemberId
   organisationId: OrganisationId
   organisationName: string
 }>
@@ -43,7 +43,7 @@ export const createInvite = ({
   }
 }
 
-export const closeInvite = (
-  invite: Invite,
-  inviteeId: OrganisationMemberId,
-): Invite => ({ ...invite, inviteeId })
+export const closeInvite = (invite: Invite, inviteeId: MemberId): Invite => ({
+  ...invite,
+  inviteeId,
+})

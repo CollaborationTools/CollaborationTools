@@ -1,3 +1,3 @@
 export * from './Device'
-export * from './OrganisationMember'
+export * from './Member'
 export * from './User'

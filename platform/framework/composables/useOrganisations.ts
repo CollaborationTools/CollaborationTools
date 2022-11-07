@@ -1,17 +1,17 @@
 import { Organisation } from 'core/organisation'
-import { OrganisationMemberId } from 'core/user'
+import { MemberId } from 'core/user'
 import { createEvent } from 'services/connectionHub'
 
 type UseOrganisations = {
   createOrganisationEvent: (
-    senderId: OrganisationMemberId,
+    senderId: MemberId,
     organisation: Organisation,
   ) => string
 }
 
 export default function useOrganisations(): UseOrganisations {
   const createOrganisationEvent = (
-    senderId: OrganisationMemberId,
+    senderId: MemberId,
     organisation: Organisation,
   ): string => {
     const data = JSON.stringify(organisation)

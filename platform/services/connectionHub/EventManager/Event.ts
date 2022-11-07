@@ -1,19 +1,19 @@
-import { OrganisationMemberId } from 'core/user'
+import { MemberId } from 'core/user'
 import { createUUID } from 'services/browser/uuid'
 
 export type EventId = string
-export type EventType = 'invite' | 'organisation' | 'organisationMembers'
+export type EventType = 'invite' | 'organisation' | 'members'
 
 type CreateEventProps = {
   data: string
-  senderId: OrganisationMemberId
+  senderId: MemberId
   type: EventType
 }
 
 export type Event = Readonly<{
   data: string
   id: EventId
-  senderId: OrganisationMemberId
+  senderId: MemberId
   type: EventType
 }>
 

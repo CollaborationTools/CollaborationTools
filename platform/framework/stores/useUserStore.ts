@@ -9,9 +9,9 @@ import {
   findMember,
   findMemberByDeviceId,
   findMembersBySpaceId,
-  OrganisationMember,
-  OrganisationMemberId,
-  OrganisationMembers,
+  Member,
+  MemberId,
+  Members,
   MembersInAllSpaces,
   MembersInSpace,
   setMember,
@@ -60,38 +60,38 @@ export default defineStore('users', {
     getIsDebug(state) {
       return (): boolean => state.isDebug
     },
-    getOrganisationMember(state) {
+    getMember(state) {
       return (
         organisationId: OrganisationId,
-        organisationMemberId: OrganisationMemberId,
-      ): OrganisationMember | null => {
-        const organisationMember = findMember(
+        memberId: MemberId,
+      ): Member | null => {
+        const member = findMember(
           state.allOrganisationsMembersMap,
           organisationId,
-          organisationMemberId,
+          memberId,
         )
 
-        return organisationMember ? readonly(organisationMember) : null
+        return member ? readonly(member) : null
       }
     },
-    getOrganisationMemberByDeviceId(state) {
-      return (deviceId: DeviceId): OrganisationMember | null => {
-        const organisationMember = findMemberByDeviceId(
+    getMemberByDeviceId(state) {
+      return (deviceId: DeviceId): Member | null => {
+        const member = findMemberByDeviceId(
           state.allOrganisationsMembersMap,
           deviceId,
         )
 
-        return organisationMember ? readonly(organisationMember) : null
+        return member ? readonly(member) : null
       }
     },
-    getOrganisationMembers(state) {
-      return (organisationId: OrganisationId): OrganisationMembers | null => {
-        const organisationMembers = findMembersBySpaceId(
+    getMembers(state) {
+      return (organisationId: OrganisationId): Members | null => {
+        const members = findMembersBySpaceId(
           state.allOrganisationsMembersMap,
           organisationId,
         )
 
-        return organisationMembers ? readonly(organisationMembers) : null
+        return members ? readonly(members) : null
       }
     },
   },
@@ -116,14 +116,11 @@ export default defineStore('users', {
       }
       return readonly(this.me)
     },
-    setOrganisationMember(
-      organisationId: OrganisationId,
-      organisationMember: OrganisationMember,
-    ): void {
+    setMember(organisationId: OrganisationId, member: Member): void {
       this.allOrganisationsMembersMap = setMember(
         this.allOrganisationsMembersMap,
         organisationId,
-        organisationMember,
+        member,
       )
     },
   },

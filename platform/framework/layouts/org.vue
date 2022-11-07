@@ -28,11 +28,8 @@ const userStore = useUserStore()
 const me = userStore.getMe()
 
 if (me && org.value) {
-  const organisationMembers = userStore.getOrganisationMembers(org.value.id)
-  useConnectionHub().runConnectionHub(
-    me.currentDevice,
-    organisationMembers ?? [],
-  )
+  const members = userStore.getMembers(org.value.id)
+  useConnectionHub().runConnectionHub(me.currentDevice, members ?? [])
 }
 
 watch(
@@ -46,8 +43,8 @@ watch(
       }
     } else {
       organisationStore.setCurrentOrganisationId(org.value.id)
-      const organisationMembers = userStore.getOrganisationMembers(org.value.id)
-      useConnectionHub().setOrganisationMembers(organisationMembers ?? [])
+      const members = userStore.getMembers(org.value.id)
+      useConnectionHub().setMembers(members ?? [])
     }
   },
   { immediate: true },

@@ -1,4 +1,4 @@
-import { DeviceId, OrganisationMemberId, OrganisationMembers } from 'core/user'
+import { DeviceId, MemberId, Members } from 'core/user'
 import {
   PeerEvent,
   connectTo,
@@ -11,24 +11,24 @@ import {
 
 export type ConnectionHub = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
-  sendDataTo: (recipient: OrganisationMemberId, data: string) => void
+  sendDataTo: (recipient: MemberId, data: string) => void
   sendDirectlyTo: (remoteDeviceId: DeviceId, data: string) => void
-  setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
+  setMembers: (members: Members) => void
   getPeerConnector: () => PeerConnector
 }
 
 type CreateConnectionHubParams = {
   currentDeviceId: DeviceId
-  currentOrganisationMembers: OrganisationMembers
+  currentMembers: Members
   dataEventHandler: (dataEvent: string) => void
 }
 
 export const createConnectionHub = ({
   currentDeviceId,
-  currentOrganisationMembers,
+  currentMembers,
   dataEventHandler,
 }: CreateConnectionHubParams): ConnectionHub => {
-  let organisationMembers = currentOrganisationMembers
+  let members = currentMembers
 
   const peerEventHandler = (peerEvent: PeerEvent): void => {
     if (peerEvent.type === PeerEventType.peer.data.DataReceived) {
@@ -44,17 +44,11 @@ export const createConnectionHub = ({
     connectTo(peerConnector, remoteDeviceId)
   }
 
-  const getOrgMembersDevices = (
-    organisationMembers: OrganisationMembers,
-  ): Readonly<DeviceId[]> =>
-    organisationMembers.flatMap(
-      (organisationMember) => organisationMember.devices,
-    )
+  const getOrgMembersDevices = (members: Members): Readonly<DeviceId[]> =>
+    members.flatMap((member) => member.devices)
 
-  const connectToOrganisationMembers = (
-    organisationMembers: OrganisationMembers,
-  ): void => {
-    const orgDevices = getOrgMembersDevices(organisationMembers).filter(
+  const connectToMembers = (members: Members): void => {
+    const orgDevices = getOrgMembersDevices(members).filter(
       (deviceId) => deviceId !== currentDeviceId,
     )
 
@@ -63,12 +57,10 @@ export const createConnectionHub = ({
     })
   }
 
-  const setOrganisationMembers = (
-    newOrganisationMembers: OrganisationMembers,
-  ): void => {
-    organisationMembers = newOrganisationMembers
+  const setMembers = (newMembers: Members): void => {
+    members = newMembers
 
-    connectToOrganisationMembers(newOrganisationMembers)
+    connectToMembers(newMembers)
   }
 
   const getConnectedDevicesIds = (
@@ -82,16 +74,14 @@ export const createConnectionHub = ({
       return !!peerConnector.connections.get(connectionId)
     })
 
-  const sendDataTo = (recipient: OrganisationMemberId, data: string): void => {
-    const organisationMember = organisationMembers.find(
-      (orgMember) => orgMember.id === recipient,
-    )
+  const sendDataTo = (recipient: MemberId, data: string): void => {
+    const member = members.find((orgMember) => orgMember.id === recipient)
 
-    if (!organisationMember) {
+    if (!member) {
       return
     }
 
-    const recipientDevices = organisationMember.devices
+    const recipientDevices = member.devices
     const connectedDevicesIds = getConnectedDevicesIds(recipientDevices)
 
     if (connectedDevicesIds.length === 0) {
@@ -114,6 +104,6 @@ export const createConnectionHub = ({
     getPeerConnector,
     sendDataTo,
     sendDirectlyTo,
-    setOrganisationMembers,
+    setMembers,
   }
 }

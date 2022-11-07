@@ -1,9 +1,9 @@
 <template>
   <div class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto mb-16">
     <template v-if="me">
-      <template v-if="isOrganisationMember">
+      <template v-if="isMember">
         <OrganismInvites :invites="invites" />
-        <OrganismMemberList :members="organisationMembers ?? []" />
+        <OrganismMemberList :members="members ?? []" />
       </template>
       <template v-else>
         <AtomInfoBox>
@@ -52,15 +52,15 @@ definePageMeta({
 
 const invites = $computed(() => userStore.getActiveInvites())
 const me = $computed(() => userStore.getMe())
-const organisationMembers = $computed(() =>
-  userStore.getOrganisationMembers(currentOrganisation?.id ?? ''),
+const members = $computed(() =>
+  userStore.getMembers(currentOrganisation?.id ?? ''),
 )
-const isOrganisationMember = $computed(
-  () => !!organisationMembers?.find((member) => member.id === me?.id),
+const isMember = $computed(
+  () => !!members?.find((member) => member.id === me?.id),
 )
 
 const joinOwnOrganisation = (displayName?: string): void => {
-  useOrganisationMembers().addNewOrganisationMember({
+  useMembers().addNewMember({
     devices: me?.devices.map((device) => device.id),
     id: me?.id,
     name: displayName ?? me?.name,

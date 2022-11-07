@@ -1,7 +1,7 @@
 import { Organisation, OrganisationId } from 'core/organisation'
 import {
   createDevice,
-  createOrganisationMember,
+  createMember,
   createUser,
   MembersInSpace,
   setMember,
@@ -33,7 +33,7 @@ const emptyOrganisationsMembers = new Map<
   MembersInSpace | null
 >()
 
-const orgMember1 = createOrganisationMember({
+const orgMember1 = createMember({
   devices: profile.devices.map((device) => device.id),
   id: profile.id,
   name: 'Admin 1B',

@@ -1,13 +1,13 @@
 import type { InviteId } from './Invite'
 import type { OrganisationId } from 'core/organisation'
-import type { OrganisationMemberId } from 'core/user'
+import type { MemberId } from 'core/user'
 
 export type InviteLink = string // for encoded data
 
 export type InviteLinkData = {
   expiryDate: string
   inviteId: InviteId
-  inviterId: OrganisationMemberId
+  inviterId: MemberId
   organisationId: OrganisationId
   organisationName: string
 }

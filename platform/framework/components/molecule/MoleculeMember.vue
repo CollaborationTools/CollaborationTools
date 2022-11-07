@@ -13,10 +13,10 @@
 </template>
 
 <script setup lang="ts">
-import { OrganisationMember } from 'core/user'
+import { Member } from 'core/user'
 
 type Props = {
-  member: OrganisationMember
+  member: Member
 }
 
 const { member } = defineProps<Props>()

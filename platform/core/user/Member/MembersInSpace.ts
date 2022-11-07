@@ -1,16 +1,9 @@
 import { OrganisationId } from 'core/organisation'
 import { DeviceId } from 'core/user'
 
-import {
-  OrganisationMember,
-  OrganisationMemberId,
-  OrganisationMembers,
-} from './OrganisationMember'
+import { Member, MemberId, Members } from './Member'
 
-export type MembersInSpace = ReadonlyMap<
-  OrganisationMemberId,
-  OrganisationMember
->
+export type MembersInSpace = ReadonlyMap<MemberId, Member>
 export type MembersInAllSpaces = ReadonlyMap<
   OrganisationId,
   MembersInSpace | null
@@ -19,8 +12,8 @@ export type MembersInAllSpaces = ReadonlyMap<
 export const findMember = (
   membersInAllSpaces: MembersInAllSpaces,
   spaceId: OrganisationId,
-  memberId: OrganisationMemberId,
-): OrganisationMember | null => {
+  memberId: MemberId,
+): Member | null => {
   const membersInSpace = membersInAllSpaces.get(spaceId)
 
   if (!membersInSpace) return null
@@ -31,15 +24,15 @@ export const findMember = (
 export const findMemberByDeviceId = (
   membersInAllSpaces: MembersInAllSpaces,
   deviceId: DeviceId,
-): OrganisationMember | null => {
-  let result: OrganisationMember | null = null
+): Member | null => {
+  let result: Member | null = null
   membersInAllSpaces.forEach((space) => {
     if (!space) {
       return
     }
-    space.forEach((organisationMember) => {
-      if (organisationMember && organisationMember.devices.includes(deviceId)) {
-        result = organisationMember
+    space.forEach((member) => {
+      if (member && member.devices.includes(deviceId)) {
+        result = member
       }
     })
   })
@@ -50,7 +43,7 @@ export const findMemberByDeviceId = (
 export const findMembersBySpaceId = (
   membersInAllSpaces: MembersInAllSpaces,
   spaceId: OrganisationId,
-): OrganisationMembers | null => {
+): Members | null => {
   const membersInSpace = membersInAllSpaces.get(spaceId)
   if (!membersInSpace) {
     return null
@@ -62,7 +55,7 @@ export const findMembersBySpaceId = (
 export const setMember = (
   membersInAllSpaces: MembersInAllSpaces,
   spaceId: OrganisationId,
-  member: OrganisationMember,
+  member: Member,
 ): MembersInAllSpaces => {
   const membersInSpace = new Map(membersInAllSpaces.get(spaceId))
 

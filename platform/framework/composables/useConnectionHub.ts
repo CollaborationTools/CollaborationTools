@@ -3,12 +3,7 @@ import { Ref } from 'vue'
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
 import { Organisation, InviteResponse } from 'core/organisation'
-import {
-  DeviceId,
-  OrganisationMemberId,
-  OrganisationMembers,
-  OrganisationMembersInContext,
-} from 'core/user'
+import { DeviceId, MemberId, Members, MembersInContext } from 'core/user'
 import {
   ConnectionHub,
   createConnectionHub,
@@ -21,11 +16,11 @@ type UseConnectionHub = {
   getConnections: () => PeerConnectionsMap | null
   runConnectionHub: (
     currentDeviceId: DeviceId,
-    currentOrganisationMembers?: OrganisationMembers,
+    currentMembers?: Members,
   ) => void
-  sendDataTo: (recipient: OrganisationMemberId, data: string) => void
+  sendDataTo: (recipient: MemberId, data: string) => void
   sendDirectlyTo: (remoteDeviceId: DeviceId, data: string) => void
-  setOrganisationMembers: (organisationMembers: OrganisationMembers) => void
+  setMembers: (members: Members) => void
 }
 
 const connectionHub: Ref<ConnectionHub | null> = ref(null)
@@ -33,7 +28,7 @@ const connectionHub: Ref<ConnectionHub | null> = ref(null)
 export default function useConnectionHub(): UseConnectionHub {
   const runConnectionHub = (
     currentDeviceId: DeviceId,
-    currentOrganisationMembers: OrganisationMembers = [],
+    currentMembers: Members = [],
   ): void => {
     if (connectionHub.value) {
       return
@@ -47,23 +42,19 @@ export default function useConnectionHub(): UseConnectionHub {
       } else if (event.type === 'organisation') {
         const organisation: Organisation = JSON.parse(event.data)
         useOrganisationStore().setOrganisation(organisation)
-      } else if (event.type === 'organisationMembers') {
-        const {
-          organisationId,
-          organisationMembers,
-        }: OrganisationMembersInContext = JSON.parse(event.data)
-        organisationMembers.forEach((organisationMember) =>
-          useUserStore().setOrganisationMember(
-            organisationId,
-            organisationMember,
-          ),
+      } else if (event.type === 'members') {
+        const { organisationId, members }: MembersInContext = JSON.parse(
+          event.data,
+        )
+        members.forEach((member) =>
+          useUserStore().setMember(organisationId, member),
         )
       }
     }
 
     connectionHub.value = createConnectionHub({
       currentDeviceId,
-      currentOrganisationMembers,
+      currentMembers,
       dataEventHandler,
     })
 
@@ -90,7 +81,7 @@ export default function useConnectionHub(): UseConnectionHub {
     return connectionHub.value.getPeerConnector().connections
   }
 
-  const sendDataTo = (recipient: OrganisationMemberId, data: string): void => {
+  const sendDataTo = (recipient: MemberId, data: string): void => {
     if (!connectionHub.value) {
       return
     }
@@ -104,13 +95,11 @@ export default function useConnectionHub(): UseConnectionHub {
     connectionHub.value.sendDirectlyTo(remoteDeviceId, data)
   }
 
-  const setOrganisationMembers = (
-    organisationMembers: OrganisationMembers,
-  ): void => {
+  const setMembers = (members: Members): void => {
     if (!connectionHub.value) {
       return
     }
-    connectionHub.value.setOrganisationMembers(organisationMembers)
+    connectionHub.value.setMembers(members)
   }
 
   return {
@@ -119,6 +108,6 @@ export default function useConnectionHub(): UseConnectionHub {
     runConnectionHub,
     sendDataTo,
     sendDirectlyTo,
-    setOrganisationMembers,
+    setMembers,
   }
 }

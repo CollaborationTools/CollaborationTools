@@ -39,7 +39,7 @@ const allConnections = useConnectionHub().getConnections()
 const activeConnections = $computed(() =>
   allConnections ? getActiveConnectionsFrom(allConnections) : [],
 )
-const getName = useOrganisationMembers().getOrgMemberNameByDeviceId
+const getName = useMembers().getOrgMemberNameByDeviceId
 const logConnections = (): void =>
   // eslint-disable-next-line no-console
   console.log('all connections', allConnections)

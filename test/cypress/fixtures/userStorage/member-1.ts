@@ -3,8 +3,8 @@ import {
   createDevice,
   createOrganisationMember,
   createUser,
-  OrganisationMembersMap,
-  setOrganisationMember,
+  MembersInSpace,
+  setMember,
 } from 'core/user'
 import { createUserStorage } from 'cypress/support/storage'
 import { createUUID } from 'services/browser/uuid'
@@ -30,7 +30,7 @@ const profile = createUser({
 
 const emptyOrganisationsMembers = new Map<
   OrganisationId,
-  OrganisationMembersMap | null
+  MembersInSpace | null
 >()
 
 const orgMember1 = createOrganisationMember({
@@ -40,7 +40,7 @@ const orgMember1 = createOrganisationMember({
   role: 'admin',
 })
 
-const allOrganisationsMembers = setOrganisationMember(
+const allOrganisationsMembers = setMember(
   emptyOrganisationsMembers,
   org1.id,
   orgMember1,

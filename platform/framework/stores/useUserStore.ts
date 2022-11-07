@@ -3,18 +3,18 @@ import { defineStore } from 'pinia'
 
 import { OrganisationId, Invite, Invites } from 'core/organisation'
 import {
-  AllOrganisationsMembersMap,
   createDevice,
   createUser,
   DeviceId,
-  getOrganisationMember as coreGetOrganisationMember,
-  getOrganisationMemberByDeviceId as coreGetOrganisationMemberByDeviceId,
-  getOrganisationMembers as coreGetOrganisationMembers,
+  findMember,
+  findMemberByDeviceId,
+  findMembersBySpaceId,
   OrganisationMember,
   OrganisationMemberId,
   OrganisationMembers,
-  OrganisationMembersMap,
-  setOrganisationMember as coreSetOrganisationMember,
+  MembersInAllSpaces,
+  MembersInSpace,
+  setMember,
   User,
 } from 'core/user'
 import { createUUID } from 'services/browser/uuid'
@@ -30,9 +30,9 @@ export default defineStore('users', {
     me: useStorage<User | null>(USER_PROFILE_KEY, null, undefined, {
       serializer: StorageSerializers.object,
     }),
-    allOrganisationsMembersMap: useStorage<AllOrganisationsMembersMap>(
+    allOrganisationsMembersMap: useStorage<MembersInAllSpaces>(
       ORGANISATION_MEMBERS_KEY,
-      new Map<OrganisationId, OrganisationMembersMap | null>(),
+      new Map<OrganisationId, MembersInSpace | null>(),
       undefined,
       { serializer: MapOfMapsSerializer },
     ),
@@ -65,7 +65,7 @@ export default defineStore('users', {
         organisationId: OrganisationId,
         organisationMemberId: OrganisationMemberId,
       ): OrganisationMember | null => {
-        const organisationMember = coreGetOrganisationMember(
+        const organisationMember = findMember(
           state.allOrganisationsMembersMap,
           organisationId,
           organisationMemberId,
@@ -76,7 +76,7 @@ export default defineStore('users', {
     },
     getOrganisationMemberByDeviceId(state) {
       return (deviceId: DeviceId): OrganisationMember | null => {
-        const organisationMember = coreGetOrganisationMemberByDeviceId(
+        const organisationMember = findMemberByDeviceId(
           state.allOrganisationsMembersMap,
           deviceId,
         )
@@ -86,7 +86,7 @@ export default defineStore('users', {
     },
     getOrganisationMembers(state) {
       return (organisationId: OrganisationId): OrganisationMembers | null => {
-        const organisationMembers = coreGetOrganisationMembers(
+        const organisationMembers = findMembersBySpaceId(
           state.allOrganisationsMembersMap,
           organisationId,
         )
@@ -120,7 +120,7 @@ export default defineStore('users', {
       organisationId: OrganisationId,
       organisationMember: OrganisationMember,
     ): void {
-      this.allOrganisationsMembersMap = coreSetOrganisationMember(
+      this.allOrganisationsMembersMap = setMember(
         this.allOrganisationsMembersMap,
         organisationId,
         organisationMember,

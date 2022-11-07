@@ -6,7 +6,7 @@ import {
   OrganisationMap,
   RecentOrganisations,
 } from 'core/organisation'
-import { AllOrganisationsMembersMap, User } from 'core/user'
+import { MembersInAllSpaces, User } from 'core/user'
 import {
   ORGANISATIONS_KEY,
   RECENT_ORGANISATIONS_KEY,
@@ -16,13 +16,13 @@ import { ORGANISATION_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 export type UserData = {
   organisations: Organisations
   profile: User
-  allOrganisationsMembers: AllOrganisationsMembersMap
+  allOrganisationsMembers: MembersInAllSpaces
 }
 
 export type UserStorage = Map<typeof ORGANISATIONS_KEY, OrganisationMap> &
   Map<typeof RECENT_ORGANISATIONS_KEY, RecentOrganisations> &
   Map<typeof USER_PROFILE_KEY, User> &
-  Map<typeof ORGANISATION_MEMBERS_KEY, AllOrganisationsMembersMap>
+  Map<typeof ORGANISATION_MEMBERS_KEY, MembersInAllSpaces>
 
 export const createUserStorage = ({
   organisations,

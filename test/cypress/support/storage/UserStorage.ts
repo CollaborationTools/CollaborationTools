@@ -1,12 +1,13 @@
 import {
   setOrganisation,
   createRecentOrganisations,
+  MembersInAllSpaces,
   Organisation,
   Organisations,
   OrganisationMap,
   RecentOrganisations,
 } from 'core/organisation'
-import { MembersInAllSpaces, User } from 'core/user'
+import { User } from 'core/user'
 import {
   ORGANISATIONS_KEY,
   RECENT_ORGANISATIONS_KEY,

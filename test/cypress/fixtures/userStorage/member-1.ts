@@ -1,11 +1,11 @@
-import { Organisation, OrganisationId } from 'core/organisation'
 import {
-  createDevice,
   createMember,
-  createUser,
   MembersInSpace,
+  Organisation,
+  OrganisationId,
   setMember,
-} from 'core/user'
+} from 'core/organisation'
+import { createDevice, createUser } from 'core/user'
 import { createUserStorage } from 'cypress/support/storage'
 import { createUUID } from 'services/browser/uuid'
 

@@ -2,8 +2,14 @@ import { Ref } from 'vue'
 
 import useOrganisationStore from '@/stores/useOrganisationStore'
 import useUserStore from '@/stores/useUserStore'
-import { Organisation, InviteResponse } from 'core/organisation'
-import { DeviceId, MemberId, Members, MembersInContext } from 'core/user'
+import {
+  InviteResponse,
+  MemberId,
+  Members,
+  MembersInContext,
+  Organisation,
+} from 'core/organisation'
+import { DeviceId } from 'core/user'
 import {
   ConnectionHub,
   createConnectionHub,

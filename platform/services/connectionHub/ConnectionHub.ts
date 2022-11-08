@@ -1,4 +1,5 @@
-import { DeviceId, MemberId, Members } from 'core/user'
+import { MemberId, Members } from 'core/organisation'
+import { DeviceId } from 'core/user'
 import {
   PeerEvent,
   connectTo,

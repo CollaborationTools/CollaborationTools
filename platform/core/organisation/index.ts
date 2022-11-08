@@ -1,4 +1,5 @@
 export * from './Invite'
+export * from './Member'
 export * from './Organisation'
 export * from './OrganisationMap'
 export * from './RecentOrganisations'

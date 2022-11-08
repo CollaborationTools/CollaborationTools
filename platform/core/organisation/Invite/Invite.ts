@@ -1,6 +1,5 @@
 import type { InviteLink } from './InviteLink'
-import type { OrganisationId } from 'core/organisation'
-import type { MemberId } from 'core/user/Member'
+import type { MemberId, OrganisationId } from 'core/organisation'
 
 export type InviteId = string
 

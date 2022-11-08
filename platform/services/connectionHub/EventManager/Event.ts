@@ -1,4 +1,4 @@
-import { MemberId } from 'core/user'
+import { MemberId } from 'core/organisation'
 import { createUUID } from 'services/browser/uuid'
 
 export type EventId = string

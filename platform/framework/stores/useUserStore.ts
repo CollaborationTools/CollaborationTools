@@ -1,22 +1,21 @@
 import { StorageSerializers, useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
-import { OrganisationId, Invite, Invites } from 'core/organisation'
 import {
-  createDevice,
-  createUser,
-  DeviceId,
   findMember,
   findMemberByDeviceId,
   findMembersBySpaceId,
+  Invite,
+  Invites,
   Member,
   MemberId,
   Members,
   MembersInAllSpaces,
   MembersInSpace,
+  OrganisationId,
   setMember,
-  User,
-} from 'core/user'
+} from 'core/organisation'
+import { createDevice, createUser, DeviceId, User } from 'core/user'
 import { createUUID } from 'services/browser/uuid'
 
 import { MapOfMapsSerializer } from './MapOfMapsSerializer'

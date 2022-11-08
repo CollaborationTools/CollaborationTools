@@ -1,6 +1,5 @@
 import type { InviteId } from './Invite'
-import type { OrganisationId } from 'core/organisation'
-import type { MemberId } from 'core/user'
+import type { MemberId, OrganisationId } from 'core/organisation'
 
 export type InviteLink = string // for encoded data
 

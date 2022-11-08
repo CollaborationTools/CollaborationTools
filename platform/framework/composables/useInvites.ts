@@ -9,8 +9,8 @@ import {
   InviteResponse,
   createInviteLinkData,
   createInviteExpiryDate,
+  MemberId,
 } from 'core/organisation'
-import { MemberId } from 'core/user'
 import { createUUID } from 'services/browser/uuid'
 import { createEvent } from 'services/connectionHub'
 import { encode } from 'services/crypto/encoder'

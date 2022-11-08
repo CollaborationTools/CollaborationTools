@@ -1,4 +1,5 @@
-import type { DeviceId, MemberId } from 'core/user'
+import type { MemberId } from 'core/organisation'
+import type { DeviceId } from 'core/user'
 
 export type InviteResponse = Readonly<{
   inviteId: string

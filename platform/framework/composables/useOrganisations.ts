@@ -1,5 +1,4 @@
-import { Organisation } from 'core/organisation'
-import { MemberId } from 'core/user'
+import { MemberId, Organisation } from 'core/organisation'
 import { createEvent } from 'services/connectionHub'
 
 type UseOrganisations = {

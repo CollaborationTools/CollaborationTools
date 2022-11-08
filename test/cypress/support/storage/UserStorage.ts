@@ -3,9 +3,9 @@ import {
   MembersInAllSpaces,
   Organisation,
   Organisations,
-  OrganisationMap,
+  AllSpaces,
   RecentSpaces,
-  setOrganisation,
+  setSpace,
 } from 'core/organisation'
 import { User } from 'core/user'
 import {
@@ -20,7 +20,7 @@ export type UserData = {
   allOrganisationsMembers: MembersInAllSpaces
 }
 
-export type UserStorage = Map<typeof ORGANISATIONS_KEY, OrganisationMap> &
+export type UserStorage = Map<typeof ORGANISATIONS_KEY, AllSpaces> &
   Map<typeof RECENT_ORGANISATIONS_KEY, RecentSpaces> &
   Map<typeof USER_PROFILE_KEY, User> &
   Map<typeof ORGANISATION_MEMBERS_KEY, MembersInAllSpaces>
@@ -30,8 +30,8 @@ export const createUserStorage = ({
   profile,
   allOrganisationsMembers,
 }: UserData): UserStorage => {
-  const orgMap: OrganisationMap = organisations.reduce(
-    (orgMap: OrganisationMap, org) => setOrganisation(orgMap, org),
+  const orgMap: AllSpaces = organisations.reduce(
+    (orgMap: AllSpaces, org) => setSpace(orgMap, org),
     new Map<string, Organisation>(),
   )
 

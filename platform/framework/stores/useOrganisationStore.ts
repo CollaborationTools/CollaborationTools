@@ -2,19 +2,19 @@ import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
 import {
-  addOrganisation as coreAddOrganisation,
+  addSpace as coreAddOrganisation,
   createRecentSpaces as coreCreateRecentOrganisations,
-  getCurrentOrganisation as coreGetCurrentOrganisation,
-  getRecentOrganisations as coreGetRecentOrganisations,
-  getOrganisation as coreGetOrganisation,
-  getOrganisations as coreGetOrganisations,
+  getCurrentSpace as coreGetCurrentOrganisation,
+  getRecentSpaces as coreGetRecentOrganisations,
+  getSpace as coreGetOrganisation,
+  getSpaces as coreGetOrganisations,
   Organisation,
   OrganisationId,
-  OrganisationMap,
+  AllSpaces,
   Organisations,
   RecentSpaces,
   setMostRecentSpace as coreSetMostRecentOrganisation,
-  setOrganisation as coreSetOrganisation,
+  setSpace as coreSetOrganisation,
 } from 'core/organisation'
 import { createUUID } from 'services/browser/uuid'
 
@@ -23,7 +23,7 @@ export const RECENT_ORGANISATIONS_KEY = 'recentOrganisations' as const
 
 export default defineStore('organisations', {
   state: () => ({
-    organisationsMap: useStorage<OrganisationMap>(
+    organisationsMap: useStorage<AllSpaces>(
       ORGANISATIONS_KEY,
       new Map<OrganisationId, Organisation | null>(),
     ),
@@ -58,12 +58,12 @@ export default defineStore('organisations', {
   actions: {
     addOrganisation(organisationName: string): Organisation {
       const organisationId = createUUID()
-      const { organisation, organisationMap } = coreAddOrganisation(
-        this.organisationsMap,
-        { id: organisationId, name: organisationName },
-      )
-      this.organisationsMap = organisationMap
-      return organisation
+      const { space, allSpaces } = coreAddOrganisation(this.organisationsMap, {
+        id: organisationId,
+        name: organisationName,
+      })
+      this.organisationsMap = allSpaces
+      return space
     },
     setOrganisation(organisation: Organisation): void {
       this.organisationsMap = coreSetOrganisation(

@@ -2,7 +2,7 @@ import {
   Organisation,
   OrganisationId,
   Organisations,
-  RecentOrganisations,
+  RecentSpaces,
 } from 'core/organisation'
 
 export type OrganisationMap = ReadonlyMap<OrganisationId, Organisation | null>
@@ -50,7 +50,7 @@ export const getOrganisations = (
 
 export const getCurrentOrganisation = (
   organisationsMap: OrganisationMap,
-  recentOrganisations: RecentOrganisations,
+  recentOrganisations: RecentSpaces,
 ): Organisation | null => {
   const recentOrganisationId = recentOrganisations.at(0)
   if (recentOrganisationId === undefined) {
@@ -61,7 +61,7 @@ export const getCurrentOrganisation = (
 
 export const getRecentOrganisations = (
   organisationsMap: OrganisationMap,
-  recentOrganisations: RecentOrganisations,
+  recentOrganisations: RecentSpaces,
 ): Organisations => {
   const matchedOrganisations = recentOrganisations.map((organisationId) =>
     organisationsMap.get(organisationId ?? ''),

@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 import {
   addOrganisation as coreAddOrganisation,
-  createRecentOrganisations as coreCreateRecentOrganisations,
+  createRecentSpaces as coreCreateRecentOrganisations,
   getCurrentOrganisation as coreGetCurrentOrganisation,
   getRecentOrganisations as coreGetRecentOrganisations,
   getOrganisation as coreGetOrganisation,
@@ -12,8 +12,8 @@ import {
   OrganisationId,
   OrganisationMap,
   Organisations,
-  RecentOrganisations,
-  setMostRecentOrganisation as coreSetMostRecentOrganisation,
+  RecentSpaces,
+  setMostRecentSpace as coreSetMostRecentOrganisation,
   setOrganisation as coreSetOrganisation,
 } from 'core/organisation'
 import { createUUID } from 'services/browser/uuid'
@@ -27,7 +27,7 @@ export default defineStore('organisations', {
       ORGANISATIONS_KEY,
       new Map<OrganisationId, Organisation | null>(),
     ),
-    recentOrganisations: useStorage<RecentOrganisations>(
+    recentOrganisations: useStorage<RecentSpaces>(
       RECENT_ORGANISATIONS_KEY,
       coreCreateRecentOrganisations(),
     ),

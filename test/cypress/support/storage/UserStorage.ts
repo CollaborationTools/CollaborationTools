@@ -1,11 +1,11 @@
 import {
-  setOrganisation,
-  createRecentOrganisations,
+  createRecentSpaces,
   MembersInAllSpaces,
   Organisation,
   Organisations,
   OrganisationMap,
-  RecentOrganisations,
+  RecentSpaces,
+  setOrganisation,
 } from 'core/organisation'
 import { User } from 'core/user'
 import {
@@ -21,7 +21,7 @@ export type UserData = {
 }
 
 export type UserStorage = Map<typeof ORGANISATIONS_KEY, OrganisationMap> &
-  Map<typeof RECENT_ORGANISATIONS_KEY, RecentOrganisations> &
+  Map<typeof RECENT_ORGANISATIONS_KEY, RecentSpaces> &
   Map<typeof USER_PROFILE_KEY, User> &
   Map<typeof ORGANISATION_MEMBERS_KEY, MembersInAllSpaces>
 
@@ -37,8 +37,7 @@ export const createUserStorage = ({
 
   const orgIds = organisations.map((org) => org.id)
 
-  const recentOrganisations: RecentOrganisations =
-    createRecentOrganisations(orgIds)
+  const recentOrganisations: RecentSpaces = createRecentSpaces(orgIds)
 
   const userStorage: UserStorage = new Map()
   userStorage.set(ORGANISATIONS_KEY, orgMap)

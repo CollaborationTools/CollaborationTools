@@ -1,17 +1,15 @@
-import { OrganisationId } from 'core/organisation'
 import { DeviceId } from 'core/user'
 
 import { Member, MemberId, Members } from './Member'
 
+import { SpaceId } from '../Space'
+
 export type MembersInSpace = ReadonlyMap<MemberId, Member>
-export type MembersInAllSpaces = ReadonlyMap<
-  OrganisationId,
-  MembersInSpace | null
->
+export type MembersInAllSpaces = ReadonlyMap<SpaceId, MembersInSpace | null>
 
 export const findMember = (
   membersInAllSpaces: MembersInAllSpaces,
-  spaceId: OrganisationId,
+  spaceId: SpaceId,
   memberId: MemberId,
 ): Member | null => {
   const membersInSpace = membersInAllSpaces.get(spaceId)
@@ -42,7 +40,7 @@ export const findMemberByDeviceId = (
 
 export const findMembersBySpaceId = (
   membersInAllSpaces: MembersInAllSpaces,
-  spaceId: OrganisationId,
+  spaceId: SpaceId,
 ): Members | null => {
   const membersInSpace = membersInAllSpaces.get(spaceId)
   if (!membersInSpace) {
@@ -54,7 +52,7 @@ export const findMembersBySpaceId = (
 
 export const setMember = (
   membersInAllSpaces: MembersInAllSpaces,
-  spaceId: OrganisationId,
+  spaceId: SpaceId,
   member: Member,
 ): MembersInAllSpaces => {
   const membersInSpace = new Map(membersInAllSpaces.get(spaceId))
@@ -66,7 +64,7 @@ export const setMember = (
 
 export const updateMembersInSpace = (
   membersInAllSpaces: MembersInAllSpaces,
-  spaceId: OrganisationId,
+  spaceId: SpaceId,
   membersInSpace: MembersInSpace,
 ): MembersInAllSpaces => {
   return new Map(membersInAllSpaces).set(spaceId, membersInSpace)
@@ -74,7 +72,7 @@ export const updateMembersInSpace = (
 
 export const deleteMembersInSpace = (
   membersInAllSpaces: MembersInAllSpaces,
-  spaceId: OrganisationId,
+  spaceId: SpaceId,
 ): MembersInAllSpaces => {
   return new Map(membersInAllSpaces).set(spaceId, null)
 }

@@ -1,5 +1,6 @@
+import type { MemberId } from '../Member'
+import type { SpaceId } from '../Space'
 import type { InviteLink } from './InviteLink'
-import type { MemberId, OrganisationId } from 'core/organisation'
 
 export type InviteId = string
 
@@ -9,8 +10,8 @@ export type Invite = Readonly<{
   inviteeId?: MemberId
   inviteLink: InviteLink
   inviterId: MemberId
-  organisationId: OrganisationId
-  organisationName: string
+  spaceId: SpaceId
+  spaceName: string
 }>
 
 export type Invites = Readonly<Invite[]>
@@ -29,16 +30,16 @@ export const createInvite = ({
   id,
   inviteLink,
   inviterId,
-  organisationId,
-  organisationName,
+  spaceId,
+  spaceName,
 }: CreateInviteProps): Invite => {
   return {
     expiryDate,
     id,
     inviteLink,
     inviterId,
-    organisationId,
-    organisationName,
+    spaceId,
+    spaceName,
   }
 }
 

@@ -1,4 +1,4 @@
-import { MemberId, Members } from 'core/organisation'
+import { MemberId, Members } from 'core/space'
 import { DeviceId } from 'core/user'
 import {
   PeerEvent,
@@ -45,15 +45,15 @@ export const createConnectionHub = ({
     connectTo(peerConnector, remoteDeviceId)
   }
 
-  const getOrgMembersDevices = (members: Members): Readonly<DeviceId[]> =>
+  const getSpaceMembersDevices = (members: Members): Readonly<DeviceId[]> =>
     members.flatMap((member) => member.devices)
 
   const connectToMembers = (members: Members): void => {
-    const orgDevices = getOrgMembersDevices(members).filter(
+    const spaceDevices = getSpaceMembersDevices(members).filter(
       (deviceId) => deviceId !== currentDeviceId,
     )
 
-    orgDevices.forEach((device) => {
+    spaceDevices.forEach((device) => {
       connectTo(peerConnector, device)
     })
   }
@@ -76,7 +76,7 @@ export const createConnectionHub = ({
     })
 
   const sendDataTo = (recipient: MemberId, data: string): void => {
-    const member = members.find((orgMember) => orgMember.id === recipient)
+    const member = members.find((spaceMember) => spaceMember.id === recipient)
 
     if (!member) {
       return

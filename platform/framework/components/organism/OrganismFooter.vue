@@ -17,16 +17,12 @@
 <script setup lang="ts">
 import { ComputedRef } from 'vue'
 
-import { getOrgNavigationFor, NavLink } from '@/composables/useRouting'
-import useOrganisationStore from '@/stores/useOrganisationStore'
+import { getSpaceNavigationFor, NavLink } from '@/composables/useRouting'
+import useSpaceStore from '@/stores/useSpaceStore'
 
-const currentOrganisation = computed(() =>
-  useOrganisationStore().getCurrentOrganisation(),
-)
+const currentSpace = computed(() => useSpaceStore().getCurrentSpace())
 
 const navigationLinks: ComputedRef<NavLink[]> = computed(() =>
-  currentOrganisation.value?.id
-    ? getOrgNavigationFor(currentOrganisation.value.id)
-    : [],
+  currentSpace.value?.id ? getSpaceNavigationFor(currentSpace.value.id) : [],
 )
 </script>

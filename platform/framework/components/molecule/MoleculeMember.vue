@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { Member } from 'core/organisation'
+import { Member } from 'core/space'
 
 type Props = {
   member: Member

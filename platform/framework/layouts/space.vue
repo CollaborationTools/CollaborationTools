@@ -9,41 +9,41 @@
 </template>
 
 <script setup lang="ts">
-import useOrganisationStore from '@/stores/useOrganisationStore'
+import useSpaceStore from '@/stores/useSpaceStore'
 import useUserStore from '@/stores/useUserStore'
 
 const router = useRouter()
-const maybeOrgId = $computed(() =>
+const maybeSpaceId = $computed(() =>
   router.currentRoute.value.params.id instanceof Array
     ? router.currentRoute.value.params.id[0]
     : router.currentRoute.value.params.id,
 )
 
-const organisationStore = useOrganisationStore()
-const org = computed(() =>
-  maybeOrgId ? organisationStore.getOrganisation(maybeOrgId) : null,
+const spaceStore = useSpaceStore()
+const space = computed(() =>
+  maybeSpaceId ? spaceStore.getSpace(maybeSpaceId) : null,
 )
 
 const userStore = useUserStore()
 const me = userStore.getMe()
 
-if (me && org.value) {
-  const members = userStore.getMembers(org.value.id)
+if (me && space.value) {
+  const members = userStore.getMembers(space.value.id)
   useConnectionHub().runConnectionHub(me.currentDevice, members ?? [])
 }
 
 watch(
   // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
-  org,
+  space,
   () => {
-    if (org.value === null) {
+    if (space.value === null) {
       if (!router.currentRoute.value.fullPath.includes('/new')) {
-        throwError('Organisation was not found')
+        throwError('Space was not found')
         return undefined
       }
     } else {
-      organisationStore.setCurrentOrganisationId(org.value.id)
-      const members = userStore.getMembers(org.value.id)
+      spaceStore.setCurrentSpaceId(space.value.id)
+      const members = userStore.getMembers(space.value.id)
       useConnectionHub().setMembers(members ?? [])
     }
   },

@@ -26,6 +26,6 @@ useHead({
 
 definePageMeta({
   layout: 'center',
-  middleware: ['open-current-org-if-exists'],
+  middleware: ['open-current-space-if-exists'],
 })
 </script>

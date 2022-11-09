@@ -2,38 +2,28 @@
 /* eslint-disable sonarjs/no-duplicate-string, promise/catch-or-return */
 
 import member1 from 'cypress/fixtures/userStorage/member-1'
-import {
-  ORGANISATIONS_KEY,
-  RECENT_ORGANISATIONS_KEY,
-} from 'stores/useOrganisationStore'
-import { ORGANISATION_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
+import { SPACES_KEY, RECENT_SPACES_KEY } from 'stores/useSpaceStore'
+import { SPACE_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 
-const memberOrganisations = member1.get(ORGANISATIONS_KEY)
-const memberRecentOrganisations = member1.get(RECENT_ORGANISATIONS_KEY)
+const memberSpaces = member1.get(SPACES_KEY)
+const memberRecentSpaces = member1.get(RECENT_SPACES_KEY)
 const memberProfile = member1.get(USER_PROFILE_KEY)
-const memberAllOrganisationsMembers = member1.get(ORGANISATION_MEMBERS_KEY)
+const memberAllSpacesMembers = member1.get(SPACE_MEMBERS_KEY)
 
 const currentMemberId = memberProfile?.id ?? ''
 const currentMemberName = memberProfile?.name ?? ''
-const currentOrgId = memberRecentOrganisations
-  ? memberRecentOrganisations[0] ?? ''
-  : ''
-const currentOrgName = memberOrganisations?.get(currentOrgId)?.name ?? ''
+const currentSpaceId = memberRecentSpaces ? memberRecentSpaces[0] ?? '' : ''
+const currentSpaceName = memberSpaces?.get(currentSpaceId)?.name ?? ''
 const currentDisplayName =
-  memberAllOrganisationsMembers?.get(currentOrgId)?.get(currentMemberId)
-    ?.name ?? ''
-const nextOrgId = memberRecentOrganisations
-  ? memberRecentOrganisations[1] ?? ''
-  : ''
-const nextOrgName = memberOrganisations?.get(nextOrgId)?.name ?? ''
-const thirdOrgId = memberRecentOrganisations
-  ? memberRecentOrganisations[2] ?? ''
-  : ''
+  memberAllSpacesMembers?.get(currentSpaceId)?.get(currentMemberId)?.name ?? ''
+const nextSpaceId = memberRecentSpaces ? memberRecentSpaces[1] ?? '' : ''
+const nextSpaceName = memberSpaces?.get(nextSpaceId)?.name ?? ''
+const thirdSpaceId = memberRecentSpaces ? memberRecentSpaces[2] ?? '' : ''
 
 const differentDisplayName = 'Admin 1C'
 const newProfileName = 'Admin 1X'
 const newDisplayName = 'Admin 1Y'
-const newOrgName = 'Org 4'
+const newSpaceName = 'Space 4'
 
 describe('a member can', () => {
   beforeEach(() => {
@@ -41,19 +31,19 @@ describe('a member can', () => {
     cy.visit('/')
   })
 
-  it('browse and join existing orgs', () => {
-    cy.url().should('contain', '/org/' + currentOrgId)
+  it('browse and join existing spaces', () => {
+    cy.url().should('contain', '/space/' + currentSpaceId)
     cy.getId('navigation-links').contains('Team').click()
     cy.getId('members').should('contain.text', currentDisplayName)
-    cy.getId('org-name').should('contain.text', currentOrgName).click()
-    cy.getUUID(nextOrgId).should('contain.text', nextOrgName).click()
-    cy.url().should('contain', '/org/' + nextOrgId)
-    cy.getId('org-name').should('contain.text', nextOrgName)
+    cy.getId('space-name').should('contain.text', currentSpaceName).click()
+    cy.getUUID(nextSpaceId).should('contain.text', nextSpaceName).click()
+    cy.url().should('contain', '/space/' + nextSpaceId)
+    cy.getId('space-name').should('contain.text', nextSpaceName)
     cy.getId('navigation-links').contains('Team').click()
     cy.getId('join-now').click()
     cy.getId('members').should('contain.text', currentMemberName)
-    cy.getId('org-name').click()
-    cy.getUUID(thirdOrgId).click()
+    cy.getId('space-name').click()
+    cy.getUUID(thirdSpaceId).click()
     cy.getId('navigation-links').contains('Team').click()
     cy.getId('set-display-name').click()
     cy.getId('name-field').type(differentDisplayName)
@@ -61,14 +51,14 @@ describe('a member can', () => {
     cy.getId('members').should('contain.text', differentDisplayName)
   })
 
-  it('create another org and a profile', () => {
+  it('create another space and a profile', () => {
     cy.window().then((window) =>
       window.localStorage.removeItem(USER_PROFILE_KEY),
     )
-    cy.getId('org-name').should('be.visible').click()
-    cy.getId('create-new-org').click()
-    cy.url().should('contain', '/org/new')
-    cy.handleOrgCreation(newOrgName)
+    cy.getId('space-name').should('be.visible').click()
+    cy.getId('create-new-space').click()
+    cy.url().should('contain', '/space/new')
+    cy.handleSpaceCreation(newSpaceName)
     cy.getId('navigation-links').contains('Team').click()
     cy.getId('create-profile').click()
     cy.getId('user-name-field').type(newProfileName)
@@ -89,7 +79,7 @@ describe('a member can', () => {
         }),
       )
     }
-    cy.getId('org-name').should('contain.text', currentOrgName)
+    cy.getId('space-name').should('contain.text', currentSpaceName)
     cy.getId('navigation-links').contains('Team').click()
     cy.getId('invite-new-member').click()
     cy.getId('modal-confirm').realClick()
@@ -99,6 +89,6 @@ describe('a member can', () => {
       .then((link) => {
         return cy.visit(link)
       })
-    cy.getId('org-name').contains(currentOrgName)
+    cy.getId('space-name').contains(currentSpaceName)
   })
 })

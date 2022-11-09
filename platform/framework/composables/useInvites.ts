@@ -1,19 +1,20 @@
-import useOrganisationStore from '@/stores/useOrganisationStore'
+import useSpaceStore from '@/stores/useSpaceStore'
 import useUserStore from '@/stores/useUserStore'
 import { createInviteLink } from 'composables/useRouting'
 import {
-  OrganisationId,
-  createInvite as coreCreateInvite,
-  Invite,
   closeInvite as coreCloseInvite,
-  InviteResponse,
-  createInviteLinkData,
+  createInvite as coreCreateInvite,
   createInviteExpiryDate,
+  createInviteLinkData,
+  Invite,
+  InviteResponse,
   MemberId,
-} from 'core/organisation'
+  SpaceId,
+} from 'core/space'
 import { createUUID } from 'services/browser/uuid'
 import { createEvent } from 'services/connectionHub'
 import { encode } from 'services/crypto/encoder'
+
 
 type AcceptInviteProps = {
   inviterId: MemberId
@@ -30,18 +31,18 @@ type UseInvites = {
 
 export default function useInvites(): UseInvites {
   const userStore = useUserStore()
-  const organisationStore = useOrganisationStore()
+  const spaceStore = useSpaceStore()
 
   const createInvite = (): Invite | null => {
     const inviterId = userStore.getMe()?.currentDevice
-    const currentOrganisation = organisationStore.getCurrentOrganisation()
+    const currentSpace = spaceStore.getCurrentSpace()
 
-    if (!inviterId || !currentOrganisation) {
+    if (!inviterId || !currentSpace) {
       return null
     }
 
-    const organisationId = currentOrganisation.id
-    const organisationName = currentOrganisation.name
+    const spaceId = currentSpace.id
+    const spaceName = currentSpace.name
 
     const inviteId = createUUID()
     const inviteExpiryDate = createInviteExpiryDate()
@@ -50,8 +51,8 @@ export default function useInvites(): UseInvites {
       expiryDate: inviteExpiryDate,
       inviteId,
       inviterId,
-      organisationId,
-      organisationName,
+      spaceId,
+      spaceName,
     })
 
     const inviteLink = createInviteLink(encode(inviteString))
@@ -61,8 +62,8 @@ export default function useInvites(): UseInvites {
       id: inviteId,
       inviteLink,
       inviterId,
-      organisationId,
-      organisationName,
+      spaceId,
+      spaceName,
     })
 
     userStore.setInvite(invite)
@@ -109,30 +110,24 @@ export default function useInvites(): UseInvites {
     useConnectionHub().sendDirectlyTo(inviterId, inviteEvent)
   }
 
-  const sendOrganisationDataTo = (
-    inviteeId: MemberId,
-    organisationId: OrganisationId,
-  ): void => {
+  const sendSpaceDataTo = (inviteeId: MemberId, spaceId: SpaceId): void => {
     const me = userStore.getMe()
-    const organisation = organisationStore.getOrganisation(organisationId)
-    const members = userStore.getMembers(organisationId)
+    const space = spaceStore.getSpace(spaceId)
+    const members = userStore.getMembers(spaceId)
 
-    if (!me || !organisation || !members) {
+    if (!me || !space || !members) {
       return
     }
 
-    const organisationEvent = useOrganisations().createOrganisationEvent(
-      me.id,
-      organisation,
-    )
+    const spaceEvent = useSpaces().createSpaceEvent(me.id, space)
     const membersEvent = useMembers().createMembersEvent(
       me.id,
-      organisation.id,
+      space.id,
       members,
     )
 
     const { sendDirectlyTo } = useConnectionHub()
-    sendDirectlyTo(inviteeId, organisationEvent)
+    sendDirectlyTo(inviteeId, spaceEvent)
     sendDirectlyTo(inviteeId, membersEvent)
   }
 
@@ -146,10 +141,10 @@ export default function useInvites(): UseInvites {
       devices: [inviteResponse.deviceId],
       id: inviteResponse.userId,
       name: inviteResponse.userName,
-      organisationId: invite.organisationId,
+      spaceId: invite.spaceId,
     })
 
-    sendOrganisationDataTo(inviteResponse.deviceId, invite.organisationId)
+    sendSpaceDataTo(inviteResponse.deviceId, invite.spaceId)
 
     const closedInvite = coreCloseInvite(invite, inviteResponse.userId)
     userStore.setInvite(closedInvite)

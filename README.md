@@ -33,9 +33,9 @@ To unblock main work currently the basics are needed, which means solving techni
 - data storage
 
 This should result in features like:
-- creating organisation
-- joining organisation
-- synchronisation of org users
+- creating a space
+- joining a space
+- synchronisation of space users
 - basic chat
 
 Due to large scope any contributions are welcome. For coordination please join [our Discord](https://discord.gg/cT55KFmXgQ).

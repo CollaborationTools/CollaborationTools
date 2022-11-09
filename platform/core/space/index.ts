@@ -1,5 +1,5 @@
+export * from './AllSpaces'
 export * from './Invite'
 export * from './Member'
-export * from './Organisation'
-export * from './AllSpaces'
 export * from './RecentSpaces'
+export * from './Space'

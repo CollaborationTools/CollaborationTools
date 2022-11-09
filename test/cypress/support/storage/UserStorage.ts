@@ -1,48 +1,45 @@
 import {
+  AllSpaces,
   createRecentSpaces,
   MembersInAllSpaces,
-  Organisation,
-  Organisations,
-  AllSpaces,
   RecentSpaces,
   setSpace,
-} from 'core/organisation'
+  Space,
+  Spaces,
+} from 'core/space'
 import { User } from 'core/user'
-import {
-  ORGANISATIONS_KEY,
-  RECENT_ORGANISATIONS_KEY,
-} from 'stores/useOrganisationStore'
-import { ORGANISATION_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
+import { SPACES_KEY, RECENT_SPACES_KEY } from 'stores/useSpaceStore'
+import { SPACE_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 
 export type UserData = {
-  organisations: Organisations
+  spaces: Spaces
   profile: User
-  allOrganisationsMembers: MembersInAllSpaces
+  membersInAllSpaces: MembersInAllSpaces
 }
 
-export type UserStorage = Map<typeof ORGANISATIONS_KEY, AllSpaces> &
-  Map<typeof RECENT_ORGANISATIONS_KEY, RecentSpaces> &
+export type UserStorage = Map<typeof SPACES_KEY, AllSpaces> &
+  Map<typeof RECENT_SPACES_KEY, RecentSpaces> &
   Map<typeof USER_PROFILE_KEY, User> &
-  Map<typeof ORGANISATION_MEMBERS_KEY, MembersInAllSpaces>
+  Map<typeof SPACE_MEMBERS_KEY, MembersInAllSpaces>
 
 export const createUserStorage = ({
-  organisations,
+  spaces,
   profile,
-  allOrganisationsMembers,
+  membersInAllSpaces,
 }: UserData): UserStorage => {
-  const orgMap: AllSpaces = organisations.reduce(
-    (orgMap: AllSpaces, org) => setSpace(orgMap, org),
-    new Map<string, Organisation>(),
+  const allSpaces: AllSpaces = spaces.reduce(
+    (allSpaces: AllSpaces, space) => setSpace(allSpaces, space),
+    new Map<string, Space>(),
   )
 
-  const orgIds = organisations.map((org) => org.id)
+  const spaceIds = spaces.map((space) => space.id)
 
-  const recentOrganisations: RecentSpaces = createRecentSpaces(orgIds)
+  const recentSpaces = createRecentSpaces(spaceIds)
 
-  const userStorage: UserStorage = new Map()
-  userStorage.set(ORGANISATIONS_KEY, orgMap)
-  userStorage.set(RECENT_ORGANISATIONS_KEY, recentOrganisations)
+  const userStorage = new Map()
+  userStorage.set(SPACES_KEY, allSpaces)
+  userStorage.set(RECENT_SPACES_KEY, recentSpaces)
   userStorage.set(USER_PROFILE_KEY, profile)
-  userStorage.set(ORGANISATION_MEMBERS_KEY, allOrganisationsMembers)
+  userStorage.set(SPACE_MEMBERS_KEY, membersInAllSpaces)
   return userStorage
 }

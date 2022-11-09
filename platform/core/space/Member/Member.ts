@@ -1,5 +1,6 @@
-import { OrganisationId } from 'core/organisation'
 import { DeviceId } from 'core/user'
+
+import { SpaceId } from '../Space'
 
 export type MemberId = string
 export type MemberRole = 'admin' | 'member'
@@ -16,7 +17,7 @@ export type Member = Readonly<{
 }>
 export type Members = Readonly<Member[]>
 export type MembersInContext = Readonly<{
-  organisationId: OrganisationId
+  spaceId: SpaceId
   members: Members
 }>
 
@@ -42,8 +43,8 @@ export const createMember = ({
 }
 
 export const createMembersInContext = (
-  organisationId: OrganisationId,
+  spaceId: SpaceId,
   members: Members,
 ): MembersInContext => {
-  return { organisationId, members }
+  return { spaceId, members }
 }

@@ -1,14 +1,14 @@
 import { Ref } from 'vue'
 
-import useOrganisationStore from '@/stores/useOrganisationStore'
+import useSpaceStore from '@/stores/useSpaceStore'
 import useUserStore from '@/stores/useUserStore'
 import {
   InviteResponse,
   MemberId,
   Members,
   MembersInContext,
-  Organisation,
-} from 'core/organisation'
+  Space,
+} from 'core/space'
 import { DeviceId } from 'core/user'
 import {
   ConnectionHub,
@@ -16,6 +16,7 @@ import {
   Event,
 } from 'services/connectionHub'
 import { PeerConnectionsMap } from 'services/p2p'
+
 
 type UseConnectionHub = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
@@ -45,16 +46,12 @@ export default function useConnectionHub(): UseConnectionHub {
       if (event.type === 'invite') {
         const inviteResponse: InviteResponse = JSON.parse(event.data)
         useInvites().closeInvite(inviteResponse)
-      } else if (event.type === 'organisation') {
-        const organisation: Organisation = JSON.parse(event.data)
-        useOrganisationStore().setOrganisation(organisation)
+      } else if (event.type === 'space') {
+        const space: Space = JSON.parse(event.data)
+        useSpaceStore().setSpace(space)
       } else if (event.type === 'members') {
-        const { organisationId, members }: MembersInContext = JSON.parse(
-          event.data,
-        )
-        members.forEach((member) =>
-          useUserStore().setMember(organisationId, member),
-        )
+        const { spaceId, members }: MembersInContext = JSON.parse(event.data)
+        members.forEach((member) => useUserStore().setMember(spaceId, member))
       }
     }
 

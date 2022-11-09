@@ -37,8 +37,9 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
 
-import useOrganisationStore from '@/stores/useOrganisationStore'
-import { INVITE_EXPIRY_TIME_IN_MINUTES, Invites } from 'core/organisation'
+import useSpaceStore from '@/stores/useSpaceStore'
+import { INVITE_EXPIRY_TIME_IN_MINUTES, Invites } from 'core/space'
+
 
 type Props = {
   invites: Invites
@@ -46,7 +47,7 @@ type Props = {
 
 const { invites } = defineProps<Props>()
 
-const organisation = useOrganisationStore().getCurrentOrganisation()
+const space = useSpaceStore().getCurrentSpace()
 
 const isModalOpen = ref(false)
 

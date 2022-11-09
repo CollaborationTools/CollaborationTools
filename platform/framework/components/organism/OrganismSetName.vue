@@ -11,7 +11,7 @@
       <h3 class="font-bold text-lg text-center">Set display name</h3>
       <AtomInput
         v-model="state.name"
-        label="Display name in current organisation"
+        label="Display name in current space"
         data-id="name-field"
         :errors="v$.name.$errors"
         @blur="v$.name.$touch"

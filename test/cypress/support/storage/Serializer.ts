@@ -1,11 +1,8 @@
 import { StorageSerializers } from '@vueuse/core'
 
 import { MapOfMapsSerializer } from 'stores/MapOfMapsSerializer'
-import {
-  ORGANISATIONS_KEY,
-  RECENT_ORGANISATIONS_KEY,
-} from 'stores/useOrganisationStore'
-import { ORGANISATION_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
+import { SPACES_KEY, RECENT_SPACES_KEY } from 'stores/useSpaceStore'
+import { SPACE_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 
 type Item = string | number | boolean | object | null
 
@@ -34,10 +31,10 @@ type Item = string | number | boolean | object | null
  *     : 'any'
  */
 const storageSerializer = {
-  [ORGANISATIONS_KEY]: StorageSerializers.map,
-  [RECENT_ORGANISATIONS_KEY]: StorageSerializers.object,
+  [SPACES_KEY]: StorageSerializers.map,
+  [RECENT_SPACES_KEY]: StorageSerializers.object,
   [USER_PROFILE_KEY]: StorageSerializers.object,
-  [ORGANISATION_MEMBERS_KEY]: MapOfMapsSerializer,
+  [SPACE_MEMBERS_KEY]: MapOfMapsSerializer,
 }
 
 type StorageSerializerKey = keyof typeof storageSerializer

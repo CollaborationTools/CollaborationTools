@@ -5,28 +5,28 @@ declare global {
   namespace Cypress {
     interface Chainable {
       /**
-       * Custom command that test org creation in different contexts.
-       * @param {string} orgName expected org name
+       * Custom command that test space creation in different contexts.
+       * @param {string} spaceName expected space name
        */
-      handleOrgCreation: (orgName: string) => void
+      handleSpaceCreation: (spaceName: string) => void
     }
   }
 }
 
-Cypress.Commands.add('handleOrgCreation', (orgName: string) => {
-  cy.getId('org-name-field')
+Cypress.Commands.add('handleSpaceCreation', (spaceName: string) => {
+  cy.getId('space-name-field')
     .click()
     .blur()
     .parent()
     .should('contain.text', 'required')
-  cy.getId('org-name-field')
-    .type(orgName)
+  cy.getId('space-name-field')
+    .type(spaceName)
     .blur()
     .parent()
     .should('not.contain.text', 'required')
-  cy.getId('create-org').click()
-  cy.url().should('match', /org\/.{36}/)
-  cy.get('header').should('contain.text', orgName)
+  cy.getId('create-space').click()
+  cy.url().should('match', /space\/.{36}/)
+  cy.get('header').should('contain.text', spaceName)
 })
 
 export {}

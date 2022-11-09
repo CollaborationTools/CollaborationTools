@@ -12,15 +12,15 @@ import {
   Members,
   MembersInAllSpaces,
   MembersInSpace,
-  OrganisationId,
   setMember,
-} from 'core/organisation'
+  SpaceId,
+} from 'core/space'
 import { createDevice, createUser, DeviceId, User } from 'core/user'
 import { createUUID } from 'services/browser/uuid'
 
 import { MapOfMapsSerializer } from './MapOfMapsSerializer'
 
-export const ORGANISATION_MEMBERS_KEY = 'organisationsMembers' as const
+export const SPACE_MEMBERS_KEY = 'spacesMembers' as const
 export const USER_PROFILE_KEY = 'me' as const
 export const INVITES_KEY = 'invites' as const
 
@@ -29,9 +29,9 @@ export default defineStore('users', {
     me: useStorage<User | null>(USER_PROFILE_KEY, null, undefined, {
       serializer: StorageSerializers.object,
     }),
-    allOrganisationsMembersMap: useStorage<MembersInAllSpaces>(
-      ORGANISATION_MEMBERS_KEY,
-      new Map<OrganisationId, MembersInSpace | null>(),
+    membersInAllSpaces: useStorage<MembersInAllSpaces>(
+      SPACE_MEMBERS_KEY,
+      new Map<SpaceId, MembersInSpace | null>(),
       undefined,
       { serializer: MapOfMapsSerializer },
     ),
@@ -60,35 +60,22 @@ export default defineStore('users', {
       return (): boolean => state.isDebug
     },
     getMember(state) {
-      return (
-        organisationId: OrganisationId,
-        memberId: MemberId,
-      ): Member | null => {
-        const member = findMember(
-          state.allOrganisationsMembersMap,
-          organisationId,
-          memberId,
-        )
+      return (spaceId: SpaceId, memberId: MemberId): Member | null => {
+        const member = findMember(state.membersInAllSpaces, spaceId, memberId)
 
         return member ? readonly(member) : null
       }
     },
     getMemberByDeviceId(state) {
       return (deviceId: DeviceId): Member | null => {
-        const member = findMemberByDeviceId(
-          state.allOrganisationsMembersMap,
-          deviceId,
-        )
+        const member = findMemberByDeviceId(state.membersInAllSpaces, deviceId)
 
         return member ? readonly(member) : null
       }
     },
     getMembers(state) {
-      return (organisationId: OrganisationId): Members | null => {
-        const members = findMembersBySpaceId(
-          state.allOrganisationsMembersMap,
-          organisationId,
-        )
+      return (spaceId: SpaceId): Members | null => {
+        const members = findMembersBySpaceId(state.membersInAllSpaces, spaceId)
 
         return members ? readonly(members) : null
       }
@@ -115,10 +102,10 @@ export default defineStore('users', {
       }
       return readonly(this.me)
     },
-    setMember(organisationId: OrganisationId, member: Member): void {
-      this.allOrganisationsMembersMap = setMember(
-        this.allOrganisationsMembersMap,
-        organisationId,
+    setMember(spaceId: SpaceId, member: Member): void {
+      this.membersInAllSpaces = setMember(
+        this.membersInAllSpaces,
+        spaceId,
         member,
       )
     },

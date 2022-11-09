@@ -18,7 +18,7 @@
       <AtomInput
         v-model="state.displayName"
         optional
-        label="Display name for this organisation"
+        label="Display name for this space"
         data-id="display-name-field"
       />
     </MoleculeModal>

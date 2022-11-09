@@ -1,24 +1,24 @@
 import {
   createMember,
   MembersInSpace,
-  Organisation,
-  OrganisationId,
   setMember,
-} from 'core/organisation'
+  Space,
+  SpaceId,
+} from 'core/space'
 import { createDevice, createUser } from 'core/user'
 import { createUserStorage } from 'cypress/support/storage'
 import { createUUID } from 'services/browser/uuid'
 
-const createOrganisation = (organisationName: string): Organisation => ({
+const createSpace = (spaceName: string): Space => ({
   id: createUUID(),
-  name: organisationName,
+  name: spaceName,
 })
 
-const org1 = createOrganisation('Org 1')
-const org2 = createOrganisation('Org 2')
-const org3 = createOrganisation('Org 3')
+const space1 = createSpace('Space 1')
+const space2 = createSpace('Space 2')
+const space3 = createSpace('Space 3')
 
-const organisations = [org1, org2, org3]
+const spaces = [space1, space2, space3]
 
 const newDeviceId = createUUID()
 const newDevice = createDevice(newDeviceId)
@@ -28,28 +28,21 @@ const profile = createUser({
   username: 'Admin 1A',
 })
 
-const emptyOrganisationsMembers = new Map<
-  OrganisationId,
-  MembersInSpace | null
->()
+const emptySpacesMembers = new Map<SpaceId, MembersInSpace | null>()
 
-const orgMember1 = createMember({
+const member = createMember({
   devices: profile.devices.map((device) => device.id),
   id: profile.id,
   name: 'Admin 1B',
   role: 'admin',
 })
 
-const allOrganisationsMembers = setMember(
-  emptyOrganisationsMembers,
-  org1.id,
-  orgMember1,
-)
+const membersInAllSpaces = setMember(emptySpacesMembers, space1.id, member)
 
 const storage = createUserStorage({
-  organisations,
+  spaces,
   profile,
-  allOrganisationsMembers,
+  membersInAllSpaces,
 })
 
 export default storage

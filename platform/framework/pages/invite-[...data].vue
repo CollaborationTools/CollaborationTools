@@ -8,8 +8,8 @@
 
     <h2 class="!mt-2">
       You are invited to join
-      <span data-id="org-name">{{
-        maybeInviteLinkData?.organisationName?.replace(' ', '&nbsp;')
+      <span data-id="space-name">{{
+        maybeInviteLinkData?.spaceName?.replace(' ', '&nbsp;')
       }}</span
       ><AtomDot />
     </h2>
@@ -42,9 +42,9 @@
 <script setup lang="ts">
 import { Ref } from 'vue'
 
-import useOrganisationStore from '@/stores/useOrganisationStore'
+import useSpaceStore from '@/stores/useSpaceStore'
 import useUserStore from '@/stores/useUserStore'
-import { InviteLinkData, parseInviteLinkData } from 'core/organisation'
+import { InviteLinkData, parseInviteLinkData } from 'core/space'
 import { decode } from 'services/crypto/encoder'
 
 const userStore = useUserStore()
@@ -107,19 +107,19 @@ const acceptInvite = (): void => {
 }
 
 watchEffect(() => {
-  const organisation = useOrganisationStore().getOrganisation(
-    maybeInviteLinkData.value?.organisationId ?? '',
+  const space = useSpaceStore().getSpace(
+    maybeInviteLinkData.value?.spaceId ?? '',
   )
-  if (!organisation) {
+  if (!space) {
     return
   }
 
-  useRouting().openOrganisation(organisation.id)
+  useRouting().openSpace(space.id)
 })
 
 useHead({
-  title: maybeInviteLinkData.value?.organisationName
-    ? 'Joining ' + maybeInviteLinkData.value.organisationName
+  title: maybeInviteLinkData.value?.spaceName
+    ? 'Joining ' + maybeInviteLinkData.value.spaceName
     : isInviteLinkExpired.value
     ? 'Invite link has expired'
     : 'Wrong invite link',

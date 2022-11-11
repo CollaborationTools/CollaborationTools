@@ -9,7 +9,7 @@
     </p>
     <p>{{ recommendedAction }}</p>
     <div>
-      <AtomBackButton class="mr-4" />
+      <AtomButtonBack class="mr-4" />
       <AtomButton to="/" primary outline class="m-4">Go to homepage</AtomButton>
     </div>
   </main>

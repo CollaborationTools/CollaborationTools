@@ -1,8 +1,6 @@
 <template>
-  <component
-    :is="to ? Link : 'button'"
+  <AtomButtonBase
     :to="to"
-    :role="to ? 'button' : undefined"
     :class="{
       btn: true,
       'btn-accent': accent && !secondary && !primary && !error,
@@ -20,8 +18,9 @@
       'btn-disabled text-gray-600 dark:text-gray-300': disabled,
       'btn-block': fullWidth,
     }"
-    ><slot
-  /></component>
+  >
+    <slot />
+  </AtomButtonBase>
 </template>
 
 <script setup lang="ts">
@@ -37,11 +36,4 @@ type Props = {
 }
 
 defineProps<Props>()
-
-const Link = defineNuxtLink({
-  componentName: 'NuxtButtonLink',
-  externalRelAttribute: '',
-  activeClass: '',
-  exactActiveClass: '',
-})
 </script>

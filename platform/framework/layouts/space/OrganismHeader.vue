@@ -1,7 +1,11 @@
 <template>
   <header class="navbar h-20 min-w-40 bg-stone-50 dark:bg-base-200 shadow-b">
     <div>
-      <AtomButtonSpace class="md:hidden" @click="toggleSidebar">
+      <AtomButtonSpace
+        class="md:hidden"
+        data-id="toggleSidebar"
+        @click="toggleSidebar"
+      >
         {{ useSpaces().getAbbreviation(currentSpace?.name) }}
       </AtomButtonSpace>
     </div>

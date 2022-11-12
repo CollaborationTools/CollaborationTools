@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/* eslint-disable sonarjs/no-duplicate-string, promise/catch-or-return, promise/always-return */
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -26,7 +27,12 @@ Cypress.Commands.add('handleSpaceCreation', (spaceName: string) => {
     .should('not.contain.text', 'required')
   cy.getId('create-space').click()
   cy.url().should('match', /space\/.{36}/)
-  cy.get('header').should('contain.text', spaceName)
+  cy.window().then((win) => {
+    if (win.document.body.clientWidth < 768) {
+      cy.getId('toggleSidebar').click()
+    }
+    cy.getId('sidebar').should('contain.text', spaceName)
+  })
 })
 
 export {}

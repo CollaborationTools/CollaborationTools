@@ -1,6 +1,10 @@
 <template>
   <div class="flex flex-row overflow-x-hidden">
-    <div v-if="isSidebarVisible" class="flex flex-row h-screen">
+    <div
+      v-if="isSidebarVisible"
+      class="flex flex-row h-screen"
+      data-id="sidebar"
+    >
       <OrganismSidebarSpaces />
       <OrganismSidebarNavigation />
     </div>

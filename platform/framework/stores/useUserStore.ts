@@ -16,7 +16,7 @@ import {
   SpaceId,
 } from 'core/space'
 import { createDevice, createUser, DeviceId, User } from 'core/user'
-import { createUUID } from 'services/browser/uuid'
+import { createUUID } from 'services/crypto/uuid'
 
 import { MapOfMapsSerializer } from './MapOfMapsSerializer'
 

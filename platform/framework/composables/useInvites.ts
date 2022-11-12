@@ -11,10 +11,9 @@ import {
   MemberId,
   SpaceId,
 } from 'core/space'
-import { createUUID } from 'services/browser/uuid'
 import { createEvent } from 'services/connectionHub'
 import { encode } from 'services/crypto/encoder'
-
+import { createUUID } from 'services/crypto/uuid'
 
 type AcceptInviteProps = {
   inviterId: MemberId

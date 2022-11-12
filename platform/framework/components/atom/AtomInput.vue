@@ -35,7 +35,7 @@
 // eslint-disable-next-line import/named
 import { ErrorObject } from '@vuelidate/core'
 
-import { createUUID } from 'services/browser/uuid'
+import { createUUID } from 'services/crypto/uuid'
 
 type Props = {
   label: string

@@ -16,7 +16,7 @@ import {
   SpaceId,
   Spaces,
 } from 'core/space'
-import { createUUID } from 'services/browser/uuid'
+import { createUUID } from 'services/crypto/uuid'
 
 export const SPACES_KEY = 'spaces' as const
 export const RECENT_SPACES_KEY = 'recentSpaces' as const

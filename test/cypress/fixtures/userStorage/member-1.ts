@@ -7,7 +7,7 @@ import {
 } from 'core/space'
 import { createDevice, createUser } from 'core/user'
 import { createUserStorage } from 'cypress/support/storage'
-import { createUUID } from 'services/browser/uuid'
+import { createUUID } from 'services/crypto/uuid'
 
 const createSpace = (spaceName: string): Space => ({
   id: createUUID(),

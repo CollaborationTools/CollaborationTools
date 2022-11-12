@@ -4,7 +4,7 @@
       <AtomButtonSpace
         class="md:hidden text-secondary"
         data-id="sidebar-toggle"
-        @click="toggleSidebar"
+        @click.stop="toggleSidebar"
       >
         {{ useSpaces().getAbbreviation(currentSpace?.name) }}
       </AtomButtonSpace>

@@ -8,12 +8,20 @@
       <OrganismSidebarSpaces @navigate="toggleSidebar" />
       <OrganismSidebarNavigation @navigate="toggleSidebar" />
     </div>
-    <div class="flex-1 flex flex-col min-h-screen">
+    <div
+      :class="{
+        'flex-1 flex flex-col min-h-screen': true,
+        'transition translate-x-5 grayscale brightness-90':
+          isSidebarVisible && isAtMostTablet,
+      }"
+      @click="hideSidebar"
+      @keydown.esc="hideSidebar"
+    >
       <OrganismHeader
         :is-sidebar-visible="isSidebarVisible"
         @toggle-sidebar="toggleSidebar"
       />
-      <main class="p-4 md:p-8 pb-20 w-full">
+      <main class="p-4 md:p-8 pb-20 w-full min-w-min bg-base-100">
         <slot />
       </main>
     </div>
@@ -33,6 +41,9 @@ const isAtMostTablet = useLayout().isAtMostTablet
 const isSidebarVisible = ref(!isAtMostTablet.value)
 const toggleSidebar = (): void => {
   if (isAtMostTablet.value) isSidebarVisible.value = !isSidebarVisible.value
+}
+const hideSidebar = (): void => {
+  if (isSidebarVisible.value) toggleSidebar()
 }
 
 const router = useRouter()

@@ -23,3 +23,15 @@ export const getSpaceLinksFor = (spaceId: string): SpaceLink[] =>
         icon: link.icon,
       } as const),
   )
+
+export const getSpaceLinkLabelForPath = (
+  path: string,
+  spaceId: string,
+): string => {
+  const genericPath = path.replace(spaceId, SPACE_ID_PARAM)
+  // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
+  const spaceLinks = Array.from(genericSpaceLinks).reverse()
+  return (
+    spaceLinks.find((item) => genericPath.includes(item.url))?.label ?? 'Home'
+  )
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-20 bg-white dark:bg-base-300">
+  <div class="flex flex-col w-18 bg-white dark:bg-base-300">
     <div class="flex-1 p-2">
       <ul
         class="absolute flex flex-col text-base-content gap-4 bg-white dark:bg-base-300"
@@ -28,7 +28,7 @@
           :to="spaceRoutes.all"
           @click="navigate"
         >
-          <AtomIcon name="spaces" class="w-8 h-8" />
+          <AtomIcon name="spaces" class="w-7 h-7" />
         </AtomButtonSpace>
       </li>
       <li>
@@ -37,12 +37,12 @@
           :to="spaceRoutes.new"
           data-id="create-new-space"
         >
-          <AtomIcon name="add" class="w-8 h-8" />
+          <AtomIcon name="add" class="w-7 h-7" />
         </AtomButtonSpace>
       </li>
       <li>
         <AtomButtonSpace name="Your profile" :to="spaceRoutes.profile">
-          <AtomIcon name="profile" class="w-8 h-8" />
+          <AtomIcon name="profile" class="w-7 h-7" />
         </AtomButtonSpace>
       </li>
     </ul>

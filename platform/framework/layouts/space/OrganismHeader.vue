@@ -10,7 +10,7 @@
       </AtomButtonSpace>
     </div>
     <div class="flex-1 min-w-min">
-      <div class="w-40 px-4 prose text-xl font-medium truncate">
+      <div class="w-40 px-4 text-lg font-medium truncate">
         {{ getSpaceLinkLabelForPath(route.path, currentSpace?.id) }}
       </div>
     </div>

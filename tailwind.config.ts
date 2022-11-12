@@ -86,7 +86,11 @@ export default {
         'Noto Color Emoji',
       ],
     },
-    extend: {},
+    extend: {
+      spacing: {
+        '18': '4.5rem',
+      },
+    },
   },
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
 }

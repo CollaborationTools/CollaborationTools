@@ -2,11 +2,11 @@
   <div v-if="isDebug" class="dropdown dropdown-end">
     <div class="indicator">
       <span
-        class="indicator-item indicator-bottom bottom-2 right-2 badge badge-secondary"
+        class="indicator-item indicator-bottom bottom-3 right-3 badge badge-secondary scale-90"
         >{{ activeConnections.length }}</span
       >
       <button class="btn btn-circle btn-ghost" data-id="connection-stats">
-        <AtomIcon name="team" class="w-8 h-8" />
+        <AtomIcon name="team" class="w-7 h-7" />
       </button>
     </div>
     <ul

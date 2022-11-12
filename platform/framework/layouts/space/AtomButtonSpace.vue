@@ -2,7 +2,7 @@
   <div :class="{ 'tooltip tooltip-right z-10': !!name }" :data-tip="name">
     <AtomButtonBase
       :to="to"
-      class="btn btn-ghost h-16 w-16 bg-base-100 shadow-md rounded-xl text-xl"
+      class="btn btn-ghost h-14 w-14 p-2 bg-base-100 shadow-md rounded-xl text-lg"
     >
       <slot />
     </AtomButtonBase>

@@ -18,7 +18,7 @@ defineProps<Props>()
 const Link = defineNuxtLink({
   componentName: 'NuxtButtonLink',
   externalRelAttribute: '',
-  activeClass: '',
-  exactActiveClass: '',
+  activeClass: 'active-nav',
+  exactActiveClass: 'exact-nav',
 })
 </script>

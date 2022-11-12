@@ -5,8 +5,8 @@
       class="flex flex-row h-screen"
       data-id="sidebar"
     >
-      <OrganismSidebarSpaces />
-      <OrganismSidebarNavigation />
+      <OrganismSidebarSpaces @navigate="toggleSidebar" />
+      <OrganismSidebarNavigation @navigate="toggleSidebar" />
     </div>
     <div class="flex-1 flex flex-col min-h-screen">
       <OrganismHeader
@@ -31,8 +31,9 @@ import OrganismSidebarSpaces from './space/OrganismSidebarSpaces.vue'
 
 const isAtMostTablet = useLayout().isAtMostTablet
 const isSidebarVisible = ref(!isAtMostTablet.value)
-const toggleSidebar = (): boolean =>
-  (isSidebarVisible.value = !isSidebarVisible.value)
+const toggleSidebar = (): void => {
+  if (isAtMostTablet.value) isSidebarVisible.value = !isSidebarVisible.value
+}
 
 const router = useRouter()
 const maybeSpaceId = $computed(() =>

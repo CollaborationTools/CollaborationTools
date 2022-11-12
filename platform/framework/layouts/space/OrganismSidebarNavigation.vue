@@ -8,7 +8,12 @@
     </div>
     <ul class="menu p-2 text-base-content">
       <li v-for="link in links" :key="link.url">
-        <AtomLink :to="link.url" :label="link.label" :icon="link.icon" />
+        <AtomLink
+          :to="link.url"
+          :label="link.label"
+          :icon="link.icon"
+          @click="navigate"
+        />
       </li>
     </ul>
   </div>
@@ -17,6 +22,13 @@
 <script setup lang="ts">
 import { getSpaceLinksFor, SpaceLink } from '@/composables/useRouting'
 import useSpaceStore from '@/stores/useSpaceStore'
+
+type Emits = {
+  (event: 'navigate'): void
+}
+
+const emit = defineEmits<Emits>()
+const navigate = (): void => emit('navigate')
 
 const currentSpace = $computed(() => useSpaceStore().getCurrentSpace())
 

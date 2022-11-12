@@ -23,7 +23,11 @@
       class="flex flex-col text-base-content gap-4 p-2 bg-white dark:bg-base-300 z-10"
     >
       <li>
-        <AtomButtonSpace name="Browse all spaces" :to="spaceRoutes.all">
+        <AtomButtonSpace
+          name="Browse all spaces"
+          :to="spaceRoutes.all"
+          @click="navigate"
+        >
           <AtomIcon name="spaces" class="w-8 h-8" />
         </AtomButtonSpace>
       </li>
@@ -52,6 +56,13 @@ import useSpaceStore from '@/stores/useSpaceStore'
 import { SpaceId } from 'core/space'
 
 import AtomButtonSpace from './AtomButtonSpace.vue'
+
+type Emits = {
+  (event: 'navigate'): void
+}
+
+const emit = defineEmits<Emits>()
+const navigate = (): void => emit('navigate')
 
 // TODO: remove this workaround once .active-nav is always applied
 const currentSpace = $computed(() => useSpaceStore().getCurrentSpace())

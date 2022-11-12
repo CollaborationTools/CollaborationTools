@@ -1,21 +1,21 @@
-import { AvailableIcon } from '@/components/atom/AtomIcon.vue'
-
 import { SPACE_ID_PARAM, spaceRoutes } from './routes'
 
-export type NavLink = Readonly<{
+import type { AvailableIcon } from '@/config'
+
+export type SpaceLink = Readonly<{
+  label: string
   url: string
   icon?: AvailableIcon
-  label?: string
 }>
 
-const genericSpaceNavigation: readonly NavLink[] = [
+const genericSpaceLinks: readonly SpaceLink[] = [
   { url: spaceRoutes.index, label: 'Home', icon: 'home' },
   { url: spaceRoutes.team, label: 'Team', icon: 'team' },
   { url: spaceRoutes.chat, label: 'Chat', icon: 'chat' },
 ] as const
 
-export const getSpaceNavigationFor = (spaceId: string): NavLink[] => {
-  return genericSpaceNavigation.map(
+export const getSpaceLinksFor = (spaceId: string): SpaceLink[] =>
+  genericSpaceLinks.map(
     (link) =>
       ({
         url: link.url.replace(SPACE_ID_PARAM, spaceId),
@@ -23,4 +23,3 @@ export const getSpaceNavigationFor = (spaceId: string): NavLink[] => {
         icon: link.icon,
       } as const),
   )
-}

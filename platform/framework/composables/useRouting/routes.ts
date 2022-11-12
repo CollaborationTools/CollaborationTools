@@ -3,11 +3,11 @@ import type { InviteLink, SpaceId } from 'core/space'
 const INVITE_LINK_ENCODED_DATA = ':data' as const
 
 export const visitorRoutes = {
-  getStarted: 'get-started',
-  guide: 'guide',
+  getStarted: '/get-started',
+  guide: '/guide',
   guideJoinSpace: '/guide/joining-space',
   invite: `/invite-${INVITE_LINK_ENCODED_DATA}`,
-  tools: 'tools',
+  tools: '/tools',
 } as const
 
 export const createInviteLink = (encodedData: string): InviteLink =>

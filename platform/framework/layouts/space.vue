@@ -11,7 +11,7 @@
     <div
       :class="{
         'flex-1 flex flex-col min-h-screen': true,
-        'transition translate-x-5 grayscale brightness-90':
+        'transition translate-x-5 grayscale brightness-150 dark:brightness-75':
           isSidebarVisible && isAtMostTablet,
       }"
       @click="hideSidebar"

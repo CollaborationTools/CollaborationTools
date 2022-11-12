@@ -1,9 +1,9 @@
 <template>
   <div class="h-full w-52 md:w-56 lg:w-64 bg-stone-50 dark:bg-base-200">
-    <div class="p-6 h-20">
-      <span class="text-base-content text-xl font-medium">
-        {{ currentSpace?.name }}<AtomDot />
-      </span>
+    <div
+      class="p-6 h-20 text-base-content text-xl font-medium truncate"
+    >
+      {{ currentSpace?.name }}<AtomDot />
     </div>
     <ul class="menu p-2 text-base-content">
       <li v-for="link in links" :key="link.url">

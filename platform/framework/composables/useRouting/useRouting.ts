@@ -1,10 +1,12 @@
-import { ComputedRef } from 'vue'
+import { ComputedRef, Ref } from 'vue'
+import { RouteLocationNormalizedLoaded } from 'vue-router'
 
 import { SpaceId } from 'core/space'
 
 import { SPACE_PATH } from './routes'
 
 type UseRouting = {
+  getRoute: () => Ref<RouteLocationNormalizedLoaded>
   goBack: () => void
   hasHistory: ComputedRef<boolean>
   openSpace: (spaceId: SpaceId) => void
@@ -12,6 +14,8 @@ type UseRouting = {
 
 export default function useRouting(): UseRouting {
   const router = useRouter()
+
+  const getRoute = (): Ref<RouteLocationNormalizedLoaded> => router.currentRoute
 
   const goBack = (): void => router.back()
 
@@ -21,5 +25,5 @@ export default function useRouting(): UseRouting {
     router.push(`${SPACE_PATH}/${spaceId}`)
   }
 
-  return { goBack, hasHistory, openSpace }
+  return { getRoute, goBack, hasHistory, openSpace }
 }

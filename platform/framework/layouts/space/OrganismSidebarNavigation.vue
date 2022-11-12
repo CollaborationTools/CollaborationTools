@@ -2,6 +2,7 @@
   <div class="h-full w-52 md:w-56 lg:w-64 bg-stone-50 dark:bg-base-200">
     <div
       class="p-6 h-20 text-base-content text-xl font-medium truncate"
+      data-id="space-name"
     >
       {{ currentSpace?.name }}<AtomDot />
     </div>

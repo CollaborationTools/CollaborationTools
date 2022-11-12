@@ -3,7 +3,7 @@
     <div>
       <AtomButtonSpace
         class="md:hidden"
-        data-id="toggleSidebar"
+        data-id="sidebar-toggle"
         @click="toggleSidebar"
       >
         {{ useSpaces().getAbbreviation(currentSpace?.name) }}

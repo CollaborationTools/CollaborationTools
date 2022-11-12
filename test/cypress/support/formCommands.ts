@@ -29,7 +29,7 @@ Cypress.Commands.add('handleSpaceCreation', (spaceName: string) => {
   cy.url().should('match', /space\/.{36}/)
   cy.window().then((win) => {
     if (win.document.body.clientWidth < 768) {
-      cy.getId('toggleSidebar').click()
+      cy.getId('sidebar-toggle').click()
     }
     cy.getId('sidebar').should('contain.text', spaceName)
   })

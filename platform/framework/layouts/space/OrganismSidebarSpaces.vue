@@ -28,7 +28,11 @@
         </AtomButtonSpace>
       </li>
       <li>
-        <AtomButtonSpace name="Add new space" :to="spaceRoutes.new">
+        <AtomButtonSpace
+          name="Add new space"
+          :to="spaceRoutes.new"
+          data-id="create-new-space"
+        >
           <AtomIcon name="add" class="w-8 h-8" />
         </AtomButtonSpace>
       </li>

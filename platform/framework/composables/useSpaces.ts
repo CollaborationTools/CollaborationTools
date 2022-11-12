@@ -3,6 +3,7 @@ import { createEvent } from 'services/connectionHub'
 
 type UseSpaces = {
   createSpaceEvent: (senderId: MemberId, space: Space) => string
+  getAbbreviation: (name: string) => string
 }
 
 export default function useSpaces(): UseSpaces {
@@ -16,5 +17,12 @@ export default function useSpaces(): UseSpaces {
     return JSON.stringify(event)
   }
 
-  return { createSpaceEvent }
+  const getAbbreviation = (name: string, maxNumberOfLetters = 2): string =>
+    name
+      .split(' ')
+      .map((word) => word.at(0))
+      .join('')
+      .slice(0, maxNumberOfLetters)
+
+  return { createSpaceEvent, getAbbreviation }
 }

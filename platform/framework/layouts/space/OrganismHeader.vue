@@ -2,7 +2,7 @@
   <header class="navbar h-20 min-w-40 bg-stone-50 dark:bg-base-200 shadow-b">
     <div>
       <AtomButtonSpace
-        class="md:hidden"
+        class="md:hidden text-secondary"
         data-id="sidebar-toggle"
         @click="toggleSidebar"
       >

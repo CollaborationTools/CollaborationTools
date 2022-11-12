@@ -23,6 +23,7 @@ export const spaceRoutes = {
   index: `${SPACE_PATH}/${SPACE_ID_PARAM}`,
   team: `${SPACE_PATH}/${SPACE_ID_PARAM}/team`,
   chat: `${SPACE_PATH}/${SPACE_ID_PARAM}/chat`,
+  decision: `${SPACE_PATH}/${SPACE_ID_PARAM}/decision`,
   profile: '/profile',
 } as const
 

@@ -26,8 +26,9 @@ export const getSpaceLinksFor = (spaceId: string): SpaceLink[] =>
 
 export const getSpaceLinkLabelForPath = (
   path: string,
-  spaceId: string,
+  spaceId: string | undefined,
 ): string => {
+  if (spaceId === undefined) return ''
   const genericPath = path.replace(spaceId, SPACE_ID_PARAM)
   // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
   const spaceLinks = Array.from(genericSpaceLinks).reverse()

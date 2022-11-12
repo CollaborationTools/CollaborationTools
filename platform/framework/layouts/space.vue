@@ -46,11 +46,11 @@ const hideSidebar = (): void => {
   if (isSidebarVisible.value) toggleSidebar()
 }
 
-const router = useRouter()
+const route = useRouting().getRoute()
 const maybeSpaceId = $computed(() =>
-  router.currentRoute.value.params.id instanceof Array
-    ? router.currentRoute.value.params.id[0]
-    : router.currentRoute.value.params.id,
+  route.value.params.id instanceof Array
+    ? route.value.params.id[0]
+    : route.value.params.id,
 )
 
 const spaceStore = useSpaceStore()
@@ -71,7 +71,7 @@ watch(
   space,
   () => {
     if (space.value === null) {
-      if (!router.currentRoute.value.fullPath.includes('/new')) {
+      if (!route.value.fullPath.includes('/new')) {
         throwError('Space was not found')
         return undefined
       }

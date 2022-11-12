@@ -1,16 +1,34 @@
 <template>
-  <div class="flex flex-col min-h-screen">
-    <OrganismHeader />
-    <main class="block p-4 md:p-8 pb-20 w-full">
-      <slot />
-    </main>
-    <OrganismFooter />
+  <div class="flex flex-row overflow-x-hidden">
+    <div v-if="isSidebarVisible" class="flex flex-row h-screen">
+      <OrganismSidebarSpaces />
+      <OrganismSidebarNavigation />
+    </div>
+    <div class="flex-1 flex flex-col min-h-screen">
+      <OrganismHeader
+        :is-sidebar-visible="isSidebarVisible"
+        @toggle-sidebar="toggleSidebar"
+      />
+      <main class="p-4 md:p-8 pb-20 w-full">
+        <slot />
+      </main>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import useLayout from '@/composables/useLayout'
 import useSpaceStore from '@/stores/useSpaceStore'
 import useUserStore from '@/stores/useUserStore'
+
+import OrganismHeader from './space/OrganismHeader.vue'
+import OrganismSidebarNavigation from './space/OrganismSidebarNavigation.vue'
+import OrganismSidebarSpaces from './space/OrganismSidebarSpaces.vue'
+
+const isAtMostTablet = useLayout().isAtMostTablet
+const isSidebarVisible = ref(!isAtMostTablet.value)
+const toggleSidebar = (): boolean =>
+  (isSidebarVisible.value = !isSidebarVisible.value)
 
 const router = useRouter()
 const maybeSpaceId = $computed(() =>

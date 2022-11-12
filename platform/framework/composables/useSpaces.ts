@@ -17,7 +17,7 @@ export default function useSpaces(): UseSpaces {
     return JSON.stringify(event)
   }
 
-  const getAbbreviation = (name: string, maxNumberOfLetters = 2): string =>
+  const getAbbreviation = (name: string, maxNumberOfLetters = 3): string =>
     name
       .split(' ')
       .map((word) => word.at(0))

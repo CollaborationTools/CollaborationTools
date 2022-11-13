@@ -4,13 +4,8 @@ import { defineStore } from 'pinia'
 import {
   addSpace as coreAddSpace,
   AllSpaces,
-  createRecentSpaces as coreCreateRecentSpaces,
-  getCurrentSpace as coreGetCurrentSpace,
-  getRecentSpaces as coreGetRecentSpaces,
   getSpace as coreGetSpace,
   getSpaces as coreGetSpaces,
-  RecentSpaces,
-  setMostRecentSpace as coreSetMostRecentSpace,
   setSpace as coreSetSpace,
   Space,
   SpaceId,
@@ -19,7 +14,7 @@ import {
 import { createUUID } from 'services/crypto/uuid'
 
 export const SPACES_KEY = 'spaces' as const
-export const RECENT_SPACES_KEY = 'recentSpaces' as const
+export const CURRENT_SPACE_KEY = 'currentSpace' as const
 
 export default defineStore('spaces', {
   state: () => ({
@@ -27,10 +22,7 @@ export default defineStore('spaces', {
       SPACES_KEY,
       new Map<SpaceId, Space | null>(),
     ),
-    recentSpaces: useStorage<RecentSpaces>(
-      RECENT_SPACES_KEY,
-      coreCreateRecentSpaces(),
-    ),
+    currentSpaceId: useStorage<SpaceId | null>(CURRENT_SPACE_KEY, null),
   }),
   getters: {
     getSpace(state) {
@@ -38,15 +30,13 @@ export default defineStore('spaces', {
         coreGetSpace(state.allSpaces, spaceId)
     },
     getCurrentSpace(state) {
-      return (): Space | null =>
-        coreGetCurrentSpace(state.allSpaces, state.recentSpaces)
+      return (): Space | null => {
+        if (state.currentSpaceId === null) return null
+        return coreGetSpace(state.allSpaces, state.currentSpaceId)
+      }
     },
     getSpaces(state) {
       return (): Spaces => coreGetSpaces(state.allSpaces)
-    },
-    getRecentSpaces(state) {
-      return (): Spaces =>
-        coreGetRecentSpaces(state.allSpaces, state.recentSpaces)
     },
   },
   actions: {
@@ -63,10 +53,7 @@ export default defineStore('spaces', {
       this.allSpaces = coreSetSpace(this.allSpaces, space)
     },
     setCurrentSpaceId(currentSpaceId: string): void {
-      this.recentSpaces = coreSetMostRecentSpace(
-        this.recentSpaces,
-        currentSpaceId,
-      )
+      this.currentSpaceId = currentSpaceId
     },
   },
 })

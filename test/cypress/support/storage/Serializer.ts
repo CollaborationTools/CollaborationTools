@@ -1,7 +1,7 @@
 import { StorageSerializers } from '@vueuse/core'
 
 import { MapOfMapsSerializer } from 'stores/MapOfMapsSerializer'
-import { SPACES_KEY, RECENT_SPACES_KEY } from 'stores/useSpaceStore'
+import { SPACES_KEY, CURRENT_SPACE_KEY } from 'stores/useSpaceStore'
 import { SPACE_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 
 type Item = string | number | boolean | object | null
@@ -32,7 +32,7 @@ type Item = string | number | boolean | object | null
  */
 const storageSerializer = {
   [SPACES_KEY]: StorageSerializers.map,
-  [RECENT_SPACES_KEY]: StorageSerializers.object,
+  [CURRENT_SPACE_KEY]: StorageSerializers.string,
   [USER_PROFILE_KEY]: StorageSerializers.object,
   [SPACE_MEMBERS_KEY]: MapOfMapsSerializer,
 }

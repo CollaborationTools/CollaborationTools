@@ -1,24 +1,26 @@
 /// <reference types="cypress-real-events" />
 /* eslint-disable sonarjs/no-duplicate-string, promise/catch-or-return */
 
+import { getSpaces } from 'core/space'
 import member1 from 'cypress/fixtures/userStorage/member-1'
-import { SPACES_KEY, RECENT_SPACES_KEY } from 'stores/useSpaceStore'
+import { SPACES_KEY, CURRENT_SPACE_KEY } from 'stores/useSpaceStore'
 import { SPACE_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 
 const memberSpaces = member1.get(SPACES_KEY)
-const memberRecentSpaces = member1.get(RECENT_SPACES_KEY)
+const memberSpaceIds = getSpaces(memberSpaces).map((space) => space.id)
+const memberCurrentSpaceId = member1.get(CURRENT_SPACE_KEY)
 const memberProfile = member1.get(USER_PROFILE_KEY)
 const memberAllSpacesMembers = member1.get(SPACE_MEMBERS_KEY)
 
 const currentMemberId = memberProfile?.id ?? ''
 const currentMemberName = memberProfile?.name ?? ''
-const currentSpaceId = memberRecentSpaces ? memberRecentSpaces[0] ?? '' : ''
+const currentSpaceId = memberCurrentSpaceId ?? ''
 const currentSpaceName = memberSpaces?.get(currentSpaceId)?.name ?? ''
 const currentDisplayName =
   memberAllSpacesMembers?.get(currentSpaceId)?.get(currentMemberId)?.name ?? ''
-const nextSpaceId = memberRecentSpaces ? memberRecentSpaces[1] ?? '' : ''
+const nextSpaceId = memberSpaceIds?.[1] ?? ''
 const nextSpaceName = memberSpaces?.get(nextSpaceId)?.name ?? ''
-const thirdSpaceId = memberRecentSpaces ? memberRecentSpaces[2] ?? '' : ''
+const thirdSpaceId = memberSpaceIds?.[2] ?? ''
 
 const differentDisplayName = 'Admin 1C'
 const newProfileName = 'Admin 1X'

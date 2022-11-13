@@ -1,4 +1,3 @@
-import { RecentSpaces } from './RecentSpaces'
 import { Space, SpaceId, Spaces } from './Space'
 
 export type AllSpaces = ReadonlyMap<SpaceId, Space | null>
@@ -28,27 +27,4 @@ export const getSpace = (
 export const getSpaces = (allSpaces: AllSpaces): Spaces => {
   const spaces = Array.from(allSpaces.values())
   return spaces.filter((space): space is Space => space !== null)
-}
-
-export const getCurrentSpace = (
-  allSpaces: AllSpaces,
-  recentSpaces: RecentSpaces,
-): Space | null => {
-  const recentSpaceId = recentSpaces.at(0)
-  if (recentSpaceId === undefined) {
-    return null
-  }
-  return allSpaces.get(recentSpaceId) ?? null
-}
-
-export const getRecentSpaces = (
-  allSpaces: AllSpaces,
-  recentSpaces: RecentSpaces,
-): Spaces => {
-  const matchedSpaces = recentSpaces.map((spaceId) =>
-    allSpaces.get(spaceId ?? ''),
-  )
-  return matchedSpaces.filter(
-    (space): space is Space => space !== null && space !== undefined,
-  )
 }

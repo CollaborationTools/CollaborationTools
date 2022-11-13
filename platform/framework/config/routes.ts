@@ -1,6 +1,4 @@
-import type { InviteLink, SpaceId } from 'core/space'
-
-const INVITE_LINK_ENCODED_DATA = ':data' as const
+export const INVITE_LINK_ENCODED_DATA = ':data' as const
 
 export const visitorRoutes = {
   getStarted: '/get-started',
@@ -9,10 +7,6 @@ export const visitorRoutes = {
   invite: `/invite-${INVITE_LINK_ENCODED_DATA}`,
   tools: '/tools',
 } as const
-
-export const createInviteLink = (encodedData: string): InviteLink =>
-  location.origin +
-  visitorRoutes.invite.replace(INVITE_LINK_ENCODED_DATA, encodedData)
 
 export const SPACE_PATH = '/space' as const
 export const SPACE_ID_PARAM = ':id' as const
@@ -24,8 +18,8 @@ export const spaceRoutes = {
   team: `${SPACE_PATH}/${SPACE_ID_PARAM}/team`,
   chat: `${SPACE_PATH}/${SPACE_ID_PARAM}/chat`,
   decision: `${SPACE_PATH}/${SPACE_ID_PARAM}/decision`,
-  profile: '/profile',
 } as const
 
-export const getMainSpacePathFor = (spaceId: SpaceId): string =>
-  spaceRoutes.index.replace(SPACE_ID_PARAM, spaceId)
+export const privateRoutes = {
+  profile: '/profile',
+}

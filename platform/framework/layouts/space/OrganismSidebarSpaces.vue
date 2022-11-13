@@ -11,7 +11,7 @@
         >
           <AtomButtonSpace
             :name="space.name"
-            :to="getMainSpacePathFor(space.id)"
+            :to="useSpaces().getMainSpacePathFor(space.id)"
             :data-uuid="space.id"
           >
             {{ useSpaces().getAbbreviation(space.name) }}
@@ -41,7 +41,7 @@
         </AtomButtonSpace>
       </li>
       <li>
-        <AtomButtonSpace name="Your profile" :to="spaceRoutes.profile">
+        <AtomButtonSpace name="Your profile" :to="privateRoutes.profile">
           <AtomIcon name="profile" class="w-7 h-7" />
         </AtomButtonSpace>
       </li>
@@ -50,8 +50,8 @@
 </template>
 
 <script setup lang="ts">
-import { getMainSpacePathFor, spaceRoutes } from '@/composables/useRouting'
 import useSpaces from '@/composables/useSpaces'
+import { privateRoutes, spaceRoutes } from '@/config'
 import useSpaceStore from '@/stores/useSpaceStore'
 import { SpaceId } from 'core/space'
 

@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { visitorRoutes } from '@/composables/useRouting'
+import { visitorRoutes } from '@/config'
 
 useHead({
   title: 'Welcome',

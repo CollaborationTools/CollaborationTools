@@ -1,9 +1,8 @@
 import { ComputedRef, Ref } from 'vue'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 
+import { SPACE_PATH } from '@/config'
 import { SpaceId } from 'core/space'
-
-import { SPACE_PATH } from './routes'
 
 type UseRouting = {
   getRoute: () => Ref<RouteLocationNormalizedLoaded>

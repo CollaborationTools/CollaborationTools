@@ -1,12 +1,13 @@
+import { INVITE_LINK_ENCODED_DATA, visitorRoutes } from '@/config'
 import useSpaceStore from '@/stores/useSpaceStore'
 import useUserStore from '@/stores/useUserStore'
-import { createInviteLink } from 'composables/useRouting'
 import {
   closeInvite as coreCloseInvite,
   createInvite as coreCreateInvite,
   createInviteExpiryDate,
   createInviteLinkData,
   Invite,
+  InviteLink,
   InviteResponse,
   MemberId,
   SpaceId,
@@ -31,6 +32,10 @@ type UseInvites = {
 export default function useInvites(): UseInvites {
   const userStore = useUserStore()
   const spaceStore = useSpaceStore()
+
+  const createInviteLink = (encodedData: string): InviteLink =>
+    location.origin +
+    visitorRoutes.invite.replace(INVITE_LINK_ENCODED_DATA, encodedData)
 
   const createInvite = (): Invite | null => {
     const inviterId = userStore.getMe()?.currentDevice

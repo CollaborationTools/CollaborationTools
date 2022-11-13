@@ -1,6 +1,4 @@
-import { SPACE_ID_PARAM, spaceRoutes } from './routes'
-
-import type { AvailableIcon } from '@/config'
+import { AvailableIcon, SPACE_ID_PARAM, spaceRoutes } from '@/config'
 
 export type SpaceLink = Readonly<{
   label: string

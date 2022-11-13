@@ -20,7 +20,7 @@ import { createUUID } from 'services/crypto/uuid'
 
 import { MapOfMapsSerializer } from './MapOfMapsSerializer'
 
-export const SPACE_MEMBERS_KEY = 'spacesMembers' as const
+export const MEMBERS_KEY = 'members' as const
 export const USER_PROFILE_KEY = 'me' as const
 export const INVITES_KEY = 'invites' as const
 
@@ -30,7 +30,7 @@ export default defineStore('users', {
       serializer: StorageSerializers.object,
     }),
     membersInAllSpaces: useStorage<MembersInAllSpaces>(
-      SPACE_MEMBERS_KEY,
+      MEMBERS_KEY,
       new Map<SpaceId, MembersInSpace | null>(),
       undefined,
       { serializer: MapOfMapsSerializer },

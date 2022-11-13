@@ -4,13 +4,15 @@
 import { getSpaces } from 'core/space'
 import member1 from 'cypress/fixtures/userStorage/member-1'
 import { SPACES_KEY, CURRENT_SPACE_KEY } from 'stores/useSpaceStore'
-import { SPACE_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
+import { MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 
 const memberSpaces = member1.get(SPACES_KEY)
-const memberSpaceIds = getSpaces(memberSpaces).map((space) => space.id)
+const memberSpaceIds = memberSpaces
+  ? getSpaces(memberSpaces).map((space) => space.id)
+  : []
 const memberCurrentSpaceId = member1.get(CURRENT_SPACE_KEY)
 const memberProfile = member1.get(USER_PROFILE_KEY)
-const memberAllSpacesMembers = member1.get(SPACE_MEMBERS_KEY)
+const memberAllSpacesMembers = member1.get(MEMBERS_KEY)
 
 const currentMemberId = memberProfile?.id ?? ''
 const currentMemberName = memberProfile?.name ?? ''

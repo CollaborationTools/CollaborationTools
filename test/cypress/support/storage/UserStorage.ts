@@ -8,7 +8,7 @@ import {
 } from 'core/space'
 import { User } from 'core/user'
 import { SPACES_KEY, CURRENT_SPACE_KEY } from 'stores/useSpaceStore'
-import { SPACE_MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
+import { MEMBERS_KEY, USER_PROFILE_KEY } from 'stores/useUserStore'
 
 export type UserData = {
   spaces: Spaces
@@ -19,7 +19,7 @@ export type UserData = {
 export type UserStorage = Map<typeof SPACES_KEY, AllSpaces> &
   Map<typeof CURRENT_SPACE_KEY, SpaceId> &
   Map<typeof USER_PROFILE_KEY, User> &
-  Map<typeof SPACE_MEMBERS_KEY, MembersInAllSpaces>
+  Map<typeof MEMBERS_KEY, MembersInAllSpaces>
 
 export const createUserStorage = ({
   spaces,
@@ -37,6 +37,6 @@ export const createUserStorage = ({
   userStorage.set(SPACES_KEY, allSpaces)
   userStorage.set(CURRENT_SPACE_KEY, spaceId)
   userStorage.set(USER_PROFILE_KEY, profile)
-  userStorage.set(SPACE_MEMBERS_KEY, membersInAllSpaces)
+  userStorage.set(MEMBERS_KEY, membersInAllSpaces)
   return userStorage
 }

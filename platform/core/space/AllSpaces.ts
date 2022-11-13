@@ -10,19 +10,15 @@ export const setSpace = (allSpaces: AllSpaces, space: Space): AllSpaces => {
 export const addSpace = (
   allSpaces: AllSpaces,
   space: Space,
-): { allSpaces: AllSpaces; space: Space } => {
-  return {
-    allSpaces: new Map(allSpaces).set(space.id, space),
-    space,
-  }
-}
+): { allSpaces: AllSpaces; space: Space } => ({
+  allSpaces: new Map(allSpaces).set(space.id, space),
+  space,
+})
 
 export const deleteSpace = (
   allSpaces: AllSpaces,
   deletedSpace: Space,
-): AllSpaces => {
-  return new Map(allSpaces).set(deletedSpace.id, null)
-}
+): AllSpaces => new Map(allSpaces).set(deletedSpace.id, null)
 
 export const getSpace = (
   allSpaces: AllSpaces,

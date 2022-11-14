@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-1 gap-4 w-full md:max-w-3xl mx-auto mb-16">
+  <div class="grid grid-cols-1 gap-4 w-full">
     <template v-if="me">
       <template v-if="isMember">
         <OrganismInvites :invites="invites" />
@@ -35,10 +35,9 @@
 import useSpaceStore from '@/stores/useSpaceStore'
 import useUserStore from '@/stores/useUserStore'
 
-const spaceStore = useSpaceStore()
 const userStore = useUserStore()
 
-const currentSpace = spaceStore.getCurrentSpace()
+const currentSpace = $computed(() => useSpaceStore().getCurrentSpace())
 
 useHead({
   title: `Team @ ${currentSpace?.name}`,

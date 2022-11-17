@@ -1,5 +1,7 @@
 <template>
-  <header class="navbar h-20 min-w-40 bg-stone-50 dark:bg-base-200 shadow-b">
+  <header
+    class="navbar h-20 w-full min-w-40 bg-stone-50 dark:bg-base-200 shadow-b"
+  >
     <div>
       <AtomButtonSpace
         class="md:hidden text-secondary"

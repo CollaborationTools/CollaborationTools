@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row overflow-x-hidden">
+  <div class="flex flex-row h-screen w-screen overflow-x-hidden">
     <div
       v-if="isSidebarVisible"
       class="flex flex-row h-screen"
@@ -10,7 +10,7 @@
     </div>
     <div
       :class="{
-        'flex-1 flex flex-col min-h-screen': true,
+        'flex-1 flex flex-col h-screen w-full': true,
         'transition translate-x-5 grayscale brightness-150 dark:brightness-75':
           isSidebarVisible && isAtMostTablet,
       }"
@@ -21,7 +21,7 @@
         :is-sidebar-visible="isSidebarVisible"
         @toggle-sidebar="toggleSidebar"
       />
-      <main class="p-4 md:p-8 pb-20 w-full min-w-min bg-base-100">
+      <main class="flex-1 p-4 md:p-8 w-full min-w-min bg-base-100">
         <slot />
       </main>
     </div>

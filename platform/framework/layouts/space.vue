@@ -72,7 +72,7 @@ watch(
   () => {
     if (space.value === null) {
       if (!route.value.fullPath.includes('/new')) {
-        throwError('Space was not found')
+        createError('Space was not found')
         return undefined
       }
     } else {

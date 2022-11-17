@@ -25,6 +25,9 @@
       "stores/*": [
         "./platform/framework/stores/*"
       ],
+      "tools/*": [
+        "./tools/*"
+      ],
       "@@/*": [
         "./*"
       ],

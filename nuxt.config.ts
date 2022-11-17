@@ -66,6 +66,7 @@ export default defineNuxtConfig({
         'core/': `${path.resolve(__dirname, 'platform/core')}/`,
         'services/': `${path.resolve(__dirname, 'platform/services')}/`,
         'stores/': `${path.resolve(__dirname, 'platform/framework/stores')}/`,
+        'tools/': `${path.resolve(__dirname, 'tools')}/`,
       },
     },
   },

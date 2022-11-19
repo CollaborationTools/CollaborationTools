@@ -5,6 +5,7 @@ export default {
     './platform/framework/components/**/*.vue',
     './platform/framework/layouts/**/*.vue',
     './platform/framework/pages/**/*.vue',
+    './tools/**/*.vue',
   ],
   daisyui: {
     themes: [

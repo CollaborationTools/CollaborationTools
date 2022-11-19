@@ -29,7 +29,6 @@ export const getSpaceLinkLabelForPath = (
 ): string => {
   if (spaceId === undefined) return ''
   const genericPath = path.replace(spaceId, SPACE_ID_PARAM)
-  // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
   const spaceLinks = Array.from(genericSpaceLinks).reverse()
   return (
     spaceLinks.find((item) => genericPath.includes(item.url))?.label ?? 'Home'

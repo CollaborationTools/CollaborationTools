@@ -67,7 +67,6 @@ if (me && space.value) {
 }
 
 watch(
-  // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
   space,
   () => {
     if (space.value === null) {

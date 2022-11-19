@@ -92,7 +92,8 @@
         "platform/framework/pages/**/*.vue",
         "platform/framework/layouts/**/*.vue",
         "platform/framework/app.vue",
-        "platform/framework/error.vue"
+        "platform/framework/error.vue",
+        "tools/**/*.vue"
       ],
       "rules": {
         "@typescript-eslint/no-unused-vars": "off"

@@ -1,7 +1,8 @@
 <template>
-  <div class="flex flex-row h-screen w-screen overflow-x-hidden">
+  <div class="flex flex-row h-screen w-screen overflow-hidden">
     <div
       v-if="isSidebarVisible"
+      ref="sidebar"
       class="flex flex-row h-screen"
       data-id="sidebar"
     >
@@ -37,14 +38,20 @@ import OrganismHeader from './space/OrganismHeader.vue'
 import OrganismSidebarNavigation from './space/OrganismSidebarNavigation.vue'
 import OrganismSidebarSpaces from './space/OrganismSidebarSpaces.vue'
 
+const sidebar = $ref<HTMLDivElement | null>(null)
 const isAtMostTablet = useLayout().isAtMostTablet
-const isSidebarVisible = ref(!isAtMostTablet.value)
+let isSidebarVisible = $ref(!isAtMostTablet.value)
 const toggleSidebar = (): void => {
-  if (isAtMostTablet.value) isSidebarVisible.value = !isSidebarVisible.value
+  if (isAtMostTablet.value) isSidebarVisible = !isSidebarVisible
 }
 const hideSidebar = (): void => {
-  if (isSidebarVisible.value) toggleSidebar()
+  if (isSidebarVisible) toggleSidebar()
 }
+const sidebarWidth = $computed(() => {
+  const sidebarWidth = sidebar?.clientWidth ?? 0
+  const translateXOnSmallerDevices = isAtMostTablet.value ? 20 : 0
+  return isSidebarVisible ? sidebarWidth + translateXOnSmallerDevices : 0
+})
 
 const route = useRouting().getRoute()
 const maybeSpaceId = $computed(() =>
@@ -83,3 +90,10 @@ watch(
   { immediate: true },
 )
 </script>
+
+<style scoped lang="postcss">
+.main-width {
+  @apply min-w-[360px]; /* the smallest device width */
+  width: calc(100vw - v-bind(sidebarWidth) * 1px);
+}
+</style>

@@ -96,4 +96,12 @@ watch(
   @apply min-w-[360px]; /* the smallest device width */
   width: calc(100vw - v-bind(sidebarWidth) * 1px);
 }
+
+main > :first-child:not(.overflow-hidden) {
+  @apply overflow-auto;
+}
+
+main > :first-child:not(.p-0) {
+  @apply p-2 md:p-4;
+}
 </style>

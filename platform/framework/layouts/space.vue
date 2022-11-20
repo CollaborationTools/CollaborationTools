@@ -6,7 +6,7 @@
       class="flex flex-row h-screen"
       data-id="sidebar"
     >
-      <OrganismSidebarSpaces @navigate="toggleSidebar" />
+      <OrganismSidebarSpaces />
       <OrganismSidebarNavigation @navigate="toggleSidebar" />
     </div>
     <div

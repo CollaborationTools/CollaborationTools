@@ -13,7 +13,7 @@ const genericSpaceLinks: readonly SpaceLink[] = [
   { url: spaceRoutes.decision, label: 'Decisions', icon: 'decision' },
 ] as const
 
-export const getSpaceLinksFor = (spaceId: string): SpaceLink[] =>
+export const getSpaceLinks = (spaceId: string): SpaceLink[] =>
   genericSpaceLinks.map(
     (link) =>
       ({

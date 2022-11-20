@@ -5,7 +5,7 @@ import { createEvent } from 'services/connectionHub'
 type UseSpaces = {
   createSpaceEvent: (senderId: MemberId, space: Space) => string
   getAbbreviation: (name: string | undefined) => string
-  getMainSpacePathFor: (spaceId: SpaceId) => string
+  getMainSpacePath: (spaceId: SpaceId) => string
 }
 
 export default function useSpaces(): UseSpaces {
@@ -31,8 +31,12 @@ export default function useSpaces(): UseSpaces {
       .slice(0, maxNumberOfLetters)
   }
 
-  const getMainSpacePathFor = (spaceId: SpaceId): string =>
+  const getMainSpacePath = (spaceId: SpaceId): string =>
     spaceRoutes.index.replace(SPACE_ID_PARAM, spaceId)
 
-  return { createSpaceEvent, getAbbreviation, getMainSpacePathFor }
+  return {
+    createSpaceEvent,
+    getAbbreviation,
+    getMainSpacePath,
+  }
 }

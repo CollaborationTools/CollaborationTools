@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { getSpaceLinksFor, SpaceLink } from '@/composables/useRouting'
+import { getSpaceLinks, SpaceLink } from '@/composables/useRouting'
 import useSpaceStore from '@/stores/useSpaceStore'
 
 type Emits = {
@@ -33,6 +33,6 @@ const navigate = (): void => emit('navigate')
 const currentSpace = $computed(() => useSpaceStore().getCurrentSpace())
 
 const links: SpaceLink[] = $computed(() =>
-  currentSpace?.id ? getSpaceLinksFor(currentSpace.id) : [],
+  currentSpace?.id ? getSpaceLinks(currentSpace.id) : [],
 )
 </script>

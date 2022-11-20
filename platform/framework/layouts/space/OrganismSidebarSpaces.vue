@@ -11,7 +11,7 @@
         >
           <AtomButtonSpace
             :name="space.name"
-            :to="useSpaces().getMainSpacePathFor(space.id)"
+            :to="useSpaces().getMainSpacePath(space.id)"
             :data-uuid="space.id"
           >
             {{ useSpaces().getAbbreviation(space.name) }}

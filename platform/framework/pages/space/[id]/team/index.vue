@@ -3,7 +3,11 @@
     <template v-if="me">
       <template v-if="isMember">
         <OrganismInvites :invites="invites" />
-        <OrganismMemberList :members="members ?? []" />
+        <OrganismMemberList
+          v-if="members && currentSpace"
+          :members="members"
+          :space-id="currentSpace.id"
+        />
       </template>
       <template v-else>
         <AtomInfoBox>
@@ -23,7 +27,7 @@
     </template>
     <template v-else>
       <AtomInfoBox>
-        You have your profile configured&nbsp;yet. Create it now so you will
+        Your profile is not configured&nbsp;yet. Create it now so you will
         be&nbsp;able to&nbsp;invite others to&nbsp;join this&nbsp;space.
       </AtomInfoBox>
       <OrganismCreateProfile @update="createUser" />

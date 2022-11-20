@@ -1,3 +1,4 @@
+import { MEMBER_ID_PARAM, SPACE_ID_PARAM, spaceRoutes } from '@/config'
 import useUserStore from '@/stores/useUserStore'
 import {
   createMember,
@@ -26,6 +27,7 @@ type UseMembers = {
     members: Members,
   ) => string
   getMemberNameByDeviceId: (deviceId: DeviceId) => string
+  getMemberPath: (spaceId: SpaceId, memberId: MemberId) => string
 }
 
 export default function useMembers(): UseMembers {
@@ -68,9 +70,15 @@ export default function useMembers(): UseMembers {
   const getMemberNameByDeviceId = (deviceId: DeviceId): string =>
     userStore.getMemberByDeviceId(deviceId)?.name ?? deviceId
 
+  const getMemberPath = (spaceId: SpaceId, memberId: MemberId): string =>
+    spaceRoutes.member
+      .replace(SPACE_ID_PARAM, spaceId)
+      .replace(MEMBER_ID_PARAM, memberId)
+
   return {
     addNewMember,
     createMembersEvent,
     getMemberNameByDeviceId,
+    getMemberPath,
   }
 }

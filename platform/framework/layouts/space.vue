@@ -12,7 +12,7 @@
     <div
       :class="{
         'flex-1 flex flex-col h-screen w-full': true,
-        'transition translate-x-5 grayscale brightness-150 dark:brightness-75':
+        'transition translate-x-5 grayscale brightness-125 dark:brightness-75':
           isSidebarVisible && isAtMostTablet,
       }"
       @click="hideSidebar"
@@ -22,7 +22,12 @@
         :is-sidebar-visible="isSidebarVisible"
         @toggle-sidebar="toggleSidebar"
       />
-      <main class="flex-1 p-4 md:p-8 w-full min-w-min bg-base-100">
+      <main
+        :class="{
+          'main-width flex-1 bg-base-100 overflow-hidden': true,
+          'pointer-events-none touch-none': isSidebarVisible && isAtMostTablet,
+        }"
+      >
         <slot />
       </main>
     </div>

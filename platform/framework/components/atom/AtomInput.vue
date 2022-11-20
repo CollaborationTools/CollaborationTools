@@ -31,21 +31,19 @@
 </template>
 
 <script setup lang="ts">
-// disable false positive
-// eslint-disable-next-line import/named
-import { ErrorObject } from '@vuelidate/core'
-
 import { createUUID } from 'services/crypto/uuid'
+
+import type { ErrorObject } from '@vuelidate/core'
 
 type Props = {
   label: string
   modelValue: string
-  errors?: ErrorObject[]
+  accent?: boolean
   dataId?: string
+  errors?: ErrorObject[]
+  optional?: boolean
   primary?: boolean
   secondary?: boolean
-  accent?: boolean
-  optional?: boolean
 }
 
 type Emits = {

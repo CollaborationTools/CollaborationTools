@@ -1,13 +1,15 @@
 import { Component } from 'vue'
 
-export type Tool = {
-  defaultComponent: Component
+import { ChatTool } from './ChatTool'
+import { ToolType } from './ToolType'
+
+export type GenericTool = {
+  type: ToolType
   name: string
-}
+} & (
+  | { defaultComponent: Component }
+  | { itemComponent: Component; listComponent?: Component }
+  | { listComponent: Component }
+)
 
-type DefineToolProps = Omit<Tool, ''>
-
-export const defineTool = ({
-  defaultComponent,
-  name,
-}: DefineToolProps): Tool => ({ defaultComponent, name })
+export type Tool = ChatTool

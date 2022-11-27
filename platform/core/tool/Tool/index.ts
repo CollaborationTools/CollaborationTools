@@ -1,1 +1,2 @@
-export * from './Tool'
+export * from './ChatTool'
+export * from './ToolType'

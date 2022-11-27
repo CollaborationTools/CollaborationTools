@@ -11,6 +11,6 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const iconBody = await icons[props.name]
+const iconBody = await icons[props.name]()
 const SvgIcon = defineComponent(iconBody.default)
 </script>

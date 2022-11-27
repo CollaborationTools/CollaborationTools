@@ -9,6 +9,7 @@ import {
   MembersInContext,
   Space,
 } from 'core/space'
+import { createDirectChat, DirectChat, Message } from 'core/tool/chat'
 import { DeviceId } from 'core/user'
 import {
   ConnectionHub,
@@ -16,7 +17,7 @@ import {
   Event,
 } from 'services/connectionHub'
 import { PeerConnectionsMap } from 'services/p2p'
-
+import useChatStore from 'stores/useChatStore'
 
 type UseConnectionHub = {
   connectDirectlyTo: (remoteDeviceId: DeviceId) => void
@@ -52,6 +53,19 @@ export default function useConnectionHub(): UseConnectionHub {
       } else if (event.type === 'members') {
         const { spaceId, members }: MembersInContext = JSON.parse(event.data)
         members.forEach((member) => useUserStore().setMember(spaceId, member))
+      } else if (event.type === 'chat') {
+        const chat: DirectChat = JSON.parse(event.data)
+        // TODO: local chat might already exists with some messages; copy messages if younger and delete old data
+        const myChat = createDirectChat({
+          id: chat.id,
+          spaceId: chat.spaceId,
+          participant1: chat.participant2,
+          participant2: chat.participant1,
+        })
+        useChatStore().setDirectChat(myChat)
+      } else if (event.type === 'message') {
+        const message: Message = JSON.parse(event.data)
+        useChatStore().addMessage(message)
       }
     }
 

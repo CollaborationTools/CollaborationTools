@@ -2,7 +2,7 @@ import { MemberId } from 'core/space'
 import { createUUID } from 'services/crypto/uuid'
 
 export type EventId = string
-export type EventType = 'invite' | 'space' | 'members'
+export type EventType = 'invite' | 'space' | 'members' | 'chat' | 'message'
 
 type CreateEventProps = {
   data: string

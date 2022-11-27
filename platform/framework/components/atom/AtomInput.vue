@@ -1,6 +1,7 @@
 <template>
   <div class="form-control w-full">
     <label
+      v-if="label"
       :for="fieldId"
       :class="{ 'label label-text': true, 'text-red': hasError }"
     >
@@ -36,11 +37,11 @@ import { createUUID } from 'services/crypto/uuid'
 import type { ErrorObject } from '@vuelidate/core'
 
 type Props = {
-  label: string
   modelValue: string
   accent?: boolean
   dataId?: string
   errors?: ErrorObject[]
+  label?: string
   optional?: boolean
   primary?: boolean
   secondary?: boolean

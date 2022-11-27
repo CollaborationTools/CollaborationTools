@@ -74,8 +74,16 @@ export default defineStore('users', {
       }
     },
     getMembers(state) {
-      return (spaceId: SpaceId): Members | null => {
-        const members = findMembersBySpaceId(state.membersInAllSpaces, spaceId)
+      return (
+        spaceId: SpaceId,
+        options?: { excludeSelf: boolean },
+      ): Members | null => {
+        const { excludeSelf = false } = options ?? { excludeSelf: false }
+        let members = findMembersBySpaceId(state.membersInAllSpaces, spaceId)
+
+        if (excludeSelf && members) {
+          members = members.filter((member) => member.id !== state.me?.id)
+        }
 
         return members ? readonly(members) : null
       }

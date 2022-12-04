@@ -17,6 +17,7 @@ import {
 import { createUUID } from 'services/crypto/uuid'
 
 export const DIRECT_CHATS_KEY = 'directChats' as const
+export const MESSAGES_KEY = 'messages' as const
 
 type AddDirectChatProps = {
   me: ParticipantId
@@ -101,7 +102,7 @@ export default defineStore('chats', {
       )
       this.messages.set(message.chatId, newMessages)
       localStorage.setItem(
-        `messages-${message.chatId}`,
+        `${MESSAGES_KEY}-${message.chatId}`,
         JSON.stringify(newMessages),
       )
       return message

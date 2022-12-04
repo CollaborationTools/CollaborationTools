@@ -7,21 +7,33 @@
       {{ currentSpace?.name }}<AtomDot />
     </div>
     <ul class="menu p-2 text-base-content">
-      <li v-for="link in links" :key="link.url">
+      <li v-for="link in links" :key="link.url" class="mb-1">
         <AtomLink
           :to="link.url"
           :label="link.label"
           :icon="link.icon"
           @click="navigate"
         />
+        <template v-if="ToolTypes.Chat === link.icon">
+          <AtomLink
+            v-for="chat in chatLinks"
+            :key="chat.url"
+            class="ml-4 mt-1"
+            :to="chat.url"
+            :label="chat.label"
+            @click="navigate"
+          />
+        </template>
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
+import useChats from '@/composables/useChats'
 import { getSpaceLinks, SpaceLink } from '@/composables/useRouting'
 import useSpaceStore from '@/stores/useSpaceStore'
+import { ToolTypes } from 'core/tool/Tool'
 
 type Emits = {
   (event: 'navigate'): void
@@ -35,4 +47,5 @@ const currentSpace = $computed(() => useSpaceStore().getCurrentSpace())
 const links: SpaceLink[] = $computed(() =>
   currentSpace?.id ? getSpaceLinks(currentSpace.id) : [],
 )
+const chatLinks = $computed(() => useChats().getChatLinks(currentSpace?.id))
 </script>

@@ -1,3 +1,4 @@
+import { CHAT_ID_PARAM, SPACE_ID_PARAM, spaceRoutes } from '@/config'
 import useConnectionHub from 'composables/useConnectionHub'
 import useRouting from 'composables/useRouting'
 import { MemberId, SpaceId } from 'core/space'
@@ -6,20 +7,44 @@ import { createEvent } from 'services/connectionHub'
 import useChatStore from 'stores/useChatStore'
 import useUserStore from 'stores/useUserStore'
 
+type ChatLink = Readonly<{
+  label: string
+  url: string
+}>
+
 type UseChats = {
+  getChatLinks: (spaceId: SpaceId | undefined) => ChatLink[]
   sendMessage: (chatId: ChatId, text: string) => void
   startChatWith: (memberId: MemberId, spaceId: SpaceId) => void
 }
 
 export default function useChats(): UseChats {
-  const me = $computed(() => useUserStore().getMe())
+  const chatStore = useChatStore()
+  const userStore = useUserStore()
+  const me = $computed(() => userStore.getMe())
 
+  const getChatLinks = (spaceId: SpaceId | undefined): ChatLink[] => {
+    if (spaceId === undefined) {
+      return []
+    }
+    return chatStore
+      .getDirectChatsForSpace(spaceId)
+      .map((chat) => ({
+        url: spaceRoutes.chat
+          .replace(SPACE_ID_PARAM, spaceId)
+          .replace(CHAT_ID_PARAM, chat.id),
+        label:
+          userStore.getMember(spaceId, chat.participant2)?.name ??
+          chat.participant2,
+      }))
+      .sort((item1, item2) => item1.label.localeCompare(item2.label))
+  }
   const sendMessage = (chatId: ChatId, text: string): void => {
     if (me?.id) {
       const message = createMessage({ chatId, senderId: me.id, text })
       useChatStore().addMessage(message)
 
-      const chat = useChatStore().getDirectChat(message.chatId)
+      const chat = chatStore.getDirectChat(message.chatId)
       const recipient = chat?.participant2
 
       if (!recipient) {
@@ -45,10 +70,10 @@ export default function useChats(): UseChats {
   }
 
   const startChatWith = (memberId: MemberId, spaceId: SpaceId): void => {
-    let chat = useChatStore().findDirectChat(memberId, spaceId)
+    let chat = chatStore.findDirectChat(memberId, spaceId)
 
     if (!chat && me?.id) {
-      chat = useChatStore().addDirectChat({
+      chat = chatStore.addDirectChat({
         me: me.id,
         otherParticipant: memberId,
         spaceId,
@@ -60,6 +85,7 @@ export default function useChats(): UseChats {
   }
 
   return {
+    getChatLinks,
     sendMessage,
     startChatWith,
   }

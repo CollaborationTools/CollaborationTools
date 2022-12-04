@@ -41,6 +41,12 @@ export default defineStore('chats', {
     getDirectChats(state) {
       return (): Readonly<DirectChat[]> => getChats(state.allDirectChats)
     },
+    getDirectChatsForSpace(state) {
+      return (spaceId: SpaceId): Readonly<DirectChat[]> =>
+        getChats(state.allDirectChats).filter(
+          (chat) => chat.spaceId === spaceId,
+        )
+    },
     getMessages(state) {
       return (chatId: ChatId): Messages => {
         let messages = state.messages.get(chatId) ?? null

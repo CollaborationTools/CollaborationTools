@@ -22,6 +22,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
 import useSpaceStore from '@/stores/useSpaceStore'
+import useRouting from 'composables/useRouting'
 
 const state = reactive({
   spaceName: '',

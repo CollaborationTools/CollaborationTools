@@ -14,9 +14,6 @@ export default defineNuxtConfig({
   experimental: {
     reactivityTransform: true,
   },
-  imports: {
-    dirs: ['composables', 'composables/*/index.ts'],
-  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',

@@ -42,10 +42,11 @@
 <script setup lang="ts">
 import { Ref } from 'vue'
 
-import useSpaceStore from '@/stores/useSpaceStore'
-import useUserStore from '@/stores/useUserStore'
+import useRouting from 'composables/useRouting'
 import { InviteLinkData, parseInviteLinkData } from 'core/space'
 import { decode } from 'services/crypto/encoder'
+import useSpaceStore from 'stores/useSpaceStore'
+import useUserStore from 'stores/useUserStore'
 
 const userStore = useUserStore()
 const route = useRoute()

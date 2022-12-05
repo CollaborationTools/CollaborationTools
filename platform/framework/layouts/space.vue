@@ -35,9 +35,10 @@
 </template>
 
 <script setup lang="ts">
-import useLayout from '@/composables/useLayout'
-import useSpaceStore from '@/stores/useSpaceStore'
-import useUserStore from '@/stores/useUserStore'
+import useLayout from 'composables/useLayout'
+import useRouting from 'composables/useRouting'
+import useSpaceStore from 'stores/useSpaceStore'
+import useUserStore from 'stores/useUserStore'
 
 import OrganismHeader from './space/OrganismHeader.vue'
 import OrganismSidebarNavigation from './space/OrganismSidebarNavigation.vue'

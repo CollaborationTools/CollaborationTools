@@ -5,5 +5,7 @@
 </template>
 
 <script setup lang="ts">
+import useRouting from 'composables/useRouting'
+
 const { hasHistory, goBack } = useRouting()
 </script>

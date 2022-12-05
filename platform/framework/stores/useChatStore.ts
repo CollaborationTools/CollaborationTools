@@ -133,5 +133,19 @@ export default defineStore('chats', {
 
       return message
     },
+    readMessages(chatId: ChatId): void {
+      const chat = getChat(this.allDirectChats, chatId)
+      if (!chat) {
+        return
+      }
+      const updatedChat = createDirectChat({
+        id: chatId,
+        participant1: chat.participant1,
+        participant2: chat.participant2,
+        spaceId: chat.spaceId,
+        unreadMessages: 0,
+      })
+      this.allDirectChats = setChat(this.allDirectChats, updatedChat)
+    },
   },
 })

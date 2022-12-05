@@ -5,7 +5,7 @@
       :messages="messages"
       :participants="participants"
     />
-    <MoleculeMessageCreator @send="sendMessage" />
+    <MoleculeMessageCreator @focus="readMessages" @send="sendMessage" />
   </div>
 </template>
 
@@ -20,17 +20,20 @@ import MoleculeMessageCreator from './components/MoleculeMessageCreator.vue'
 import MoleculeMessageList from './components/MoleculeMessageList.vue'
 import { Participant } from './core/Participant'
 
+const chatStore = useChatStore()
+const userStore = useUserStore()
+
 const maybeChatId = $computed(
   () => useRouting().getRouteParameter('chatId').value,
 )
 const currentSpace = $computed(() => useSpaceStore().getCurrentSpace())
-const me = useUserStore().getMe()
-const chat = $computed(() => useChatStore().getDirectChat(maybeChatId ?? ''))
+const me = userStore.getMe()
+const chat = $computed(() => chatStore.getDirectChat(maybeChatId ?? ''))
 const participant = $computed(() =>
-  useUserStore().getMember(currentSpace?.id ?? '', chat?.participant2 ?? ''),
+  userStore.getMember(currentSpace?.id ?? '', chat?.participant2 ?? ''),
 )
 const messages = $computed(() =>
-  chat?.id ? useChatStore().getMessages(chat.id) : [],
+  chat?.id ? chatStore.getMessages(chat.id) : [],
 )
 const participants: [Participant, Participant] = [
   {
@@ -43,9 +46,18 @@ const participants: [Participant, Participant] = [
   },
 ]
 
+const readMessages = (): void => {
+  if (chat) {
+    chatStore.readMessages(chat.id)
+  }
+}
+
 const sendMessage = (newText: string): void => {
   if (chat) {
+    chatStore.readMessages(chat.id)
     useChats().sendMessage(chat.id, newText)
   }
 }
+
+readMessages()
 </script>

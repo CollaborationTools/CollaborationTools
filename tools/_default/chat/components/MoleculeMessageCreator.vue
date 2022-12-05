@@ -4,6 +4,7 @@
       <AtomInput
         v-model="newText"
         class="caret-secondary"
+        @focus="focus"
         @keydown.enter="sendMessage"
       />
     </div>
@@ -18,11 +19,14 @@
 <script setup lang="ts">
 type Emits = {
   (eventName: 'send', newText: string): void
+  (eventName: 'focus'): void
 }
 
 const emit = defineEmits<Emits>()
 
 let newText = $ref('')
+
+const focus = (): void => emit('focus')
 
 const sendMessage = (): void => {
   if (newText.trim().length > 0) {

@@ -22,7 +22,14 @@
             :to="chat.url"
             :label="chat.label"
             @click="navigate"
-          />
+          >
+            <template v-if="chat.unreadMessages > 0">
+              <div class="flex-1"></div>
+              <div class="badge badge-primary">
+                {{ chat.unreadMessages }}
+              </div>
+            </template>
+          </AtomLink>
         </template>
       </li>
     </ul>

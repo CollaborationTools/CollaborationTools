@@ -102,15 +102,35 @@ export default defineStore('chats', {
       this.allDirectChats = setChat(this.allDirectChats, chat)
     },
     addMessage(message: Message): Message {
-      const messages = this.getMessages(message.chatId)
+      const chatId = message.chatId
+      const chat = getChat(this.allDirectChats, chatId)
+      if (!chat) {
+        return message
+      }
+
+      const messages = this.getMessages(chatId)
       const newMessages = [...messages, message].sort((a, b) =>
         a.date > b.date ? 1 : 0,
       )
-      this.messages.set(message.chatId, newMessages)
+      this.messages.set(chatId, newMessages)
       localStorage.setItem(
-        `${MESSAGES_KEY}-${message.chatId}`,
+        `${MESSAGES_KEY}-${chatId}`,
         JSON.stringify(newMessages),
       )
+
+      if (message.senderId === chat.participant1) {
+        return message
+      }
+
+      const updatedChat = createDirectChat({
+        id: chatId,
+        participant1: chat.participant1,
+        participant2: chat.participant2,
+        spaceId: chat.spaceId,
+        unreadMessages: 1 + (chat.unreadMessages ?? 0),
+      })
+      this.allDirectChats = setChat(this.allDirectChats, updatedChat)
+
       return message
     },
   },

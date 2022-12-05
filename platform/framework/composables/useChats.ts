@@ -9,6 +9,7 @@ import useUserStore from 'stores/useUserStore'
 
 type ChatLink = Readonly<{
   label: string
+  unreadMessages: number
   url: string
 }>
 
@@ -30,12 +31,13 @@ export default function useChats(): UseChats {
     return chatStore
       .getDirectChatsForSpace(spaceId)
       .map((chat) => ({
-        url: spaceRoutes.chat
-          .replace(SPACE_ID_PARAM, spaceId)
-          .replace(CHAT_ID_PARAM, chat.id),
         label:
           userStore.getMember(spaceId, chat.participant2)?.name ??
           chat.participant2,
+        unreadMessages: chat.unreadMessages ?? 0,
+        url: spaceRoutes.chat
+          .replace(SPACE_ID_PARAM, spaceId)
+          .replace(CHAT_ID_PARAM, chat.id),
       }))
       .sort((item1, item2) => item1.label.localeCompare(item2.label))
   }

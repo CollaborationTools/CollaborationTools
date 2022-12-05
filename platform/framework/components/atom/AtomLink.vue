@@ -1,8 +1,9 @@
 <template>
   <NuxtLink :to="to" role="button" class="p-2">
-    <div class="flex flex-row items-center gap-2">
+    <div class="flex flex-row items-center gap-2 w-full">
       <AtomIcon v-if="icon" :name="icon" class="h-7 w-7" />
       <span>{{ label }}</span>
+      <slot />
     </div>
   </NuxtLink>
 </template>

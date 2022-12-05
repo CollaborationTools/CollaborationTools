@@ -58,9 +58,9 @@ export default function useConnectionHub(): UseConnectionHub {
         // TODO: local chat might already exists with some messages; copy messages if younger and delete old data
         const myChat = createDirectChat({
           id: chat.id,
-          spaceId: chat.spaceId,
           participant1: chat.participant2,
           participant2: chat.participant1,
+          spaceId: chat.spaceId,
         })
         useChatStore().setDirectChat(myChat)
       } else if (event.type === 'message') {

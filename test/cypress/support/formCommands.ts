@@ -1,8 +1,7 @@
 /// <reference types="cypress" />
-/* eslint-disable sonarjs/no-duplicate-string, promise/catch-or-return, promise/always-return */
+/* eslint-disable promise/catch-or-return, promise/always-return */
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
       /**

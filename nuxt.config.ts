@@ -21,7 +21,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
     '@vueuse/nuxt',
-    '@nuxtjs/svg',
     'unplugin-icons/nuxt',
     '@pinia/nuxt',
   ],

@@ -27,14 +27,24 @@ const formatMessage = (
   message: Message,
   prevMessage: Message | null,
 ): ChatMessage => {
-  const date = new Date(message.date).toLocaleTimeString().slice(0, 5)
+  const prevMessageDate = new Date(prevMessage?.date ?? 0).toLocaleDateString()
+  const currentMessageDate = new Date(message.date).toLocaleDateString()
+  const currentTime = new Date(message.date).toLocaleTimeString().slice(0, 5)
+  const date =
+    prevMessageDate === currentMessageDate
+      ? currentTime
+      : `${currentMessageDate} ${currentTime}`
   const sender =
     message.senderId === participants[0].id
       ? participants[0].name
       : participants[1].name
   const id = `${sender}-${Number(new Date(message.date))}`
   let hasHeader = false
-  if (!prevMessage || prevMessage.senderId !== message.senderId) {
+  if (
+    !prevMessage ||
+    prevMessage.senderId !== message.senderId ||
+    prevMessageDate !== currentMessageDate
+  ) {
     hasHeader = true
   }
   return { date, id, sender, hasHeader, text: message.text }
